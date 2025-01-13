@@ -12,6 +12,6 @@ export const BasicButton = styled.button`
   &:hover {
     background-color: white;
     color: ${({ theme }) => theme.colors["bg-secondary"]};
-    border: 2px solid ${({ theme }) => theme.colors["bg-secondary"]};
+    outline: 2px solid ${({ theme }) => theme.colors["bg-secondary"]};
   }
 `;
