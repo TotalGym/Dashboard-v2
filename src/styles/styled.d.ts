@@ -29,6 +29,7 @@ declare module "styled-components" {
       fontWeight: {
         light: string;
         regular: string;
+        medium: string;
         bold: string;
       };
       lineHeight: {

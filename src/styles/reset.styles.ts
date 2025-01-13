@@ -27,6 +27,11 @@ export const ResetStyles = createGlobalStyle`
     input, button, textarea, select{
         font: inherit; 
     }
+
+    button{
+        border: none;
+        cursor: pointer;
+    }
   
     input{
         outline: none;

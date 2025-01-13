@@ -1,5 +1,38 @@
+import { ThemeProvider } from "styled-components";
+import { Route, Routes } from "react-router-dom";
+
+import theme from "./styles/theme";
+
+import { Layout } from "./routes/layout/layout.component";
+
+import { GlobalStyle } from "./styles/global.styles";
+import { ResetStyles } from "./styles/reset.styles";
+import TraineeManagement from "./routes/trainee-management/trainee-management.component";
+import EquipmentManagement from "./routes/equipment-management/equipment-management.component";
+import SalesManagement from "./routes/sales-management/sales-management.component";
+import ProgramsManagement from "./routes/programs-management/programs-management.component";
+import StaffManagement from "./routes/staff-management/staff-management.component";
+import ReportsAndAnalytics from "./routes/reports-and-analytics/reports-and-analytics.component";
+
 function App() {
-  return <div>hello world</div>;
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <ResetStyles />
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="trainees" element={<TraineeManagement />} />
+            <Route path="equipment" element={<EquipmentManagement />} />
+            <Route path="sales" element={<SalesManagement />} />
+            <Route path="sports-programs" element={<ProgramsManagement />} />
+            <Route path="staff" element={<StaffManagement />} />
+            <Route path="reports-and-analytics" element={<ReportsAndAnalytics />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
+    </>
+  );
 }
 
 export default App;
