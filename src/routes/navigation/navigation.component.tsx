@@ -15,7 +15,7 @@ const routes = [
   { name: "DASHBOARD", path: "/" },
   { name: "TRAINEE", path: "trainees" },
   { name: "EQUIPMENT", path: "equipment" },
-  { name: "SPORTS PROGRAMS", path: "sports-programs" },
+  { name: "PROGRAMS", path: "programs" },
   { name: "SALES", path: "sales" },
   { name: "STAFF", path: "staff" },
   { name: "REPORTS & ANALYTICS", path: "reports-and-analytics" },

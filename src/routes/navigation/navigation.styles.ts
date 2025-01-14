@@ -9,7 +9,8 @@ import { NavLink } from "react-router-dom";
 export const NavigationContainer = styled.div`
   ${CenteredFlexContainer}
   justify-content: space-evenly;
-  margin-top: 0.5em;
+  padding-top: 0.5em;
+  height: 80px;
 `;
 
 export const StyledNavigationList = styled.ul`

@@ -7,10 +7,9 @@ declare module "styled-components" {
       "bg-secondary": string;
       "font-primary": string;
       "font-secondary": string;
+      "font-secondary-2": string;
       "success-color": string;
       "fail-color": string;
-      "border-primary": string;
-      "border-secondary": string;
     };
     breakpoints: {
       sm: string;

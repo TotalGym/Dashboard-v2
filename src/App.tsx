@@ -13,6 +13,7 @@ import SalesManagement from "./routes/sales-management/sales-management.componen
 import ProgramsManagement from "./routes/programs-management/programs-management.component";
 import StaffManagement from "./routes/staff-management/staff-management.component";
 import ReportsAndAnalytics from "./routes/reports-and-analytics/reports-and-analytics.component";
+import Home from "./routes/home/home.component";
 
 function App() {
   return (
@@ -22,10 +23,11 @@ function App() {
         <GlobalStyle />
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
             <Route path="trainees" element={<TraineeManagement />} />
             <Route path="equipment" element={<EquipmentManagement />} />
             <Route path="sales" element={<SalesManagement />} />
-            <Route path="sports-programs" element={<ProgramsManagement />} />
+            <Route path="programs" element={<ProgramsManagement />} />
             <Route path="staff" element={<StaffManagement />} />
             <Route path="reports-and-analytics" element={<ReportsAndAnalytics />} />
           </Route>
