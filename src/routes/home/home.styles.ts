@@ -6,7 +6,6 @@ import {
   MainContentPadding,
   XLargeFontSize,
 } from "../../styles/general.styles";
-import { Link } from "react-router-dom";
 
 export const HomeContainer = styled.div`
   ${MainContainersHeight}
