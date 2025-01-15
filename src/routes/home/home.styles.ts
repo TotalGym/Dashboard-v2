@@ -2,13 +2,12 @@ import styled from "styled-components";
 import {
   Bold,
   CenteredFlexContainer,
-  MainContainersHeight,
   MainContentPadding,
   XLargeFontSize,
 } from "../../styles/general.styles";
 
 export const HomeContainer = styled.div`
-  ${MainContainersHeight}
+  overflow-x: auto;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
@@ -28,5 +27,11 @@ export const StyledHello = styled.span`
 export const InfoCardsContainer = styled.div`
   ${CenteredFlexContainer}
   ${MainContentPadding}
+  gap: 2em;
+`;
+
+export const StyledHomePageChartsContainer = styled.div`
+  ${MainContentPadding}
+  ${CenteredFlexContainer}
   gap: 2em;
 `;

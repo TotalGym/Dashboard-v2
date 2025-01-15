@@ -13,10 +13,6 @@ export const CenteredColFlexContainer = css`
   align-items: center;
 `;
 
-export const MainContainersHeight = css`
-  height: calc(100vh - 80px);
-`;
-
 export const MainContentPadding = css`
   padding: 2em;
 `;
@@ -33,6 +29,10 @@ export const MediumFontSize = css`
   font-size: ${({ theme }) => theme.typography.fontSize.medium};
 `;
 
+export const LargeFontSize = css`
+  font-size: ${({ theme }) => theme.typography.fontSize.large};
+`;
+
 export const XLargeFontSize = css`
   font-size: ${({ theme }) => theme.typography.fontSize.xlarge};
 `;
@@ -40,4 +40,3 @@ export const XLargeFontSize = css`
 export const XXLargeFontSize = css`
   font-size: ${({ theme }) => theme.typography.fontSize.xxlarge};
 `;
-

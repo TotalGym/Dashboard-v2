@@ -12,7 +12,10 @@ import {
   StyledHello,
   StyledHomeHeader,
   InfoCardsContainer,
+  StyledHomePageChartsContainer,
 } from "./home.styles";
+import MembersChart from "../../components/members-chart/members-chart.component";
+import ClubEnrollmentChart from "../../components/club-enrollment-chart/club-enrollment-chart.component";
 
 const cardsInfo = [
   {
@@ -64,7 +67,10 @@ const Home = () => {
           </InfoCard>
         ))}
       </InfoCardsContainer>
-      <div>HomePageStatistics</div>
+      <StyledHomePageChartsContainer>
+        <MembersChart />
+        <ClubEnrollmentChart />
+      </StyledHomePageChartsContainer>
       <div>homePageTables</div>
     </HomeContainer>
   );
