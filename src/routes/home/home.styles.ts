@@ -7,7 +7,7 @@ import {
 } from "../../styles/general.styles";
 
 export const HomeContainer = styled.div`
-  overflow-x: auto;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
