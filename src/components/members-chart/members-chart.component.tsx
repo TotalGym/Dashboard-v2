@@ -1,4 +1,4 @@
-import { Cell, Pie, PieChart } from "recharts";
+import { Cell, Pie, PieChart, Tooltip } from "recharts";
 import {
   MembersChartContainer,
   StatsText,
@@ -28,6 +28,7 @@ const MembersChart = () => {
       <p>Members Activity Levels</p>
       <StyledChartContainer>
         <PieChart width={200} height={200}>
+          <Tooltip/>
           <Pie data={data} dataKey={"value"} innerRadius={68} paddingAngle={6}>
             {data.map((_, index) => (
               <Cell key={`cell-${index}`} fill={colors[index]} />
