@@ -23,7 +23,7 @@ export const InfoCardContainer = styled.div`
   }
 `;
 
-export const StyledNumberIcon = styled.p<{ numberColorSwitched: boolean }>`
+export const StyledNumberIcon = styled.p<{ $numberColorSwitched: boolean }>`
   display: flex;
   justify-content: center;
   position: relative;
@@ -34,8 +34,8 @@ export const StyledNumberIcon = styled.p<{ numberColorSwitched: boolean }>`
     ${XXLargeFontSize}
     position: absolute;
     bottom: 0;
-    color: ${({ theme, numberColorSwitched }) =>
-      numberColorSwitched
+    color: ${({ theme, $numberColorSwitched }) =>
+      $numberColorSwitched
         ? theme.colors["font-secondary-2"]
         : theme.colors["font-secondary"]};
   }

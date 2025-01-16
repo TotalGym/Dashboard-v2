@@ -37,7 +37,7 @@ const MembersChart = () => {
       </StyledChartContainer>
       <StyledStatesContainer>
         {StatsArray.map((stat, index) => (
-          <StatsText bgcolor={stat.color} key={index}>
+          <StatsText $bgcolor={stat.color} key={index}>
             {stat.percentage} {stat.text}
           </StatsText>
         ))}

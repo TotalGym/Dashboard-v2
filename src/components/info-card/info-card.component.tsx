@@ -26,7 +26,7 @@ const InfoCard = ({
   return (
     <InfoCardContainer onClick={onClick}>
       <div>
-        <StyledNumberIcon numberColorSwitched={numberColorSwitched}>
+        <StyledNumberIcon $numberColorSwitched={numberColorSwitched}>
           <ThreeStripes />
           <span>{number}</span>
         </StyledNumberIcon>

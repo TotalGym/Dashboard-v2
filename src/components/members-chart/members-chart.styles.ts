@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  Bold,
-  LargeFontSize,
-} from "../../styles/general.styles";
+import { Bold, LargeFontSize } from "../../styles/general.styles";
 
 export const MembersChartContainer = styled.div`
   display: flex;
@@ -39,7 +36,7 @@ export const StyledStatesContainer = styled.div`
   row-gap: 1em;
 `;
 
-export const StatsText = styled.span<{ bgcolor: string }>`
+export const StatsText = styled.span<{ $bgcolor: string }>`
   ${Bold}
   position: relative;
   color: #a6b1c2;
@@ -52,7 +49,7 @@ export const StatsText = styled.span<{ bgcolor: string }>`
     content: "";
     width: 30px;
     height: 6px;
-    background-color: ${({ bgcolor }) => bgcolor};
+    background-color: ${({ $bgcolor }) => $bgcolor};
     border-radius: 5px;
   }
 `;
