@@ -13,8 +13,8 @@ import {
 } from "./club-enrollment-chart.styles";
 
 const data = [
-  { membersType: "NEW MEMBERS", number: "50" },
-  { membersType: "OLD MEMBERS", number: "130" },
+  { membersType: "NEW MEMBERS", number: "80" },
+  { membersType: "OLD MEMBERS", number: "250" },
 ];
 
 const colors = ["#2CD889", "#FF6565"];
@@ -29,13 +29,13 @@ const ClubEnrollmentChart = () => {
         <BarChart width={200} height={200} data={data}>
           <Tooltip />
           <XAxis dataKey="membersType" />
-          <YAxis />
+          <YAxis ticks={[0, 50, 100, 150, 200]} />
           <Tooltip />
           <Bar
             dataKey="number"
-            name="Members Count in this month"
+            name="Count in this month"
             fill={colors[0]}
-            barSize={50}
+            barSize={40}
           >
             {data.map((_, index) => (
               <Cell key={`cell-${index}`} fill={colors[index]} />
