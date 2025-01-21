@@ -12,7 +12,6 @@ import { lastAddedTraineesData } from "../../mock/mock.data";
 
 import {
   LastAddedTraineesTableContainer,
-  StyledCellText,
   StyledLastAddedCell,
   StyledLastAddedRow,
   StyledLastAddedTableHead,
@@ -27,27 +26,23 @@ const columnHelper = createColumnHelper<Trainee>();
 const columns = [
   columnHelper.accessor("number", {
     header: "NO",
-    cell: (props) => <StyledCellText $width="25px">{props.getValue()}</StyledCellText>,
   }),
   columnHelper.accessor("name", {
     header: "NAME",
-    cell: (props) => <StyledCellText $width="200px" $margin="40px">{props.getValue()}</StyledCellText>,
   }),
   columnHelper.accessor("assignedCoach", {
     header: "ASSIGNED COACH",
-    cell: (props) => <StyledCellText $width="200px">{props.getValue()}</StyledCellText>,
   }),
   columnHelper.accessor("dateOfAdmit", {
     header: "DATE OF ADMIT",
     cell: (props) => (
-      <StyledCellText $width="200px">
-        {props.getValue()?.toLocaleTimeString()}
-      </StyledCellText>
+      <>
+        {props.getValue()?.toLocaleDateString()}
+      </>
     ),
   }),
   columnHelper.accessor("subscribtionType", {
     header: "SUBSCRIPTION TYPE",
-    cell: (props) => <StyledCellText $width="200px">{props.getValue()}</StyledCellText>,
   }),
   columnHelper.accessor("status", {
     header: "STATUS",
@@ -60,7 +55,7 @@ const columns = [
 ];
 
 const LastAddedTraineesTable = () => {
-  const [data, setData] = useState<Trainee[]>(lastAddedTraineesData);
+  const [data] = useState<Trainee[]>(lastAddedTraineesData);
 
   const table = useReactTable({
     data,

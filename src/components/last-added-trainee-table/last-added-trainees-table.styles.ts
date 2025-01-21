@@ -23,9 +23,8 @@ export const StyledTableHeader = styled.h3`
 
 export const StyledLastAddedTableHead = styled.div`
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  column-gap: 2em;
+  display: grid;
+  grid-template-columns: 0.5fr 1.1fr 1.1fr 1fr 1fr 0.5fr;
   cursor: pointer;
   padding: 1em;
 
@@ -47,8 +46,9 @@ export const StyledLastAddedTH = styled.span`
 
 export const StyledLastAddedRow = styled.div`
   position: relative;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 0.5fr 1.1fr 1.1fr 1fr 1fr 0.5fr;
+
   cursor: pointer;
   padding: 1em;
 
@@ -65,11 +65,6 @@ export const StyledLastAddedRow = styled.div`
 
 export const StyledLastAddedCell = styled.div`
   ${MediumFontSize}
-`;
-
-export const StyledCellText = styled.div<{ $width: string; $margin?: string }>`
-  width: ${({ $width }) => $width};
-  margin-left: ${({ $margin }) => ($margin ? $margin : "")};
 `;
 
 export const StyledStatusCell = styled.div<{ $status: string }>`
