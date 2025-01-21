@@ -20,7 +20,7 @@ const theme: DefaultTheme = {
   typography: {
     fontFamily: "quicksand, sans-serif",
     fontSize: {
-      small: "10px", // Small font size
+      small: "12px", // Small font size
       medium: "14px", // Medium font size
       large: "20px", // Large font size
       xlarge: "22px", // Extra large font size

@@ -13,9 +13,11 @@ import {
   StyledHomeHeader,
   InfoCardsContainer,
   StyledHomePageChartsContainer,
+  StyledHomePageTablesContainer,
 } from "./home.styles";
 import MembersChart from "../../components/members-chart/members-chart.component";
 import ClubEnrollmentChart from "../../components/club-enrollment-chart/club-enrollment-chart.component";
+import LastAddedTraineeTable from "../../components/last-added-trainee-table/last-added-trainees-table.component";
 
 const cardsInfo = [
   {
@@ -71,7 +73,9 @@ const Home = () => {
         <MembersChart />
         <ClubEnrollmentChart />
       </StyledHomePageChartsContainer>
-      <div>homePageTables</div>
+      <StyledHomePageTablesContainer>
+        <LastAddedTraineeTable />
+      </StyledHomePageTablesContainer>
     </HomeContainer>
   );
 };

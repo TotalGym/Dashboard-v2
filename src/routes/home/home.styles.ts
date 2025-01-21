@@ -35,3 +35,9 @@ export const StyledHomePageChartsContainer = styled.div`
   ${CenteredFlexContainer}
   gap: 2em;
 `;
+
+export const StyledHomePageTablesContainer = styled.div`
+  ${MainContentPadding}
+  ${CenteredFlexContainer}
+  gap: 2em;
+`;
