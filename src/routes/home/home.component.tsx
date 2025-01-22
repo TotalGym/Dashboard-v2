@@ -18,6 +18,7 @@ import {
 import MembersChart from "../../components/members-chart/members-chart.component";
 import ClubEnrollmentChart from "../../components/club-enrollment-chart/club-enrollment-chart.component";
 import LastAddedTraineeTable from "../../components/last-added-trainee-table/last-added-trainees-table.component";
+import RecentlyAttendingStaffTable from "../../components/recently-attending-staff-table/recently-attending-staff-table.component";
 
 const cardsInfo = [
   {
@@ -75,6 +76,7 @@ const Home = () => {
       </StyledHomePageChartsContainer>
       <StyledHomePageTablesContainer>
         <LastAddedTraineeTable />
+        <RecentlyAttendingStaffTable/>
       </StyledHomePageTablesContainer>
     </HomeContainer>
   );
