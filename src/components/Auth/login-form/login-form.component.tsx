@@ -1,6 +1,9 @@
+import { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast, ToastContainer } from "react-toastify";
 
 import Button from "../../button/button.component";
 import FormInput from "../../form-input/form-input.component";
@@ -48,7 +51,21 @@ const LoginForm = () => {
     reset();
   };
 
-  console.log(errors)
+  useEffect(() => {
+    const errorsArray = Object.values(errors);
+    if (errorsArray.length > 0) {
+      errorsArray.forEach((error) => {
+        if (error.message) {
+          toast.error(error.message, {
+            position: "top-right",
+            hideProgressBar: true,
+            closeOnClick: true,
+            draggable: true,
+          });
+        }
+      });
+    }
+  }, [errors]);
 
   return (
     <LoginFormContainer>
@@ -79,8 +96,11 @@ const LoginForm = () => {
             Forget Password
           </StyledForgetPasswordText>
         </StyledCheckBoxAndForgetPasswordTextContainer>
-        <Button width="230px" type="submit">Login</Button>
+        <Button width="230px" type="submit">
+          Login
+        </Button>
       </StyledLoginForm>
+      <ToastContainer />
     </LoginFormContainer>
   );
 };
