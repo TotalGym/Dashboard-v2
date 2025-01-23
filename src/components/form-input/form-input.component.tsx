@@ -2,27 +2,26 @@ import { InputHTMLAttributes } from "react";
 
 import { FormInputTypes } from "./form-input.types";
 
-import {
-  FormInputContainer,
-  AuthInput,
-  StyledLabel,
-} from "./form-input.styles";
+import { AuthInput, CheckboxInput, StyledLable } from "./form-input.styles";
 
 const getFormInput = (formInputType: FormInputTypes) =>
-  ({ [FormInputTypes.AuthInput]: AuthInput }[formInputType]);
+  ({
+    [FormInputTypes.AuthInput]: AuthInput,
+    [FormInputTypes.CheckboxInput]: CheckboxInput,
+  }[formInputType]);
 
 type FormInputProps = {
-  label?: string;
   formInputType: FormInputTypes;
+  label?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const FormInput = ({ label, formInputType, ...otherProps }: FormInputProps) => {
+const FormInput = ({ formInputType, label, ...otherProps }: FormInputProps) => {
   const SelectedFormInput = getFormInput(formInputType);
   return (
-    <FormInputContainer>
-      {label && <StyledLabel htmlFor={label}>{label}</StyledLabel>}
-      <SelectedFormInput {...otherProps} id={label} />
-    </FormInputContainer>
+    <div>
+      <SelectedFormInput {...otherProps} />
+      {label && <StyledLable htmlFor={otherProps.id}>{label}</StyledLable>}
+    </div>
   );
 };
 

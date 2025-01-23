@@ -24,7 +24,7 @@ const routes = [
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Logo />
+      <Logo routable/>
       <StyledNavigationList>
         {routes.map((route, index) => (
           <StyledNavigationListItem key={index}>

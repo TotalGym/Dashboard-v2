@@ -17,7 +17,10 @@ export const Layout = () => {
         !isVerifyCodeRoute &&
         !isNewPasswordRoute && <Navigation />}
       <Outlet />
-      <Footer />
+      {!isAuthRoute &&
+        !isForgetPasswordRoute &&
+        !isVerifyCodeRoute &&
+        !isNewPasswordRoute && <Footer />}
     </>
   );
 };

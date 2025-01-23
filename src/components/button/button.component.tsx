@@ -10,17 +10,19 @@ export type ButtonProps = {
   isLoading?: boolean;
   children: ReactNode;
   buttonType?: ButtonTypes;
+  width?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
   isLoading,
   children,
   buttonType,
+  width,
   ...otherProps
 }: ButtonProps) => {
   const SelectedButton = getButton(buttonType);
   return (
-    <SelectedButton {...otherProps}>
+    <SelectedButton {...otherProps} $width={width}>
       {isLoading ? "loading..." : children}
     </SelectedButton>
   );

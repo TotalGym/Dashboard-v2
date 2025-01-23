@@ -14,6 +14,8 @@ import ProgramsManagement from "./routes/programs-management/programs-management
 import StaffManagement from "./routes/staff-management/staff-management.component";
 import ReportsAndAnalytics from "./routes/reports-and-analytics/reports-and-analytics.component";
 import Home from "./routes/home/home.component";
+import SignIn from "./routes/auth/sign-in.component";
+import ForgetPassword from "./routes/auth/forget-password.component";
 
 function App() {
   return (
@@ -23,13 +25,18 @@ function App() {
         <GlobalStyle />
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route path="auth" element={<SignIn />} />
+            <Route path="forget-password" element={<ForgetPassword />} />
             <Route index element={<Home />} />
             <Route path="trainees" element={<TraineeManagement />} />
             <Route path="equipment" element={<EquipmentManagement />} />
             <Route path="sales" element={<SalesManagement />} />
             <Route path="programs" element={<ProgramsManagement />} />
             <Route path="staff" element={<StaffManagement />} />
-            <Route path="reports-and-analytics" element={<ReportsAndAnalytics />} />
+            <Route
+              path="reports-and-analytics"
+              element={<ReportsAndAnalytics />}
+            />
           </Route>
         </Routes>
       </ThemeProvider>

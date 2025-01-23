@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
+import { StyledLogoText } from "./logo.styles";
 
-const Logo = () => {
-  return (
+const Logo = ({
+  routable,
+  fontSize,
+}: {
+  routable?: boolean;
+  fontSize?: string;
+}) => {
+  return routable ? (
     <Link
       to={"/"}
       style={{
@@ -9,26 +16,22 @@ const Logo = () => {
         marginTop: "0.5em",
       }}
     >
-      <span
-        style={{
-          color: "#FF6565",
-          fontSize: "34px",
-          fontWeight: "700",
-          marginRight: "0.25em",
-        }}
-      >
+      <StyledLogoText $color="#FF6565" $fontSize={fontSize} $marginRight>
         GYM
-      </span>
-      <span
-        style={{
-          color: "#2CD889",
-          fontSize: "34px",
-          fontWeight: "700",
-        }}
-      >
+      </StyledLogoText>
+      <StyledLogoText $color="#2CD889" $fontSize={fontSize}>
         SYSTEM
-      </span>
+      </StyledLogoText>
     </Link>
+  ) : (
+    <span>
+      <StyledLogoText $color="#FF6565" $fontSize={fontSize} $marginRight>
+        GYM
+      </StyledLogoText>
+      <StyledLogoText $color="#2CD889" $fontSize={fontSize}>
+        SYSTEM
+      </StyledLogoText>
+    </span>
   );
 };
 
