@@ -12,7 +12,7 @@ export const AuthBackGroundContainer = styled.div<{ $bgImage: string }>`
   width: 50%;
   background-image: url(${({ $bgImage }) => $bgImage});
   background-size: cover;
-  background-position: center;
+  background-position: top;
   background-repeat: no-repeat;
 `;
 
