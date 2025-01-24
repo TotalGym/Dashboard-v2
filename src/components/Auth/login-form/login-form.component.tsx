@@ -17,7 +17,7 @@ import {
   StyledCheckBoxAndForgetPasswordTextContainer,
   StyledForgetPasswordText,
   StyledLoginForm,
-  StyledLoginWelcomeText,
+  StyledFormText,
 } from "./login-form.styles";
 
 type LoginInputs = {
@@ -70,9 +70,9 @@ const LoginForm = () => {
   return (
     <LoginFormContainer>
       <Logo fontSize="60px" />
-      <StyledLoginWelcomeText>
+      <StyledFormText>
         Welcome! Please login to your account.
-      </StyledLoginWelcomeText>
+      </StyledFormText>
       <StyledLoginForm onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           formInputType={FormInputTypes.AuthInput}

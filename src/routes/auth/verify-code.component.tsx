@@ -1,4 +1,4 @@
-import LoginForm from "../../components/Auth/login-form/login-form.component";
+import VerifyCodeForm from "../../components/Auth/forget-password-forms/verify-code-form.component";
 
 import authBgImage from "../../assets/auth-bg-image.jpg";
 
@@ -8,14 +8,14 @@ import {
   AuthFormContainer,
 } from "./auth.styles";
 
-const SignIn = () => {
+const VerifyCode = () => {
   return (
     <AuthContainer>
       <AuthBackGroundContainer $bgImage={authBgImage} />
       <AuthFormContainer>
-        <LoginForm />
+        <VerifyCodeForm />
       </AuthFormContainer>
     </AuthContainer>
   );
 };
-export default SignIn;
+export default VerifyCode;

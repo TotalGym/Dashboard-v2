@@ -1,4 +1,4 @@
-import LoginForm from "../../components/Auth/login-form/login-form.component";
+import EnterEmailForm from "../../components/Auth/forget-password-forms/enter-email-form.component";
 
 import authBgImage from "../../assets/auth-bg-image.jpg";
 
@@ -8,14 +8,15 @@ import {
   AuthFormContainer,
 } from "./auth.styles";
 
-const SignIn = () => {
+const EnterEmail = () => {
   return (
     <AuthContainer>
       <AuthBackGroundContainer $bgImage={authBgImage} />
       <AuthFormContainer>
-        <LoginForm />
+        <EnterEmailForm />
       </AuthFormContainer>
     </AuthContainer>
   );
 };
-export default SignIn;
+
+export default EnterEmail;

@@ -10,7 +10,7 @@ export const LoginFormContainer = styled.div`
   row-gap: 3em;
 `;
 
-export const StyledLoginWelcomeText = styled.p`
+export const StyledFormText = styled.p`
   color: #646d82;
   ${MediumFontSize}
   ${MediumBold}

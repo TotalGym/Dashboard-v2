@@ -1,4 +1,4 @@
-import LoginForm from "../../components/Auth/login-form/login-form.component";
+import NewPasswordForm from "../../components/Auth/forget-password-forms/new-password-from.component";
 
 import authBgImage from "../../assets/auth-bg-image.jpg";
 
@@ -8,14 +8,14 @@ import {
   AuthFormContainer,
 } from "./auth.styles";
 
-const SignIn = () => {
+const NewPassword = () => {
   return (
     <AuthContainer>
       <AuthBackGroundContainer $bgImage={authBgImage} />
       <AuthFormContainer>
-        <LoginForm />
+        <NewPasswordForm />
       </AuthFormContainer>
     </AuthContainer>
   );
 };
-export default SignIn;
+export default NewPassword;
