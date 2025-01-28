@@ -1,26 +1,20 @@
-import { AuthState } from "../../features/auth/auth.slice";
-import { AuthUserData } from "../../types/staff.types";
-
-export const saveCredentials = (
-  token: string | null,
-  userData: AuthUserData | null
-): void => {
-  if (token && userData) {
+export const saveCredentials = (token: string | null): void => {
+  if (token) {
     localStorage.setItem("authToken", token);
-    localStorage.setItem("userData", JSON.stringify(userData));
   } else {
     clearCredentials();
   }
 };
 
-export const getCredentials = (): AuthState => {
+export const getCredentials = (): string | void => {
   const token = localStorage.getItem("authToken");
-  const userString = localStorage.getItem("userData");
-  const userData = userString ? (JSON.parse(userString) as AuthUserData) : null;
-  return { token, userData };
+  if (token) {
+    return token;
+  } else {
+    clearCredentials();
+  }
 };
 
 export const clearCredentials = (): void => {
   localStorage.removeItem("authToken");
-  localStorage.removeItem("userData");
 };

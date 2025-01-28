@@ -2,10 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AuthUserData } from "../../types/staff.types";
 import { RootState } from "../../app/store";
-import {
-  saveCredentials,
-  clearCredentials as clearLocalCredentials,
-} from "../../utils/auth/auth.utils";
+import { saveCredentials, clearCredentials } from "../../utils/auth/auth.utils";
 
 export type AuthState = {
   token: string | null;
@@ -21,20 +18,18 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setCredentials: (state, action: PayloadAction<AuthState>) => {
-      state.token = action.payload.token;
-      state.userData = action.payload.userData;
-      saveCredentials(action.payload.token, action.payload.userData);
+    setCredentials: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
+      saveCredentials(action.payload);
     },
-    clearCredentials: (state) => {
+    logout: (state) => {
       state.token = null;
-      state.userData = null;
-      clearLocalCredentials();
+      clearCredentials();
     },
   },
 });
 
-export const { setCredentials, clearCredentials } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 
 export default authSlice.reducer;
 

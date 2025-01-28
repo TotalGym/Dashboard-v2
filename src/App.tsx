@@ -15,9 +15,9 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const { token, userData } = getCredentials();
-    if (token && userData) {
-      dispatch(setCredentials({ token, userData }));
+    const token = getCredentials();
+    if (token) {
+      dispatch(setCredentials(token));
     }
   }, []);
 
