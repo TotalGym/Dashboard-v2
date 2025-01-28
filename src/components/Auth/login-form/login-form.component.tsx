@@ -23,7 +23,7 @@ import {
 } from "./login-form.styles";
 import { AuthError } from "../../../types/error.types";
 import { useAppDispatch } from "../../../app/hooks";
-import { setCredentials } from "../../../features/auth/auth.slice";
+import { setCredentials, setUserData } from "../../../features/auth/auth.slice";
 
 export type LoginInputs = {
   email: string;
@@ -55,9 +55,12 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     try {
       const response = await login(data).unwrap();
-      if (response.token) {
+
+      if (response.token && response.userData) {
         dispatch(setCredentials(response.token));
+        dispatch(setUserData(response.userData));
       }
+
       navigate("/");
       reset();
     } catch (error) {
