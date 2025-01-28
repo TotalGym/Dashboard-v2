@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Staff } from "../../types/staff.types";
+import { RecentlyAttendingStaff } from "../../types/staff.types";
 import { recentlyAttendingStaff } from "../../mock/mock.data";
 
 import {
@@ -17,7 +17,7 @@ import {
 } from "./recently-attending-staff-table.styles";
 import { StyledTableHeader } from "../last-added-trainee-table/last-added-trainees-table.styles";
 
-const columnHelper = createColumnHelper<Staff>();
+const columnHelper = createColumnHelper<RecentlyAttendingStaff>();
 
 const columns = [
   columnHelper.accessor("attendanceTime", {
@@ -34,7 +34,7 @@ const columns = [
 ];
 
 const RecentlyAttendingStaffTable = () => {
-  const [data] = useState<Staff[]>(recentlyAttendingStaff);
+  const [data] = useState<RecentlyAttendingStaff[]>(recentlyAttendingStaff);
 
   const table = useReactTable({
     data,

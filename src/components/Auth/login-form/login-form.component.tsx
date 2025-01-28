@@ -12,6 +12,8 @@ import Logo from "../../logo/logo.component";
 import { FormInputTypes } from "../../form-input/form-input.types";
 import { loginSchema } from "../../../utils/yup/yup.utils";
 
+import { useLoginMutation } from "../../../features/auth/auth.api.slice";
+
 import {
   LoginFormContainer,
   StyledCheckBoxAndForgetPasswordTextContainer,
@@ -19,13 +21,18 @@ import {
   StyledLoginForm,
   StyledFormText,
 } from "./login-form.styles";
+import { AuthError } from "../../../types/error.types";
+import { useAppDispatch } from "../../../app/hooks";
+import { setCredentials } from "../../../features/auth/auth.slice";
 
-type LoginInputs = {
+export type LoginInputs = {
   email: string;
   password: string;
 };
 
 const LoginForm = () => {
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const goToForgetPasswordPage = () => {
@@ -45,10 +52,22 @@ const LoginForm = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginInputs> = (data) => {
-    console.log(data);
-    navigate("/");
-    reset();
+  const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
+    try {
+      const response = await login(data).unwrap();
+      dispatch(
+        setCredentials({ token: response.token, userData: response.userData })
+      );
+      navigate("/");
+      reset();
+    } catch (error) {
+      toast.error((error as AuthError).data.message as string, {
+        position: "top-right",
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+      });
+    }
   };
 
   useEffect(() => {
@@ -70,9 +89,7 @@ const LoginForm = () => {
   return (
     <LoginFormContainer>
       <Logo fontSize="60px" />
-      <StyledFormText>
-        Welcome! Please login to your account.
-      </StyledFormText>
+      <StyledFormText>Welcome! Please login to your account.</StyledFormText>
       <StyledLoginForm onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           formInputType={FormInputTypes.AuthInput}
@@ -96,7 +113,7 @@ const LoginForm = () => {
             Forget Password
           </StyledForgetPasswordText>
         </StyledCheckBoxAndForgetPasswordTextContainer>
-        <Button width="230px" type="submit">
+        <Button width="230px" type="submit" isLoading={isLoading}>
           Login
         </Button>
       </StyledLoginForm>

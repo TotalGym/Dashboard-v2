@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { ThemeProvider } from "styled-components";
 import { Route, Routes } from "react-router-dom";
 
@@ -12,13 +14,26 @@ import Home from "./routes/home/home.component";
 import SignIn from "./routes/auth/sign-in.component";
 import EnterEmail from "./routes/auth/enter-email.component";
 import VerifyCode from "./routes/auth/verify-code.component";
+import NewPassword from "./routes/auth/new-password.component";
+
+import { useAppDispatch } from "./app/hooks";
+import { setCredentials } from "./features/auth/auth.slice";
+import { getCredentials } from "./utils/auth/auth.utils";
 
 import theme from "./styles/theme";
 import { GlobalStyle } from "./styles/global.styles";
 import { ResetStyles } from "./styles/reset.styles";
-import NewPassword from "./routes/auth/new-password.component";
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const { token, user } = getCredentials();
+    if (token && user) {
+      dispatch(setCredentials({ token, user }));
+    }
+  }, []);
+
   return (
     <>
       <ThemeProvider theme={theme}>
