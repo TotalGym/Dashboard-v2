@@ -7,7 +7,7 @@ export const saveCredentials = (
 ): void => {
   if (token && userData) {
     localStorage.setItem("authToken", token);
-    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("userData", JSON.stringify(userData));
   } else {
     clearCredentials();
   }
@@ -15,12 +15,12 @@ export const saveCredentials = (
 
 export const getCredentials = (): AuthState => {
   const token = localStorage.getItem("authToken");
-  const userString = localStorage.getItem("user");
+  const userString = localStorage.getItem("userData");
   const userData = userString ? (JSON.parse(userString) as AuthUserData) : null;
   return { token, userData };
 };
 
 export const clearCredentials = (): void => {
   localStorage.removeItem("authToken");
-  localStorage.removeItem("user");
+  localStorage.removeItem("userData");
 };
