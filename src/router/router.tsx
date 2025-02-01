@@ -12,15 +12,19 @@ import SalesManagement from "../routes/sales-management/sales-management.compone
 import ProgramsManagement from "../routes/programs-management/programs-management.component";
 import StaffManagement from "../routes/staff-management/staff-management.component";
 import ReportsAndAnalytics from "../routes/reports-and-analytics/reports-and-analytics.component";
+import NotFound from "../routes/not-found/not-found.component";
 
 const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        {/* public routes */}
         <Route path="auth" element={<SignIn />} />
         <Route path="forget-password" element={<EnterEmail />} />
         <Route path="verify-code" element={<VerifyCode />} />
         <Route path="new-password" element={<NewPassword />} />
+
+        {/* protected routes */}
         <Route index element={<Home />} />
         <Route path="trainees" element={<TraineeManagement />} />
         <Route path="equipment" element={<EquipmentManagement />} />
@@ -28,6 +32,9 @@ const Router = () => {
         <Route path="programs" element={<ProgramsManagement />} />
         <Route path="staff" element={<StaffManagement />} />
         <Route path="reports-and-analytics" element={<ReportsAndAnalytics />} />
+
+        {/* catch all */}
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
