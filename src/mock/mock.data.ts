@@ -1,5 +1,5 @@
 import { Trainee } from "../types/trainee.types";
-import { Staff } from "../types/staff.types";
+import { RecentlyAttendingStaff, Roles } from "../types/staff.types";
 
 export const lastAddedTraineesData: Trainee[] = [
   {
@@ -52,30 +52,30 @@ export const lastAddedTraineesData: Trainee[] = [
   },
 ];
 
-export const recentlyAttendingStaff: Staff[] = [
+export const recentlyAttendingStaff: RecentlyAttendingStaff[] = [
   {
     name: "Theodore Handle",
     attendanceTime: new Date(),
-    role: "Fitness Trainer",
+    role: Roles.Coach,
   },
   {
     name: "Theodore Handle",
     attendanceTime: new Date(),
-    role: "Boxing Trainer",
+    role: Roles.EquipmentManager,
   },
   {
     name: "Theodore Handle",
     attendanceTime: new Date(),
-    role: "Sales Manager",
+    role: Roles.SalesManager,
   },
   {
     name: "Theodore Handle",
     attendanceTime: new Date(),
-    role: "Equipment Maintainer",
+    role: Roles.EquipmentManager,
   },
   {
     name: "Theodore Handle",
     attendanceTime: new Date(),
-    role: "Powerlifting Trainer",
+    role: Roles.Coach,
   },
 ];
