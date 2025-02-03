@@ -17,6 +17,7 @@ export const StyledHomeHeader = styled.div`
   ${MainContentPadding}
   color: #4ca07a;
   background-color: #eafaf3;
+  user-select: none;
 `;
 
 export const StyledHello = styled.span`

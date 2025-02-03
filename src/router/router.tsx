@@ -32,10 +32,9 @@ const Router = () => {
         <Route path="programs" element={<ProgramsManagement />} />
         <Route path="staff" element={<StaffManagement />} />
         <Route path="reports-and-analytics" element={<ReportsAndAnalytics />} />
-
-        {/* catch all */}
-        <Route path="*" element={<NotFound />} />
       </Route>
+      {/* catch all */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

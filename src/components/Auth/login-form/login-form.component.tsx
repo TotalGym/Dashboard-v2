@@ -55,12 +55,10 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     try {
       const response = await login(data).unwrap();
-
       if (response.token && response.userData) {
         dispatch(setCredentials(response.token));
         dispatch(setUserData(response.userData));
       }
-
       navigate("/");
       reset();
     } catch (error) {

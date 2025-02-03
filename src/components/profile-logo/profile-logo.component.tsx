@@ -1,12 +1,31 @@
+import { useState } from "react";
 import WeightsIcon from "../../assets/gym-weights-icon.svg?react";
+import Button from "../button/button.component";
 
-import { ProfileLogoContainer, StyledArrow } from "./profile-logo.styles";
+import {
+  ProfileLogoContainer,
+  StyledArrow,
+  StyledLogOutContainer,
+} from "./profile-logo.styles";
+import { useAppDispatch } from "../../app/hooks";
+import { logout } from "../../features/auth/auth.slice";
 
 const ProfileLogo = () => {
+  const [shown, setShown] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
+
   return (
-    <ProfileLogoContainer>
+    <ProfileLogoContainer
+      onClick={() => {
+        setShown((prev) => !prev);
+      }}
+    >
       <WeightsIcon width="50px" height="50px" fill="white" />
-      <StyledArrow>
+      <StyledArrow $shown={shown}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="11.886"
@@ -22,6 +41,9 @@ const ProfileLogo = () => {
           />
         </svg>
       </StyledArrow>
+      <StyledLogOutContainer $shown={shown}>
+        <Button onClick={handleLogOut}>LogOut</Button>
+      </StyledLogOutContainer>
     </ProfileLogoContainer>
   );
 };

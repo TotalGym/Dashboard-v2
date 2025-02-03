@@ -9,6 +9,7 @@ export const BasicButton = styled.button<{ $width?: string }>`
   border-radius: 5px;
   min-width: 176px;
   width: ${({ $width }) => ($width ? $width : "")};
+  user-select: none;
 
   &:hover {
     background-color: white;
