@@ -13,6 +13,7 @@ import ProgramsManagement from "../routes/programs-management/programs-managemen
 import StaffManagement from "../routes/staff-management/staff-management.component";
 import ReportsAndAnalytics from "../routes/reports-and-analytics/reports-and-analytics.component";
 import NotFound from "../routes/not-found/not-found.component";
+import RequireAuth from "../routes/require-auth/require-auth.component";
 
 const Router = () => {
   return (
@@ -25,13 +26,18 @@ const Router = () => {
         <Route path="new-password" element={<NewPassword />} />
 
         {/* protected routes */}
-        <Route index element={<Home />} />
-        <Route path="trainees" element={<TraineeManagement />} />
-        <Route path="equipment" element={<EquipmentManagement />} />
-        <Route path="sales" element={<SalesManagement />} />
-        <Route path="programs" element={<ProgramsManagement />} />
-        <Route path="staff" element={<StaffManagement />} />
-        <Route path="reports-and-analytics" element={<ReportsAndAnalytics />} />
+        <Route element={<RequireAuth />}>
+          <Route index element={<Home />} />
+          <Route path="trainees" element={<TraineeManagement />} />
+          <Route path="equipment" element={<EquipmentManagement />} />
+          <Route path="sales" element={<SalesManagement />} />
+          <Route path="programs" element={<ProgramsManagement />} />
+          <Route path="staff" element={<StaffManagement />} />
+          <Route
+            path="reports-and-analytics"
+            element={<ReportsAndAnalytics />}
+          />
+        </Route>
       </Route>
       {/* catch all */}
       <Route path="*" element={<NotFound />} />

@@ -19,6 +19,7 @@ export const RecentlyAttendingStaffTableContainer = styled.div`
 
 export const RecentlyAttendingStaffTableRow = styled.div`
   ${MainContentPadding}
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   background-color: ${({ theme }) => theme.colors["bg-primary"]};

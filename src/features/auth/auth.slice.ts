@@ -2,7 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AuthUserData } from "../../types/staff.types";
 import { RootState } from "../../app/store";
-import { saveCredentials, clearCredentials } from "../../utils/auth/auth.utils";
+import {
+  saveCredentials,
+  clearCredentials,
+  getCredentials,
+} from "../../utils/auth/auth.utils";
 
 export type AuthState = {
   token: string | null;
@@ -10,7 +14,7 @@ export type AuthState = {
 };
 
 const initialState: AuthState = {
-  token: null,
+  token: getCredentials() || null,
   userData: null,
 };
 

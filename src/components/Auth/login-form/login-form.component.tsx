@@ -59,7 +59,6 @@ const LoginForm = () => {
         dispatch(setCredentials(response.token));
         dispatch(setUserData(response.userData));
       }
-      navigate("/");
       reset();
     } catch (error) {
       toast.error((error as AuthError).data.message as string, {
