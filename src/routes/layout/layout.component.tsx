@@ -1,6 +1,8 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navigation from "../navigation/navigation.component";
 import Footer from "../../components/footer/footer.component";
+import { useAppSelector } from "../../app/hooks";
+import { selectToken } from "../../features/auth/auth.slice";
 
 export const Layout = () => {
   const location = useLocation();
@@ -9,18 +11,21 @@ export const Layout = () => {
     location.pathname.startsWith("/forget-password");
   const isVerifyCodeRoute = location.pathname.startsWith("/verify-code");
   const isNewPasswordRoute = location.pathname.startsWith("/new-password");
+  const token = useAppSelector(selectToken);
 
   return (
     <>
       {!isAuthRoute &&
         !isForgetPasswordRoute &&
         !isVerifyCodeRoute &&
-        !isNewPasswordRoute && <Navigation />}
+        !isNewPasswordRoute &&
+        token && <Navigation />}
       <Outlet />
       {!isAuthRoute &&
         !isForgetPasswordRoute &&
         !isVerifyCodeRoute &&
-        !isNewPasswordRoute && <Footer />}
+        !isNewPasswordRoute &&
+        token && <Footer />}
     </>
   );
 };

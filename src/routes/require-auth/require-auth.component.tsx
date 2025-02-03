@@ -13,7 +13,7 @@ const RequireAuth = () => {
   }, [token]);
 
   if (checkingAuth) {
-    return <div>Loading...</div>;
+    return <p>Loading...</p>;
   }
 
   return token ? (
