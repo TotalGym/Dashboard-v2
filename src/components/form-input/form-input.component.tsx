@@ -2,12 +2,18 @@ import { InputHTMLAttributes } from "react";
 
 import { FormInputTypes } from "./form-input.types";
 
-import { AuthInput, CheckboxInput, StyledLable } from "./form-input.styles";
+import {
+  AuthInput,
+  CheckboxInput,
+  SearchInput,
+  StyledLable,
+} from "./form-input.styles";
 
 const getFormInput = (formInputType: FormInputTypes) =>
   ({
     [FormInputTypes.AuthInput]: AuthInput,
     [FormInputTypes.CheckboxInput]: CheckboxInput,
+    [FormInputTypes.SearchInput]: SearchInput,
   }[formInputType]);
 
 type FormInputProps = {

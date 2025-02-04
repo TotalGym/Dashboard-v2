@@ -1,4 +1,5 @@
 export enum FormInputTypes {
   AuthInput = "AuthInput",
-  CheckboxInput = "CheckboxInput"
+  CheckboxInput = "CheckboxInput",
+  SearchInput = "SearchInput",
 }

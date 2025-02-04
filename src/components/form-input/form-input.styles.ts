@@ -13,3 +13,9 @@ export const CheckboxInput = styled.input.attrs({ type: "checkbox" })``;
 export const StyledLable = styled.label`
   margin-left: 0.5em;
 `;
+
+export const SearchInput = styled.input`
+  height: 60px;
+  width: 60vw;
+  padding: 2em;
+`;
