@@ -7,7 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Trainee } from "../../types/trainee.types";
+import { LastAddedTraineeTable } from "../../types/trainee.types";
 import { lastAddedTraineesData } from "../../mock/mock.data";
 
 import {
@@ -21,7 +21,7 @@ import {
   StyledTableHeader,
 } from "./last-added-trainees-table.styles";
 
-const columnHelper = createColumnHelper<Trainee>();
+const columnHelper = createColumnHelper<LastAddedTraineeTable>();
 
 const columns = [
   columnHelper.accessor("number", {
@@ -35,11 +35,7 @@ const columns = [
   }),
   columnHelper.accessor("dateOfAdmit", {
     header: "DATE OF ADMIT",
-    cell: (props) => (
-      <>
-        {props.getValue()?.toLocaleDateString()}
-      </>
-    ),
+    cell: (props) => <>{props.getValue()?.toLocaleDateString()}</>,
   }),
   columnHelper.accessor("subscribtionType", {
     header: "SUBSCRIPTION TYPE",
@@ -55,7 +51,7 @@ const columns = [
 ];
 
 const LastAddedTraineesTable = () => {
-  const [data] = useState<Trainee[]>(lastAddedTraineesData);
+  const [data] = useState<LastAddedTraineeTable[]>(lastAddedTraineesData);
 
   const table = useReactTable({
     data,
