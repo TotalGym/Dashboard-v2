@@ -21,10 +21,10 @@ export const StyledLoginForm = styled.form`
   ${CenteredColFlexContainer}
 `;
 
-export const StyledCheckBoxAndForgetPasswordTextContainer = styled.div`
+export const StyledForgetPasswordContainer = styled.div`
   width: 400px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 4em;
   margin-bottom: 4em;
 `;

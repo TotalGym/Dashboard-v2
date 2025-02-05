@@ -30,6 +30,7 @@ export type Program = {
   exercises: excercise[];
   description: string;
   monthlyPrice: number;
+  annuallyPrice?: number;
   image: string;
   schedule: Schedule[];
   registeredTrainees: RegisteredTrainees[];

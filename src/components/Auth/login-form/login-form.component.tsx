@@ -16,10 +16,10 @@ import { useLoginMutation } from "../../../features/auth/auth.api.slice";
 
 import {
   LoginFormContainer,
-  StyledCheckBoxAndForgetPasswordTextContainer,
   StyledForgetPasswordText,
   StyledLoginForm,
   StyledFormText,
+  StyledForgetPasswordContainer,
 } from "./login-form.styles";
 import { AuthError } from "../../../types/error.types";
 import { useAppDispatch } from "../../../app/hooks";
@@ -103,16 +103,11 @@ const LoginForm = () => {
           type="password"
           {...register("password")}
         />
-        <StyledCheckBoxAndForgetPasswordTextContainer>
-          <FormInput
-            formInputType={FormInputTypes.CheckboxInput}
-            label="Remember me"
-            id="remember-me"
-          />
+        <StyledForgetPasswordContainer>
           <StyledForgetPasswordText onClick={goToForgetPasswordPage}>
             Forget Password
           </StyledForgetPasswordText>
-        </StyledCheckBoxAndForgetPasswordTextContainer>
+        </StyledForgetPasswordContainer>
         <Button width="230px" type="submit" isLoading={isLoading}>
           Login
         </Button>

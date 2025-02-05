@@ -7,8 +7,12 @@ import {
 } from "./programs-management.styles";
 import FormInput from "../../components/form-input/form-input.component";
 import { FormInputTypes } from "../../components/form-input/form-input.types";
+import { useState } from "react";
+import Modal from "../../components/modal/modal.component";
+import AddProgramForm from "../../components/ProgramForms/add-program-form.component";
 
 const ProgramsManagement = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const { data, isLoading, isError } = useGetProgramsQuery({
     page: 1,
@@ -23,7 +27,10 @@ const ProgramsManagement = () => {
         formInputType={FormInputTypes.SearchInput}
         placeholder="Search Programs"
       />
-      <Button>Add Program</Button>
+      <Button onClick={() => setIsModalOpen(true)}>Add Program</Button>
+      <Modal open={isModalOpen} title="Add New Program" closeModal={() => setIsModalOpen(false)}>
+        <AddProgramForm />
+      </Modal>
       <StyledProgramsContainer>
         {isLoading ? (
           <p>Loading...</p>

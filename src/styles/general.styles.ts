@@ -40,3 +40,7 @@ export const XLargeFontSize = css`
 export const XXLargeFontSize = css`
   font-size: ${({ theme }) => theme.typography.fontSize.xxlarge};
 `;
+
+export const XXXLargeFontSize = css`
+  font-size: ${({ theme }) => theme.typography.fontSize.xxxlarge};
+`;

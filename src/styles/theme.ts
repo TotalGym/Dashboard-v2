@@ -25,6 +25,7 @@ const theme: DefaultTheme = {
       large: "20px", // Large font size
       xlarge: "22px", // Extra large font size
       xxlarge: "28px", // Extra extra large font size
+      xxxlarge: "32px",
     },
     fontWeight: {
       light: "300",

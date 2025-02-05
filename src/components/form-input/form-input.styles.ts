@@ -11,11 +11,17 @@ export const AuthInput = styled.input`
 export const CheckboxInput = styled.input.attrs({ type: "checkbox" })``;
 
 export const StyledLable = styled.label`
-  margin-left: 0.5em;
+  margin-right: 0.5em;
 `;
 
 export const SearchInput = styled.input`
   height: 60px;
   width: 60vw;
   padding: 2em;
+`;
+
+export const ModalInput = styled.input`
+  border: 1px solid black;
+  padding: 0.5em;
+  border-radius: 3px;
 `;
