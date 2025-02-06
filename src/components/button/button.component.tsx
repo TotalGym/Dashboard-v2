@@ -3,12 +3,17 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 import CloseIcon from "../../assets/close-icno.svg?react";
 
 import { ButtonTypes } from "./button.types";
-import { BasicButton, CloseModalButton } from "./button.styles";
+import {
+  BasicButton,
+  CloseModalButton,
+  PaginationButton,
+} from "./button.styles";
 
 const getButton = (buttonType = ButtonTypes.basic) =>
   ({
     [ButtonTypes.basic]: BasicButton,
     [ButtonTypes.closeModal]: CloseModalButton,
+    [ButtonTypes.paginationButton]: PaginationButton,
   }[buttonType]);
 
 export type ButtonProps = {
@@ -16,6 +21,7 @@ export type ButtonProps = {
   children?: ReactNode;
   buttonType?: ButtonTypes;
   width?: string;
+  redColored?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
@@ -23,11 +29,12 @@ const Button = ({
   children,
   buttonType,
   width,
+  redColored,
   ...otherProps
 }: ButtonProps) => {
   const SelectedButton = getButton(buttonType);
   return (
-    <SelectedButton {...otherProps} $width={width}>
+    <SelectedButton {...otherProps} $width={width} $redColored={redColored}>
       {buttonType === ButtonTypes.closeModal ? <CloseIcon /> : null}
       {isLoading ? "loading..." : children}
     </SelectedButton>

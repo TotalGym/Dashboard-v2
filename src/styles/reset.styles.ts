@@ -31,6 +31,7 @@ export const ResetStyles = createGlobalStyle`
     button{
         border: none;
         cursor: pointer;
+        user-select: none;
     }
   
     input{

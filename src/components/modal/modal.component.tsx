@@ -11,7 +11,7 @@ import { ModalContainer, ModalOverLay, ModalTitle } from "./modal.styles";
 type ModalProps = {
   open: boolean;
   closeModal: () => void;
-  title: string;
+  title?: string;
   children: ReactNode;
 };
 

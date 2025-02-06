@@ -10,3 +10,8 @@ export const StyledProgramsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 `;
+
+export const StyledPaginationSpan = styled.span`
+  width: 4em;
+  padding: 1em 2em;
+`;

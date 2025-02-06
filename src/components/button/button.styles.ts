@@ -1,9 +1,17 @@
 import styled from "styled-components";
-import { MediumBold } from "../../styles/general.styles";
+import { MediumBold, XXXLargeFontSize } from "../../styles/general.styles";
 
-export const BasicButton = styled.button<{ $width?: string }>`
+export const BasicButton = styled.button<{
+  $width?: string;
+  $redColored?: boolean;
+}>`
   ${MediumBold}
-  background-color: ${({ theme }) => theme.colors["bg-secondary"]};
+  background-color: ${({ theme, $redColored }) => {
+    if ($redColored) {
+      return theme.colors["font-secondary-2"];
+    }
+    return theme.colors["bg-secondary"];
+  }};
   color: white;
   padding: 1em;
   border-radius: 5px;
@@ -13,8 +21,20 @@ export const BasicButton = styled.button<{ $width?: string }>`
 
   &:not(:disabled):hover {
     background-color: white;
-    color: ${({ theme }) => theme.colors["bg-secondary"]};
-    outline: 2px solid ${({ theme }) => theme.colors["bg-secondary"]};
+    color: ${({ theme, $redColored }) => {
+      if ($redColored) {
+        return theme.colors["font-secondary-2"];
+      }
+      return theme.colors["bg-secondary"];
+    }};
+    outline: 2px solid
+      ${({ theme, $redColored }) => {
+        if ($redColored) {
+          return theme.colors["font-secondary-2"];
+        }
+
+        return theme.colors["bg-secondary"];
+      }};
   }
 
   &:disabled {
@@ -41,5 +61,25 @@ export const CloseModalButton = styled.button`
   svg {
     width: 100%;
     height: 100%;
+  }
+`;
+
+export const PaginationButton = styled.button`
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors["bg-secondary"]};
+  color: white;
+  width: 1.5em;
+  height: 1.5em;
+  ${XXXLargeFontSize}
+
+  &:not(:disabled):hover {
+    background-color: white;
+    color: ${({ theme }) => theme.colors["bg-secondary"]};
+    outline: 2px solid ${({ theme }) => theme.colors["bg-secondary"]};
+  }
+
+  &:disabled {
+    cursor: no-drop;
+    opacity: 0.6;
   }
 `;
