@@ -28,8 +28,12 @@ const ProgramsManagement = () => {
         placeholder="Search Programs"
       />
       <Button onClick={() => setIsModalOpen(true)}>Add Program</Button>
-      <Modal open={isModalOpen} title="Add New Program" closeModal={() => setIsModalOpen(false)}>
-        <AddProgramForm />
+      <Modal
+        open={isModalOpen}
+        title="Add New Program"
+        closeModal={() => setIsModalOpen(false)}
+      >
+        <AddProgramForm toggleModalOpen={setIsModalOpen} />
       </Modal>
       <StyledProgramsContainer>
         {isLoading ? (

@@ -1,4 +1,5 @@
 import { apiSlice } from "../../app/api/api.slice";
+import { ProgramFormInputs } from "../../components/ProgramForms/add-program-form.component";
 import { GetProgramsResponse, Program } from "../../types/programs.types";
 
 export const programsApiSlice = apiSlice.injectEndpoints({
@@ -12,8 +13,18 @@ export const programsApiSlice = apiSlice.injectEndpoints({
     getProgramByName: builder.query<Program, { programName?: string }>({
       query: ({ programName }) => `/programs/program/${programName}`,
     }),
+    addProgram: builder.mutation<Program, ProgramFormInputs>({
+      query: (ProgramData) => ({
+        url: "/programs",
+        method: "POST",
+        body: ProgramData,
+      }),
+    }),
   }),
 });
 
-export const { useGetProgramsQuery, useGetProgramByNameQuery } =
-  programsApiSlice;
+export const {
+  useGetProgramsQuery,
+  useGetProgramByNameQuery,
+  useAddProgramMutation,
+} = programsApiSlice;

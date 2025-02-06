@@ -26,3 +26,57 @@ export const newPasswordSchema = yup.object().shape({
     .oneOf([yup.ref("newPassword")], "Passwords must match")
     .required("Please enter your new password again"),
 });
+
+export const addNewProgramSchema = yup.object().shape({
+  programName: yup.string().trim().required("Program name is required"),
+  description: yup.string().trim().required("Description is required"),
+  image: yup
+    .string()
+    .trim()
+    .url("Invalid image URL")
+    .required("Image URL is required"),
+  monthlyPrice: yup
+    .number()
+    .typeError("Monthly price must be a positive number")
+    .positive("Monthly price must be a positive number")
+    .required("Monthly price is required"),
+  annuallyPrice: yup
+    .number()
+    .typeError("Annual price must be a positive number")
+    .positive("Annual price must be a positive number")
+    .required("Annual price is required"),
+  exercises: yup
+    .array()
+    .of(
+      yup.object().shape({
+        name: yup.string().trim().required("Exercise name is required"),
+        sets: yup
+          .number()
+          .typeError("sets must be a number")
+          .integer()
+          .positive("Sets must be a positive number")
+          .required("Sets are required"),
+        repetitions: yup
+          .number()
+          .typeError("repetitions must be a number")
+          .integer()
+          .positive("Repetitions must be a positive number")
+          .required("Repetitions are required"),
+      })
+    )
+    .min(1, "At least one exercise is required")
+    .max(6, "You can add up to 6 exercises")
+    .default([]),
+  schedule: yup
+    .array()
+    .of(
+      yup.object().shape({
+        day: yup.string().trim().required("Day is required"),
+        startTime: yup.string().required("Start time is required"),
+        endTime: yup.string().required("End time is required"),
+      })
+    )
+    .min(1, "At least one schedule is required")
+    .max(7, "You can add up to 7 schedules")
+    .default([]),
+});

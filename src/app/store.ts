@@ -6,7 +6,7 @@ import authReducer from "../features/auth/auth.slice";
 
 const middlewares = [
   apiSlice.middleware,
-  import.meta.env.MODE !== "production" && logger,
+  // import.meta.env.MODE !== "production" && logger,
 ].filter((middleware): middleware is Middleware => Boolean(middleware));
 
 export const store = configureStore({

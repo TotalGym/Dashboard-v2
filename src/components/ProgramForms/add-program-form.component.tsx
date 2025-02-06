@@ -1,4 +1,4 @@
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import FormInput from "../form-input/form-input.component";
 import { FormInputTypes } from "../form-input/form-input.types";
 import Button from "../button/button.component";
@@ -6,12 +6,19 @@ import Button from "../button/button.component";
 import {
   AddProgramFormContainer,
   StyledAddProgramForm,
+  StyledDaySelect,
   StyledExerciseAndScheduleContainer,
   StyledExerciseLablesContainer,
   StyledProgramDescriptionTextArea,
   StyledProgramFormsText,
   StyledSubmitText,
 } from "./program-forms.styles";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { addNewProgramSchema } from "../../utils/yup/yup.utils";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { MessagedError } from "../../types/error.types";
+import { useAddProgramMutation } from "../../features/programs/programs.api.slice";
 
 type Exercise = {
   name: string;
@@ -25,27 +32,44 @@ type Schedule = {
   endTime: string;
 };
 
-type ProgramFormValues = {
+export type ProgramFormInputs = {
   programName: string;
   exercises: Exercise[];
   description: string;
   image: string;
   monthlyPrice: number;
-  annuallyPrice?: number;
+  annuallyPrice: number;
   schedule: Schedule[];
 };
 
-const AddProgramForm = () => {
+const daysOfWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+const AddProgramForm = ({
+  toggleModalOpen,
+}: {
+  toggleModalOpen: (close: boolean) => void;
+}) => {
+  const [addProgram, { isLoading }] = useAddProgramMutation();
   const {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<ProgramFormValues>({
+  } = useForm<ProgramFormInputs>({
     defaultValues: {
       exercises: [{ name: "", sets: undefined, repetitions: undefined }],
       schedule: [{ day: "", startTime: undefined, endTime: undefined }],
     },
+    resolver: yupResolver(addNewProgramSchema),
   });
 
   const {
@@ -59,9 +83,63 @@ const AddProgramForm = () => {
     remove: removeSchedule,
   } = useFieldArray({ control, name: "schedule" });
 
-  const onSubmit = (data: ProgramFormValues) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<ProgramFormInputs> = async (data) => {
+    try {
+      const response = await addProgram(data).unwrap();
+      if (response) {
+        toast.success("Program Added Successfully", {
+          position: "top-right",
+          closeOnClick: true,
+          draggable: true,
+        });
+        reset();
+        setTimeout(() => {
+          toggleModalOpen(false);
+        }, 1500);
+      }
+    } catch (error) {
+      if (error) {
+        toast.error("something went wrong", {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+        });
+      }
+    }
   };
+
+  useEffect(() => {
+    const errorsArray = Object.values(errors);
+    if (errorsArray.length > 0) {
+      errorsArray.forEach((error) => {
+        if (error.message) {
+          toast.error(error.message, {
+            position: "top-right",
+            hideProgressBar: true,
+            closeOnClick: true,
+            draggable: true,
+          });
+        }
+
+        if (Array.isArray(error)) {
+          error.forEach((subErrors) => {
+            const subErrorsArray = Object.values(subErrors) as MessagedError[];
+            subErrorsArray.forEach((subError) => {
+              if (subError) {
+                toast.error(subError.message, {
+                  position: "top-right",
+                  hideProgressBar: true,
+                  closeOnClick: true,
+                  draggable: true,
+                });
+              }
+            });
+          });
+        }
+      });
+    }
+  }, [errors]);
 
   return (
     <AddProgramFormContainer>
@@ -71,20 +149,15 @@ const AddProgramForm = () => {
           {...register("programName")}
           placeholder="Program Name"
         />
-        {errors.programName && <p>Program name is required</p>}
-
         <StyledProgramDescriptionTextArea
           {...register("description")}
           placeholder="Program Description"
         />
-        {errors.description && <p>Description is required</p>}
-
         <FormInput
           formInputType={FormInputTypes.modalInput}
           {...register("image")}
           placeholder="Image URL"
         />
-        {errors.image && <p>Image URL is required</p>}
 
         <FormInput
           formInputType={FormInputTypes.modalInput}
@@ -92,7 +165,6 @@ const AddProgramForm = () => {
           {...register("monthlyPrice")}
           placeholder="Monthly Price"
         />
-        {errors.monthlyPrice && <p>Monthly price is required</p>}
 
         <FormInput
           formInputType={FormInputTypes.modalInput}
@@ -150,11 +222,19 @@ const AddProgramForm = () => {
         <StyledProgramFormsText>Schedule</StyledProgramFormsText>
         {scheduleFields.map((schedule, index) => (
           <StyledExerciseAndScheduleContainer key={schedule.id}>
-            <FormInput
-              formInputType={FormInputTypes.modalInput}
+            <StyledDaySelect
               {...register(`schedule.${index}.day`)}
-              placeholder="Day"
-            />
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select a day
+              </option>
+              {daysOfWeek.map((day) => (
+                <option key={day} value={day}>
+                  {day}
+                </option>
+              ))}
+            </StyledDaySelect>
             <FormInput
               formInputType={FormInputTypes.modalInput}
               type="time"
@@ -195,7 +275,7 @@ const AddProgramForm = () => {
             alignSelf: "center",
           }}
         >
-          <Button type="submit" width="250px">
+          <Button type="submit" width="250px" isLoading={isLoading}>
             <StyledSubmitText>Submit</StyledSubmitText>
           </Button>
         </div>

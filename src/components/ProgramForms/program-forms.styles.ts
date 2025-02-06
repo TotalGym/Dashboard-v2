@@ -50,3 +50,9 @@ export const StyledSubmitText = styled.span`
   ${Bold}
   ${XLargeFontSize}
 `;
+
+export const StyledDaySelect = styled.select`
+  border: 1px solid black;
+  padding: 0.5em;
+  border-radius: 3px;
+`;
