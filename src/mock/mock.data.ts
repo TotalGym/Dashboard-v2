@@ -1,7 +1,7 @@
-import { Trainee } from "../types/trainee.types";
+import { LastAddedTraineeTable } from "../types/trainee.types";
 import { RecentlyAttendingStaff, Roles } from "../types/staff.types";
 
-export const lastAddedTraineesData: Trainee[] = [
+export const lastAddedTraineesData: LastAddedTraineeTable[] = [
   {
     number: 101,
     name: "Inverness McKenzei",
