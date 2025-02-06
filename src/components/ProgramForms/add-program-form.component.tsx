@@ -275,8 +275,10 @@ const AddProgramForm = ({
             alignSelf: "center",
           }}
         >
-          <Button type="submit" width="250px" isLoading={isLoading}>
-            <StyledSubmitText>Submit</StyledSubmitText>
+          <Button type="submit" width="250px">
+            <StyledSubmitText>
+              {isLoading ? "Loading..." : "Submit"}
+            </StyledSubmitText>
           </Button>
         </div>
       </StyledAddProgramForm>
