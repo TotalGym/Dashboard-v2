@@ -24,8 +24,15 @@ const ProgramDetails = () => {
   const handleDelete = async (programID: string) => {
     try {
       const response = await deleteProgram(programID).unwrap();
-      if (response) {
-        navigate("/programs");
+      if (response.message === "Program deleted") {
+        toast.success("Program Successfully Deleted", {
+          position: "top-right",
+          closeOnClick: true,
+          draggable: true,
+        });
+        setTimeout(() => {
+          navigate("/programs", { replace: true });
+        }, 1500);
       }
     } catch (err) {
       if (err) {

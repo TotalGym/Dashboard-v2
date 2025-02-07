@@ -22,7 +22,7 @@ export const programsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Programs"],
     }),
-    deleteProgram: builder.mutation({
+    deleteProgram: builder.mutation<{ message: string }, string>({
       query: (programID) => ({
         url: `/programs/${programID}`,
         method: "DELETE",
