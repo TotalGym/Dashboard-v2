@@ -73,7 +73,7 @@ const ProgramDetails = () => {
       <Button onClick={() => navigate("/programs")}>
         Back To All Programs
       </Button>
-      <Button>Edit Program</Button>
+      <Button>Edit Program</Button> //todo: finsih edit functionality
       <Button redColored={true} onClick={() => setIsModalOpen(true)}>
         Delete Program
       </Button>

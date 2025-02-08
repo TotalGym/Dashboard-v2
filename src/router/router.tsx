@@ -15,6 +15,7 @@ import ReportsAndAnalytics from "../routes/reports-and-analytics/reports-and-ana
 import NotFound from "../routes/not-found/not-found.component";
 import RequireAuth from "../routes/require-auth/require-auth.component";
 import ProgramDetails from "../routes/program-details/program-details.component";
+import ProgramgsPage from "../routes/programs-page/programs-page";
 
 const Router = () => {
   return (
@@ -32,7 +33,9 @@ const Router = () => {
           <Route path="trainees" element={<TraineeManagement />} />
           <Route path="equipment" element={<EquipmentManagement />} />
           <Route path="sales" element={<SalesManagement />} />
-          <Route path="programs" element={<ProgramsManagement />} />
+          <Route element={<ProgramsManagement />}>
+            <Route path="programs/:programsPage" element={<ProgramgsPage />} />
+          </Route>
           <Route path="programs/:programName" element={<ProgramDetails />} />
           <Route path="staff" element={<StaffManagement />} />
           <Route

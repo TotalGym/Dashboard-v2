@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Button from "../../components/button/button.component";
 import { useGetProgramsQuery } from "../../features/programs/programs.api.slice";
 import {
   ProgramsManagementContainer,
   StyledPaginationSpan,
-  StyledProgramsContainer,
 } from "./programs-management.styles";
 import { useState } from "react";
 import Modal from "../../components/modal/modal.component";
@@ -16,7 +15,7 @@ const ProgramsManagement = () => {
   const limit = 3;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { data, isLoading, isError, isFetching } = useGetProgramsQuery({
+  const { data, isLoading, isError } = useGetProgramsQuery({
     page,
     limit,
   });
@@ -25,12 +24,14 @@ const ProgramsManagement = () => {
   const handleNextPage = () => {
     if (page < totalPages) {
       setPage((prev) => prev + 1);
+      navigate(`/programs/${page + 1}`);
     }
   };
 
   const handlePrevPage = () => {
     if (page > 1) {
       setPage((prev) => prev - 1);
+      navigate(`/programs/${page - 1}`);
     }
   };
 
@@ -46,31 +47,7 @@ const ProgramsManagement = () => {
       >
         <AddProgramForm toggleModalOpen={setIsModalOpen} />
       </Modal>
-      <StyledProgramsContainer>
-        {isLoading || isFetching ? (
-          <p>Loading...</p>
-        ) : (
-          data?.results.map((program) => (
-            <div
-              key={program._id}
-              onClick={() => navigate(`/programs/${program.programName}`)}
-              style={{
-                cursor: "pointer",
-              }}
-            >
-              <p>name: {program.programName}</p>
-              <p>description: {program.description}</p>
-              <p>price: {program.monthlyPrice}</p>
-              <img
-                src={program.image}
-                alt={`${program.programName}`}
-                width={"400px"}
-                height={"400px"}
-              />
-            </div>
-          ))
-        )}
-      </StyledProgramsContainer>
+      <Outlet />
       <div>
         <Button
           onClick={handlePrevPage}
@@ -80,7 +57,7 @@ const ProgramsManagement = () => {
           &lt;
         </Button>
         <StyledPaginationSpan>
-          {page} of {totalPages}
+          {isLoading ? "loading..." : `${page} of ${totalPages}`}
         </StyledPaginationSpan>
         <Button
           onClick={handleNextPage}
