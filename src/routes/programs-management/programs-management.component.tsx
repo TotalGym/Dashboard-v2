@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/button/button.component";
 import { useGetProgramsQuery } from "../../features/programs/programs.api.slice";
 import {
@@ -11,7 +11,8 @@ import AddProgramForm from "../../components/ProgramForms/add-program-form.compo
 import { ButtonTypes } from "../../components/button/button.types";
 
 const ProgramsManagement = () => {
-  const [page, setPage] = useState(1);
+  const { programsPage } = useParams();
+  const [page, setPage] = useState(Number(programsPage));
   const limit = 3;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();

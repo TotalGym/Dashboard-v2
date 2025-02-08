@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteProgramMutation,
   useGetProgramByNameQuery,
@@ -10,6 +10,8 @@ import { StyledConfirmDeleteText } from "./program-details.styles";
 import { toast } from "react-toastify";
 
 const ProgramDetails = () => {
+  const location = useLocation();
+  const from = location.state?.from;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { programName } = useParams();
   const navigate = useNavigate();
@@ -70,14 +72,13 @@ const ProgramDetails = () => {
           </Button>
         </div>
       </Modal>
-      <Button onClick={() => navigate("/programs")}>
+      <Button onClick={() => navigate(`/programs/${from}`)}>
         Back To All Programs
       </Button>
-      <Button>Edit Program</Button> //todo: finsih edit functionality
+      <Button>Edit Program</Button>
       <Button redColored={true} onClick={() => setIsModalOpen(true)}>
         Delete Program
       </Button>
-
       <img
         src={program.image}
         alt={program.programName}

@@ -26,7 +26,11 @@ const ProgramgsPage = () => {
         data?.results.map((program) => (
           <div
             key={program._id}
-            onClick={() => navigate(`/programs/${program.programName}`)}
+            onClick={() =>
+              navigate(`/programsDetails/${program.programName}`, {
+                state: { from: `${programsPage}` },
+              })
+            }
             style={{
               cursor: "pointer",
             }}

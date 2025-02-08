@@ -36,7 +36,7 @@ const Router = () => {
           <Route element={<ProgramsManagement />}>
             <Route path="programs/:programsPage" element={<ProgramgsPage />} />
           </Route>
-          <Route path="programs/:programName" element={<ProgramDetails />} />
+          <Route path="programsDetails/:programName" element={<ProgramDetails />} />
           <Route path="staff" element={<StaffManagement />} />
           <Route
             path="reports-and-analytics"
