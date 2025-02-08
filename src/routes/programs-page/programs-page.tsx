@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { StyledProgramsContainer } from "../programs-management/programs-management.styles";
 import { useGetProgramsQuery } from "../../features/programs/programs.api.slice";
 
@@ -17,6 +17,10 @@ const ProgramgsPage = () => {
         something went wrong <Link to={"/"}>Go to Home Page</Link>
       </p>
     );
+
+  if (data?.results.length === 0) {
+    return <Navigate to={"/programs/1"} replace />;
+  }
 
   return (
     <StyledProgramsContainer>

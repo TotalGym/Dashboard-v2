@@ -5,7 +5,7 @@ import {
   ProgramsManagementContainer,
   StyledPaginationSpan,
 } from "./programs-management.styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../components/modal/modal.component";
 import AddProgramForm from "../../components/ProgramForms/add-program-form.component";
 import { ButtonTypes } from "../../components/button/button.types";
@@ -21,6 +21,10 @@ const ProgramsManagement = () => {
     limit,
   });
   const totalPages = Math.ceil((data?.totalCount || 0) / limit);
+
+  useEffect(() => {
+    setPage(Number(programsPage) || 1);
+  }, [programsPage]);
 
   const handleNextPage = () => {
     if (page < totalPages) {

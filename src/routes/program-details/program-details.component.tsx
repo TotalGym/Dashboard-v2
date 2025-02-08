@@ -33,7 +33,7 @@ const ProgramDetails = () => {
           draggable: true,
         });
         setTimeout(() => {
-          navigate("/programs", { replace: true });
+          navigate(`/programs/${from}`, { replace: true });
         }, 1500);
       }
     } catch (err) {
