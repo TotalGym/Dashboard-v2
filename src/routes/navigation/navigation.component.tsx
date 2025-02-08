@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import Button from "../../components/button/button.component";
 import BellIcon from "../../components/icons/bell-icon.component";
 import Logo from "../../components/logo/logo.component";
@@ -22,17 +23,29 @@ const routes = [
 ];
 
 const Navigation = () => {
+  const location = useLocation();
+
   return (
     <NavigationContainer>
-      <Logo routable/>
+      <Logo routable />
       <StyledNavigationList>
-        {routes.map((route, index) => (
-          <StyledNavigationListItem key={index}>
-            <StyledNavigationNavLink to={route.path}>
-              {route.name}
-            </StyledNavigationNavLink>
-          </StyledNavigationListItem>
-        ))}
+        {routes.map((route, index) => {
+          const isActive =
+            location.pathname === route.path ||
+            (route.name === "PROGRAMS" &&
+              location.pathname.startsWith("/programs"));
+
+          return (
+            <StyledNavigationListItem key={index}>
+              <StyledNavigationNavLink
+                to={route.path}
+                className={isActive ? "active" : ""}
+              >
+                {route.name}
+              </StyledNavigationNavLink>
+            </StyledNavigationListItem>
+          );
+        })}
       </StyledNavigationList>
       <Button>ADD NEW TRAINEE</Button>
       <BellIconAndProfileContainer>
