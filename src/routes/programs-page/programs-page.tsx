@@ -6,7 +6,7 @@ const ProgramgsPage = () => {
   const { programsPage } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, isFetching } = useGetProgramsQuery({
+  const { data, isLoading, isError } = useGetProgramsQuery({
     page: Number(programsPage),
     limit: 3,
   });
@@ -24,7 +24,7 @@ const ProgramgsPage = () => {
 
   return (
     <StyledProgramsContainer>
-      {isLoading || isFetching ? (
+      {isLoading ? (
         <p>Loading...</p>
       ) : (
         data?.results.map((program) => (

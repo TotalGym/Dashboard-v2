@@ -16,7 +16,7 @@ const ProgramsManagement = () => {
   const limit = 3;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetProgramsQuery({
+  const { data, isLoading, isError, isFetching } = useGetProgramsQuery({
     page,
     limit,
   });
@@ -56,17 +56,17 @@ const ProgramsManagement = () => {
       <div>
         <Button
           onClick={handlePrevPage}
-          disabled={page === 1}
+          disabled={page === 1 && isFetching}
           buttonType={ButtonTypes.paginationButton}
         >
           &lt;
         </Button>
         <StyledPaginationSpan>
-          {isLoading ? "loading..." : `${page} of ${totalPages}`}
+          {isLoading || isFetching ? "loading..." : `${page} of ${totalPages}`}
         </StyledPaginationSpan>
         <Button
           onClick={handleNextPage}
-          disabled={page === totalPages}
+          disabled={page === totalPages || isFetching}
           buttonType={ButtonTypes.paginationButton}
         >
           &gt;
