@@ -1,20 +1,13 @@
-type excercise = {
-  _id: string;
+export type Exercise = {
+  _id?: string;
   name: string;
   sets: number;
   repetitions: number;
 };
 
-type Schedule = {
-  _id: string;
-  day:
-    | " Monday"
-    | "Tuesday"
-    | "Wednesday"
-    | "Thursday"
-    | "Friday"
-    | "Saturday"
-    | "Sunday";
+export type Schedule = {
+  _id?: string;
+  day: string;
   startTime: string;
   endTime: string;
 };
@@ -27,16 +20,14 @@ type RegisteredTrainees = {
 export type Program = {
   _id: string;
   programName: string;
-  exercises: excercise[];
+  exercises: Exercise[];
   description: string;
   monthlyPrice: number;
-  annuallyPrice?: number;
+  annuallyPrice: number;
   image: string;
   schedule: Schedule[];
   registeredTrainees: RegisteredTrainees[];
   createdAt: Date;
-  updatedAt: Date;
-  __v: number;
 };
 
 export type GetProgramsResponse = {

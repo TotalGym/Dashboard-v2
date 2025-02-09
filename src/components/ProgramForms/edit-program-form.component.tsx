@@ -1,8 +1,9 @@
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import FormInput from "../form-input/form-input.component";
-import { FormInputTypes } from "../form-input/form-input.types";
-import Button from "../button/button.component";
-
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { useUpdateProgramMutation } from "../../features/programs/programs.api.slice";
+import { Program } from "../../types/programs.types";
+import { daysOfWeek, ProgramFormInputs } from "./add-program-form.component";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 import {
   AddProgramFormContainer,
   StyledAddProgramForm,
@@ -13,64 +14,36 @@ import {
   StyledProgramFormsText,
   StyledSubmitText,
 } from "./program-forms.styles";
+import FormInput from "../form-input/form-input.component";
+import { FormInputTypes } from "../form-input/form-input.types";
+import Button from "../button/button.component";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addNewProgramSchema } from "../../utils/yup/yup.utils";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
 import { MessagedError } from "../../types/error.types";
-import { useAddProgramMutation } from "../../features/programs/programs.api.slice";
+import { useNavigate } from "react-router-dom";
 
-type Exercise = {
-  _id?: string;
-  name: string;
-  sets: number;
-  repetitions: number;
-};
-
-type Schedule = {
-  _id?: string;
-  day: string;
-  startTime: string;
-  endTime: string;
-};
-
-export type ProgramFormInputs = {
-  programName: string;
-  exercises: Exercise[];
-  description: string;
-  image: string;
-  monthlyPrice: number;
-  annuallyPrice: number;
-  schedule: Schedule[];
-};
-
-export const daysOfWeek = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
-
-const AddProgramForm = ({
-  toggleModalOpen,
-}: {
+type EditProgramFormProps = {
+  program: Program;
+  from: string;
   toggleModalOpen: (close: boolean) => void;
-}) => {
-  const [addProgram, { isLoading }] = useAddProgramMutation();
+};
+
+const EditProgramForm = ({
+  program,
+  from,
+  toggleModalOpen,
+}: EditProgramFormProps) => {
+  const navigate = useNavigate();
+  const [updateProgram, { isLoading }] = useUpdateProgramMutation();
+
   const {
     register,
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<ProgramFormInputs>({
-    defaultValues: {
-      exercises: [{ name: "", sets: undefined, repetitions: undefined }],
-      schedule: [{ day: "", startTime: undefined, endTime: undefined }],
-    },
+    defaultValues: program,
     resolver: yupResolver(addNewProgramSchema),
   });
 
@@ -86,28 +59,49 @@ const AddProgramForm = ({
   } = useFieldArray({ control, name: "schedule" });
 
   const onSubmit: SubmitHandler<ProgramFormInputs> = async (data) => {
+    const updatedData: Partial<Program> = {};
+
+    if (data.programName !== program.programName)
+      updatedData.programName = data.programName;
+    if (data.description !== program.description)
+      updatedData.description = data.description;
+    if (data.monthlyPrice !== program.monthlyPrice)
+      updatedData.monthlyPrice = data.monthlyPrice;
+    if (data.annuallyPrice !== program.annuallyPrice)
+      updatedData.annuallyPrice = data.annuallyPrice;
+    if (data.image !== program.image) updatedData.image = data.image;
+    if (
+      data.exercises.length !== program.exercises.length ||
+      JSON.stringify(data.exercises) !== JSON.stringify(program.exercises)
+    ) {
+      updatedData.exercises = data.exercises;
+    }
+    if (
+      data.schedule.length !== program.schedule.length ||
+      JSON.stringify(data.schedule) !== JSON.stringify(program.schedule)
+    ) {
+      updatedData.schedule = data.schedule;
+    }
+
     try {
-      const response = await addProgram(data).unwrap();
+      const response = await updateProgram({
+        programID: program._id,
+        updatedFields: updatedData,
+      }).unwrap();
       if (response) {
-        toast.success("Program Added Successfully", {
-          position: "top-right",
-          closeOnClick: true,
-          draggable: true,
-        });
-        reset();
-        setTimeout(() => {
-          toggleModalOpen(false);
-        }, 1500);
+        toast.success("Program updated successfully");
+
+        if (data.programName !== program.programName) {
+          navigate(`/programsDetails/${data.programName}`, {
+            replace: true,
+            state: { from: from },
+          });
+        }
       }
+      setTimeout(() => toggleModalOpen(false), 1000);
     } catch (error) {
-      if (error) {
-        toast.error("something went wrong", {
-          position: "top-right",
-          hideProgressBar: true,
-          closeOnClick: true,
-          draggable: true,
-        });
-      }
+      if (error) toast.error("Failed to update program");
+      reset(program);
     }
   };
 
@@ -167,13 +161,13 @@ const AddProgramForm = ({
           {...register("monthlyPrice")}
           placeholder="Monthly Price"
         />
-
         <FormInput
           formInputType={FormInputTypes.modalInput}
           type="number"
           {...register("annuallyPrice")}
           placeholder="Annually Price"
         />
+
         <StyledExerciseLablesContainer>
           <StyledProgramFormsText>Exercises</StyledProgramFormsText>
           <StyledProgramFormsText>Sets</StyledProgramFormsText>
@@ -272,14 +266,10 @@ const AddProgramForm = ({
           Add Schedule
         </Button>
 
-        <div
-          style={{
-            alignSelf: "center",
-          }}
-        >
-          <Button type="submit" width="250px">
+        <div style={{ alignSelf: "center" }}>
+          <Button type="submit" width="250px" disabled={!isDirty || isLoading}>
             <StyledSubmitText>
-              {isLoading ? "Loading..." : "Submit"}
+              {isLoading ? "Loading..." : "Update"}
             </StyledSubmitText>
           </Button>
         </div>
@@ -287,5 +277,4 @@ const AddProgramForm = ({
     </AddProgramFormContainer>
   );
 };
-
-export default AddProgramForm;
+export default EditProgramForm;

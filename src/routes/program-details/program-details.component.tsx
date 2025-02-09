@@ -8,11 +8,14 @@ import { useState } from "react";
 import Modal from "../../components/modal/modal.component";
 import { StyledConfirmDeleteText } from "./program-details.styles";
 import { toast } from "react-toastify";
+import EditProgramForm from "../../components/ProgramForms/edit-program-form.component";
 
 const ProgramDetails = () => {
   const location = useLocation();
   const from = location.state?.from;
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
+    useState(false);
+  const [isEditProgramModalOpen, setisEditProgramModalOpen] = useState(false);
   const { programName } = useParams();
   const navigate = useNavigate();
   const {
@@ -53,7 +56,10 @@ const ProgramDetails = () => {
 
   return (
     <div>
-      <Modal open={isModalOpen} closeModal={() => setIsModalOpen(false)}>
+      <Modal
+        open={isConfirmDeleteModalOpen}
+        closeModal={() => setIsConfirmDeleteModalOpen(false)}
+      >
         <div
           style={{
             display: "flex",
@@ -72,11 +78,27 @@ const ProgramDetails = () => {
           </Button>
         </div>
       </Modal>
+      <Modal
+        open={isEditProgramModalOpen}
+        closeModal={() => setisEditProgramModalOpen(false)}
+        title="Edit Program"
+      >
+        <EditProgramForm
+          program={program}
+          from={from}
+          toggleModalOpen={setisEditProgramModalOpen}
+        />
+      </Modal>
       <Button onClick={() => navigate(`/programs/${from}`)}>
         Back To All Programs
       </Button>
-      <Button>Edit Program</Button>
-      <Button redColored={true} onClick={() => setIsModalOpen(true)}>
+      <Button onClick={() => setisEditProgramModalOpen(true)}>
+        Edit Program
+      </Button>
+      <Button
+        redColored={true}
+        onClick={() => setIsConfirmDeleteModalOpen(true)}
+      >
         Delete Program
       </Button>
       <img
@@ -90,7 +112,8 @@ const ProgramDetails = () => {
         <strong>Description:</strong> {program.description}
       </p>
       <p>
-        <strong>Price:</strong> ${program.monthlyPrice}
+        <strong>Monthly Price:</strong> ${program.monthlyPrice}
+        <strong>Annual Price:</strong> ${program.annuallyPrice}
       </p>
       {program.exercises.map((excersie) => (
         <div key={excersie._id}>

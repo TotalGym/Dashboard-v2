@@ -44,12 +44,9 @@ export type TraineeData = {
   selectedPrograms: SelectedProgram[];
   subscriptionType: "monthly" | "annually";
   createdAt: Date;
-  updatedAt: Date;
-  __v: number;
 
   _id: string;
   name: string;
-  password: string;
   gender: "Male" | "Female";
   role: "Trainee";
 };

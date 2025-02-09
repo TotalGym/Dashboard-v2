@@ -13,12 +13,24 @@ export const programsApiSlice = apiSlice.injectEndpoints({
     }),
     getProgramByName: builder.query<Program, { programName?: string }>({
       query: ({ programName }) => `/programs/program/${programName}`,
+      providesTags: ["Programs"],
     }),
     addProgram: builder.mutation<Program, ProgramFormInputs>({
       query: (programData) => ({
         url: "/programs",
         method: "POST",
         body: programData,
+      }),
+      invalidatesTags: ["Programs"],
+    }),
+    updateProgram: builder.mutation<
+      Program,
+      { programID: string; updatedFields: unknown }
+    >({
+      query: ({ programID, updatedFields }) => ({
+        url: `programs/${programID}`,
+        method: "PUT",
+        body: updatedFields,
       }),
       invalidatesTags: ["Programs"],
     }),
@@ -37,4 +49,5 @@ export const {
   useGetProgramByNameQuery,
   useAddProgramMutation,
   useDeleteProgramMutation,
+  useUpdateProgramMutation,
 } = programsApiSlice;

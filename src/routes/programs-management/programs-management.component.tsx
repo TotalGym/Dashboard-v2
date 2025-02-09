@@ -56,7 +56,7 @@ const ProgramsManagement = () => {
       <div>
         <Button
           onClick={handlePrevPage}
-          disabled={page === 1 && isFetching}
+          disabled={page === 1 || isFetching}
           buttonType={ButtonTypes.paginationButton}
         >
           &lt;
