@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
-import { useGetEquipmentsQuery } from "../../features/equipment/equipment.api.slice";
+import { useGetAllEquipmentQuery } from "../../features/equipment/equipment.api.slice";
 import {
   Navigate,
   useLocation,
@@ -14,10 +14,10 @@ import { ToastContainer } from "react-toastify";
 const EquipmentManagement = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { equipmentsPage } = useParams();
-  const pageNumber = Number(equipmentsPage);
+  const { equipmentPage } = useParams();
+  const pageNumber = Number(equipmentPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, isLoading, isError } = useGetEquipmentsQuery({
+  const { data, isLoading, isError } = useGetAllEquipmentQuery({
     limit: 10,
     page: pageNumber,
   });

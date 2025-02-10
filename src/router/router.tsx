@@ -32,7 +32,7 @@ const Router = () => {
         <Route element={<RequireAuth />}>
           <Route index element={<Home />} />
           <Route path="trainees" element={<TraineeManagement />} />
-          <Route path="equipment/:equipmentsPage" element={<EquipmentManagement />} />
+          <Route path="equipment/:equipmentPage" element={<EquipmentManagement />} />
           <Route
             path="equipmentDetails/:equipmentId"
             element={<EquipmentDetails />}

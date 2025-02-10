@@ -57,8 +57,9 @@ const EquipmentDetails = () => {
   return (
     <>
       <Button onClick={() => navigate(`/equipment/${from}`)}>
-        Back to All Equipments
+        Back to All Equipment
       </Button>
+      <Button>Edit Equipment Details</Button>
       <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
         Delete Equipment
       </Button>
