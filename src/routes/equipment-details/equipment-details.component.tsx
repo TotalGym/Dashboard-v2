@@ -59,6 +59,7 @@ const EquipmentDetails = () => {
       <Button onClick={() => navigate(`/equipment/${from}`)}>
         Back to All Equipment
       </Button>
+      //todo: handle equipment edit
       <Button>Edit Equipment Details</Button>
       <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
         Delete Equipment
@@ -85,7 +86,6 @@ const EquipmentDetails = () => {
           </Button>
         </div>
       </Modal>
-
       <div
         key={equipment._id}
         style={{

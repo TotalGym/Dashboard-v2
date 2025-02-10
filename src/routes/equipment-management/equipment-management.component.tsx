@@ -42,6 +42,7 @@ const EquipmentManagement = () => {
   return (
     <>
       <ToastContainer />
+      //todo: handle equipment addition
       <Button onClick={() => setIsModalOpen(true)}>Add New Equipment</Button>
       <div
         style={{
