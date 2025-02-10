@@ -1,5 +1,5 @@
 import { apiSlice } from "../../app/api/api.slice";
-import { ProgramFormInputs } from "../../components/ProgramForms/add-program-form.component";
+import { ProgramFormInputs } from "../../components/Program-forms/add-program-form.component";
 import { GetProgramsResponse, Program } from "../../types/programs.types";
 
 export const programsApiSlice = apiSlice.injectEndpoints({

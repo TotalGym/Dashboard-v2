@@ -7,7 +7,7 @@ import {
 } from "./programs-management.styles";
 import { useEffect, useState } from "react";
 import Modal from "../../components/modal/modal.component";
-import AddProgramForm from "../../components/ProgramForms/add-program-form.component";
+import AddProgramForm from "../../components/Program-forms/add-program-form.component";
 import { ButtonTypes } from "../../components/button/button.types";
 
 const ProgramsManagement = () => {

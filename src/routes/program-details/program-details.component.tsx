@@ -8,7 +8,7 @@ import { useState } from "react";
 import Modal from "../../components/modal/modal.component";
 import { StyledConfirmDeleteText } from "./program-details.styles";
 import { toast } from "react-toastify";
-import EditProgramForm from "../../components/ProgramForms/edit-program-form.component";
+import EditProgramForm from "../../components/Program-forms/edit-program-form.component";
 
 const ProgramDetails = () => {
   const location = useLocation();

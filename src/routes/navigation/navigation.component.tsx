@@ -15,7 +15,7 @@ import {
 const routes = [
   { name: "DASHBOARD", path: "/" },
   { name: "TRAINEE", path: "trainees" },
-  { name: "EQUIPMENT", path: "equipment" },
+  { name: "EQUIPMENT", path: "equipment/1" },
   { name: "PROGRAMS", path: "programs/1" },
   { name: "SALES", path: "sales" },
   { name: "STAFF", path: "staff" },
@@ -33,7 +33,9 @@ const Navigation = () => {
           const isActive =
             location.pathname === route.path ||
             (route.name === "PROGRAMS" &&
-              location.pathname.startsWith("/programs"));
+              location.pathname.startsWith("/programs")) ||
+            (route.name === "EQUIPMENT" &&
+              location.pathname.startsWith("/equipment"));
 
           return (
             <StyledNavigationListItem key={index}>

@@ -35,4 +35,12 @@ export type GetProgramsResponse = {
   totalCount: number;
   page: number;
   limit: number;
+  next?: {
+    page: number;
+    limit: number;
+  };
+  previous?: {
+    page: number;
+    limit: number;
+  };
 };
