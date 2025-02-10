@@ -9,6 +9,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { ButtonTypes } from "../../components/button/button.types";
+import { ToastContainer } from "react-toastify";
 
 const EquipmentManagement = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const EquipmentManagement = () => {
 
   return (
     <>
+      <ToastContainer />
       <Button onClick={() => setIsModalOpen(true)}>Add New Equipment</Button>
       <div
         style={{

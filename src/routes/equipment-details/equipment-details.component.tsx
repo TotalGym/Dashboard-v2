@@ -25,19 +25,19 @@ const EquipmentDetails = () => {
   const [deleteEquipment, { isLoading: isDeleting }] =
     useDeleteEquipmentMutation();
 
-  const handleDelete = async (programID: string) => {
+  const handleDelete = async (equipmentID: string) => {
     try {
-      const response = await deleteEquipment(programID).unwrap();
-      if (response.message === `${equipment?.name} deleted successfully`) {
+      await deleteEquipment(equipmentID).unwrap();
+
+      navigate(`/equipment/${from}`, { replace: true });
+
+      setTimeout(() => {
         toast.success("Equipment Successfully Deleted", {
           position: "top-right",
           closeOnClick: true,
           draggable: true,
         });
-        setTimeout(() => {
-          navigate(`/equipment/${from}`, { replace: true });
-        }, 1500);
-      }
+      }, 500);
     } catch (err) {
       if (err) {
         toast.error("something went wrong", {
