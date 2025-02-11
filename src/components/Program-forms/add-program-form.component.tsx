@@ -92,12 +92,12 @@ const AddProgramForm = ({
         toast.success("Program Added Successfully", {
           position: "top-right",
           closeOnClick: true,
-          draggable: true,
+          autoClose: 1000,
         });
         reset();
         setTimeout(() => {
           toggleModalOpen(false);
-        }, 1500);
+        }, 1000);
       }
     } catch (error) {
       if (error) {

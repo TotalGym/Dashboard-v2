@@ -1,8 +1,9 @@
 export enum Roles {
+  Admin = "Admin",
+  SuperAdmin = "SuperAdmin",
   Coach = "Coach",
   EquipmentManager = "EquipmentManager",
   SalesManager = "SalesManager",
-  SuperAdmin = "SuperAdmin",
 }
 
 export type RecentlyAttendingStaff = {

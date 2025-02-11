@@ -19,17 +19,19 @@ const ProgramDetails = () => {
   const { programName } = useParams();
   const navigate = useNavigate();
   const {
-    data: program,
+    data: programData,
     isLoading,
     isError,
   } = useGetProgramByNameQuery({ programName });
+
+  const program = programData?.data;
 
   const [deleteProgram, { isLoading: isDeleting }] = useDeleteProgramMutation();
 
   const handleDelete = async (programID: string) => {
     try {
       await deleteProgram(programID).unwrap();
-      
+
       navigate(`/programs/${from}`, { replace: true });
 
       setTimeout(() => {

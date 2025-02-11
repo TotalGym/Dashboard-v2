@@ -1,21 +1,25 @@
 import { apiSlice } from "../../app/api/api.slice";
 import { EquipmentFormInputs } from "../../components/equipment-forms/add-equipment-form";
-import { Equipment, GetEquipmentResponse } from "../../types/equipment";
+import {
+  DeleteEquipmentResponse,
+  GetAddUpdateEquipment,
+  GetAllEquipment,
+} from "../../types/response.types";
 
 export const equipmentApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllEquipment: builder.query<
-      GetEquipmentResponse,
+      GetAllEquipment,
       { page: number; limit: number }
     >({
       query: ({ page, limit }) => `/equipment?page=${page}&limit=${limit}`,
       providesTags: ["Equipment"],
     }),
-    getEquipmentById: builder.query<Equipment, { id?: string }>({
+    getEquipmentById: builder.query<GetAddUpdateEquipment, { id?: string }>({
       query: ({ id }) => `/equipment/${id}`,
       providesTags: ["Equipment"],
     }),
-    addEquipment: builder.mutation<Equipment, EquipmentFormInputs>({
+    addEquipment: builder.mutation<GetAddUpdateEquipment, EquipmentFormInputs>({
       query: (equipmentData) => ({
         url: "/equipment",
         method: "POST",
@@ -23,7 +27,7 @@ export const equipmentApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Equipment"],
     }),
-    deleteEquipment: builder.mutation<{ message: string }, string>({
+    deleteEquipment: builder.mutation<DeleteEquipmentResponse, string>({
       query: (equipmentID) => ({
         url: `/equipment/${equipmentID}`,
         method: "DELETE",
@@ -37,5 +41,5 @@ export const {
   useGetAllEquipmentQuery,
   useGetEquipmentByIdQuery,
   useDeleteEquipmentMutation,
-  useAddEquipmentMutation
+  useAddEquipmentMutation,
 } = equipmentApiSlice;

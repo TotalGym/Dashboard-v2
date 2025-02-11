@@ -17,10 +17,11 @@ const EquipmentDetails = () => {
   const { equipmentId } = useParams();
   const from = location.state?.from;
   const {
-    data: equipment,
+    data: equipmentData,
     isLoading,
     isError,
   } = useGetEquipmentByIdQuery({ id: equipmentId });
+  const equipment = equipmentData?.data;
 
   const [deleteEquipment, { isLoading: isDeleting }] =
     useDeleteEquipmentMutation();

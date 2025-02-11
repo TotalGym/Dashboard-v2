@@ -30,7 +30,7 @@ export type Program = {
   createdAt: Date;
 };
 
-export type GetProgramsResponse = {
+export type ProgramsResponse = {
   results: Program[];
   totalCount: number;
   page: number;

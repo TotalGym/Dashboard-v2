@@ -55,9 +55,9 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     try {
       const response = await login(data).unwrap();
-      if (response.token && response.userData) {
-        dispatch(setCredentials(response.token));
-        dispatch(setUserData(response.userData));
+      if (response.success && response.data) {
+        dispatch(setCredentials(response.data.token));
+        dispatch(setUserData(response.data.userData));
       }
       reset();
     } catch (error) {

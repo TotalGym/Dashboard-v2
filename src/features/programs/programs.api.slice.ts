@@ -1,6 +1,11 @@
 import { apiSlice } from "../../app/api/api.slice";
 import { ProgramFormInputs } from "../../components/Program-forms/add-program-form.component";
-import { GetProgramsResponse, Program } from "../../types/programs.types";
+import { Program } from "../../types/programs.types";
+import {
+  DeleteProgramResponse,
+  GetAddUpdateProgramResponse,
+  GetProgramsResponse,
+} from "../../types/response.types";
 
 export const programsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,11 +16,17 @@ export const programsApiSlice = apiSlice.injectEndpoints({
       query: ({ page, limit }) => `/programs?page=${page}&limit=${limit}`,
       providesTags: ["Programs"],
     }),
-    getProgramByName: builder.query<Program, { programName?: string }>({
+    getProgramByName: builder.query<
+      GetAddUpdateProgramResponse,
+      { programName?: string }
+    >({
       query: ({ programName }) => `/programs/program/${programName}`,
       providesTags: ["Programs"],
     }),
-    addProgram: builder.mutation<Program, ProgramFormInputs>({
+    addProgram: builder.mutation<
+      GetAddUpdateProgramResponse,
+      ProgramFormInputs
+    >({
       query: (programData) => ({
         url: "/programs",
         method: "POST",
@@ -24,8 +35,8 @@ export const programsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Programs"],
     }),
     updateProgram: builder.mutation<
-      Program,
-      { programID: string; updatedFields: unknown }
+      GetAddUpdateProgramResponse,
+      { programID: string; updatedFields: Partial<Program> }
     >({
       query: ({ programID, updatedFields }) => ({
         url: `programs/${programID}`,
@@ -34,7 +45,7 @@ export const programsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Programs"],
     }),
-    deleteProgram: builder.mutation<{ message: string }, string>({
+    deleteProgram: builder.mutation<DeleteProgramResponse, string>({
       query: (programID) => ({
         url: `/programs/${programID}`,
         method: "DELETE",

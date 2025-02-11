@@ -18,7 +18,11 @@ const EquipmentManagement = () => {
   const { equipmentPage } = useParams();
   const pageNumber = Number(equipmentPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, isLoading, isError } = useGetAllEquipmentQuery({
+  const {
+    data: equipments,
+    isLoading,
+    isError,
+  } = useGetAllEquipmentQuery({
     limit: 10,
     page: pageNumber,
   });
@@ -29,14 +33,14 @@ const EquipmentManagement = () => {
 
   if (isError) return <p>Something went wrong</p>;
 
-  const numberOfPages = Math.ceil((data?.totalCount || 0) / 10);
+  const numberOfPages = Math.ceil((equipments?.data.totalCount || 0) / 10);
 
   const pagesArray = Array.from(
     { length: numberOfPages },
     (_, index) => index + 1
   );
 
-  if (data?.results.length === 0) {
+  if (equipments?.data.results.length === 0) {
     return <Navigate to={"/equipment/1"} replace />;
   }
 
@@ -60,7 +64,7 @@ const EquipmentManagement = () => {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          data?.results.map((equipment) => (
+          equipments?.data.results.map((equipment) => (
             <div
               key={equipment._id}
               style={{

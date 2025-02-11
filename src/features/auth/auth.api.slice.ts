@@ -1,18 +1,17 @@
 import { apiSlice } from "../../app/api/api.slice";
 import { LoginInputs } from "../../components/Auth/login-form/login-form.component";
-import { AuthUserData } from "../../types/staff.types";
-import { AuthState } from "./auth.slice";
+import { GetUserDataResponse, LoginResponse } from "../../types/response.types";
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<AuthState, LoginInputs>({
+    login: builder.mutation<LoginResponse, LoginInputs>({
       query: (credentials) => ({
         url: "/auth/login",
         method: "POST",
         body: credentials,
       }),
     }),
-    getUserData: builder.query<AuthUserData, void>({
+    getUserData: builder.query<GetUserDataResponse, void>({
       query: () => "/auth/user",
     }),
   }),

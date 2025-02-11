@@ -6,7 +6,11 @@ const ProgramgsPage = () => {
   const { programsPage } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useGetProgramsQuery({
+  const {
+    data: programs,
+    isLoading,
+    isError,
+  } = useGetProgramsQuery({
     page: Number(programsPage),
     limit: 3,
   });
@@ -18,7 +22,7 @@ const ProgramgsPage = () => {
       </p>
     );
 
-  if (data?.results.length === 0) {
+  if (programs?.data.results.length === 0) {
     return <Navigate to={"/programs/1"} replace />;
   }
 
@@ -27,7 +31,7 @@ const ProgramgsPage = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        data?.results.map((program) => (
+        programs?.data.results.map((program) => (
           <div
             key={program._id}
             onClick={() =>

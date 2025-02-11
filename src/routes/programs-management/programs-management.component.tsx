@@ -17,11 +17,16 @@ const ProgramsManagement = () => {
   const limit = 3;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { data, isLoading, isError, isFetching } = useGetProgramsQuery({
+  const {
+    data: programs,
+    isLoading,
+    isError,
+    isFetching,
+  } = useGetProgramsQuery({
     page,
     limit,
   });
-  const totalPages = Math.ceil((data?.totalCount || 0) / limit);
+  const totalPages = Math.ceil((programs?.data.totalCount || 0) / limit);
 
   useEffect(() => {
     setPage(Number(programsPage) || 1);
