@@ -1,8 +1,6 @@
 import { ReactNode } from "react";
 import ReactDOM from "react-dom";
 
-import { ToastContainer } from "react-toastify";
-
 import Button from "../button/button.component";
 import { ButtonTypes } from "../button/button.types";
 
@@ -24,7 +22,6 @@ const Modal = ({ open, closeModal, title, children }: ModalProps) => {
 
   return ReactDOM.createPortal(
     <>
-      <ToastContainer />
       <ModalOverLay />
       <ModalContainer>
         <ModalTitle>{title}</ModalTitle>
