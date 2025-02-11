@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import { ButtonTypes } from "../../components/button/button.types";
 import { ToastContainer } from "react-toastify";
+import AddEquipmentForm from "../../components/equipment-forms/add-equipment-form";
 
 const EquipmentManagement = () => {
   const navigate = useNavigate();
@@ -42,7 +43,6 @@ const EquipmentManagement = () => {
   return (
     <>
       <ToastContainer />
-      //todo: handle equipment addition
       <Button onClick={() => setIsModalOpen(true)}>Add New Equipment</Button>
       <div
         style={{
@@ -55,7 +55,7 @@ const EquipmentManagement = () => {
           closeModal={() => setIsModalOpen(false)}
           title="Add New Equipment"
         >
-          ADD new Equipment
+          <AddEquipmentForm toggleModalOpen={setIsModalOpen} />
         </Modal>
         {isLoading ? (
           <p>Loading...</p>

@@ -80,3 +80,19 @@ export const addNewProgramSchema = yup.object().shape({
     .max(7, "You can add up to 7 schedules")
     .default([]),
 });
+
+export const addNewEquipmentSchema = yup.object().shape({
+  name: yup.string().trim().required("Name Is Required"),
+  type: yup.string().trim().required("Type Is Required"),
+  image: yup
+    .string()
+    .trim()
+    .url("Invalid image URL")
+    .required("Image URL is required"),
+  quantity: yup
+    .number()
+    .typeError("Quantity is Required")
+    .positive("Quantity must be a positive number")
+    .required("Quantity is required"),
+  status: yup.string().required("Status Is Required"),
+});
