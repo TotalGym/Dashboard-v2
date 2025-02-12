@@ -47,7 +47,7 @@ const Router = () => {
           />
           <Route path="staff" element={<StaffManagement />} />
           <Route
-            path="reports-and-analytics"
+            path="reports"
             element={<ReportsAndAnalytics />}
           />
         </Route>

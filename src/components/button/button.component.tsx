@@ -22,6 +22,7 @@ export type ButtonProps = {
   buttonType?: ButtonTypes;
   width?: string;
   redColored?: boolean;
+  className?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
@@ -30,11 +31,17 @@ const Button = ({
   buttonType,
   width,
   redColored,
+  className,
   ...otherProps
 }: ButtonProps) => {
   const SelectedButton = getButton(buttonType);
   return (
-    <SelectedButton {...otherProps} $width={width} $redColored={redColored}>
+    <SelectedButton
+      {...otherProps}
+      $width={width}
+      $redColored={redColored}
+      className={className}
+    >
       {buttonType === ButtonTypes.closeModal ? <CloseIcon /> : null}
       {isLoading ? "loading..." : children}
     </SelectedButton>

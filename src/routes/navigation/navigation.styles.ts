@@ -11,6 +11,12 @@ export const NavigationContainer = styled.div`
   justify-content: space-evenly;
   padding-top: 0.5em;
   height: 80px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    .hide-from-nav-bar {
+      display: none;
+    }
+  }
 `;
 
 export const StyledNavigationList = styled.ul`
@@ -21,6 +27,10 @@ export const StyledNavigationList = styled.ul`
 
 export const StyledNavigationListItem = styled.li`
   ${MediumBold}
+
+  @media(max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    display: none;
+  }
 `;
 
 export const StyledNavigationNavLink = styled(NavLink)`
@@ -79,5 +89,11 @@ export const BellIconContainer = styled.div`
 
   &::after {
     right: -10px;
+  }
+`;
+
+export const HideLogoSpan = styled.span`
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    display: none;
   }
 `;

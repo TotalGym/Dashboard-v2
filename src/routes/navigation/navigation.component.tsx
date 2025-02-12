@@ -10,7 +10,9 @@ import {
   StyledNavigationListItem,
   StyledNavigationNavLink,
   BellIconAndProfileContainer,
+  HideLogoSpan,
 } from "./navigation.styles";
+import HamburgerMenu from "../../components/hamburger-menu/hamburger-menu.component";
 
 const routes = [
   { name: "DASHBOARD", path: "/" },
@@ -19,7 +21,7 @@ const routes = [
   { name: "PROGRAMS", path: "programs/1" },
   { name: "SALES", path: "sales" },
   { name: "STAFF", path: "staff" },
-  { name: "REPORTS & ANALYTICS", path: "reports-and-analytics" },
+  { name: "REPORTS", path: "reports" },
 ];
 
 const Navigation = () => {
@@ -27,7 +29,10 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      <Logo routable />
+      <HamburgerMenu />
+      <HideLogoSpan>
+        <Logo routable />
+      </HideLogoSpan>
       <StyledNavigationList>
         {routes.map((route, index) => {
           const isActive =
@@ -49,7 +54,7 @@ const Navigation = () => {
           );
         })}
       </StyledNavigationList>
-      <Button>ADD NEW TRAINEE</Button>
+      <Button className="hide-from-nav-bar">ADD NEW TRAINEE</Button>
       <BellIconAndProfileContainer>
         <BellIconContainer>
           <BellIcon />
