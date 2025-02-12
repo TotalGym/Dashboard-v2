@@ -94,5 +94,8 @@ export const addNewEquipmentSchema = yup.object().shape({
     .typeError("Quantity is Required")
     .positive("Quantity must be a positive number")
     .required("Quantity is required"),
-  status: yup.string().required("Status Is Required"),
+  status: yup
+    .mixed<"Available" | "Under Maintenance">()
+    .oneOf(["Available", "Under Maintenance"],"status is required")
+    .required("Status is required"),
 });

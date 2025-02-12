@@ -8,11 +8,11 @@ import {
   StyledStatusSelect,
 } from "./equipment-forms.styles";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { addNewEquipmentSchema } from "../../utils/yup/yup.utils";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { MessagedError } from "../../types/error.types";
-import { useAddEquipmentMutation } from "../../features/equipment/equipment.api.slice";
+import { useUpdateEquipmentMutation } from "../../features/equipment/equipment.api.slice";
+import { addNewEquipmentSchema } from "../../utils/yup/yup.utils";
+import { Equipment } from "../../types/equipment";
 
 export type EquipmentFormInputs = {
   name: string;
@@ -22,44 +22,47 @@ export type EquipmentFormInputs = {
   status: "Available" | "Under Maintenance";
 };
 
-const AddEquipmentForm = ({
-  toggleModalOpen,
-}: {
+type EditEquipmentFormProps = {
+  equipment: Equipment;
   toggleModalOpen: (close: boolean) => void;
-}) => {
-  const [addEquipment, { isLoading }] = useAddEquipmentMutation();
+};
+
+const EditEquipmentForm = ({
+  equipment,
+  toggleModalOpen,
+}: EditEquipmentFormProps) => {
+  const [updateEquipment, { isLoading }] = useUpdateEquipmentMutation();
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<EquipmentFormInputs>({
+    defaultValues: equipment,
     resolver: yupResolver(addNewEquipmentSchema),
   });
 
   const onSubmit: SubmitHandler<EquipmentFormInputs> = async (data) => {
+    const updatedData: Partial<Equipment> = {};
+    if (data.name !== equipment.name) updatedData.name = data.name;
+    if (data.type !== equipment.type) updatedData.type = data.type;
+    if (data.quantity !== equipment.quantity)
+      updatedData.quantity = data.quantity;
+    if (data.image !== equipment.image) updatedData.image = data.image;
+    if (data.status !== equipment.status) updatedData.status = data.status;
+
     try {
-      const response = await addEquipment(data).unwrap();
+      const response = await updateEquipment({
+        equipmentID: equipment._id,
+        updatedFields: updatedData,
+      }).unwrap();
       if (response) {
-        toast.success("Equipment Added Successfully", {
-          position: "top-right",
-          closeOnClick: true,
-          draggable: true,
-        });
-        reset();
-        setTimeout(() => {
-          toggleModalOpen(false);
-        }, 1000);
+        toast.success("Equipment updated successfully");
       }
+      setTimeout(() => toggleModalOpen(false), 1000);
     } catch (error) {
-      if (error) {
-        toast.error("something went wrong", {
-          position: "top-right",
-          hideProgressBar: true,
-          closeOnClick: true,
-          draggable: true,
-        });
-      }
+      if (error) toast.error("Failed to update equipment details");
+      reset(equipment);
     }
   };
 
@@ -73,22 +76,6 @@ const AddEquipmentForm = ({
             hideProgressBar: true,
             closeOnClick: true,
             draggable: true,
-          });
-        }
-
-        if (Array.isArray(error)) {
-          error.forEach((subErrors) => {
-            const subErrorsArray = Object.values(subErrors) as MessagedError[];
-            subErrorsArray.forEach((subError) => {
-              if (subError) {
-                toast.error(subError.message, {
-                  position: "top-right",
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  draggable: true,
-                });
-              }
-            });
           });
         }
       });
@@ -110,7 +97,7 @@ const AddEquipmentForm = ({
         />
         <FormInput
           formInputType={FormInputTypes.modalInput}
-          placeholder="ImageURL"
+          placeholder="Image URL"
           {...register("image")}
         />
         <FormInput
@@ -126,11 +113,12 @@ const AddEquipmentForm = ({
           <option value="Available">Available</option>
           <option value="Under Maintenance">Under Maintenance</option>
         </StyledStatusSelect>
-        <Button type="submit" isLoading={isLoading}>
-          Add Equipment
+        <Button type="submit" isLoading={isLoading} disabled={!isDirty}>
+          Update Equipment
         </Button>
       </StyledEquipmentsForm>
     </EquipmentsFormContainer>
   );
 };
-export default AddEquipmentForm;
+
+export default EditEquipmentForm;

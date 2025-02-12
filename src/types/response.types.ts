@@ -1,4 +1,4 @@
-import { Equipment, GetEquipmentResponse } from "./equipment.types";
+import { Equipment, GetEquipmentResponse } from "./equipment";
 import { Program, ProgramsResponse } from "./programs.types";
 import { Roles } from "./staff.types";
 

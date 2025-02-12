@@ -7,13 +7,17 @@ import Button from "../../components/button/button.component";
 import { useState } from "react";
 import Modal from "../../components/modal/modal.component";
 import { StyledConfirmDeleteText } from "../program-details/program-details.styles";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import EditEquipmentForm from "../../components/equipment-forms/edit-equipment-form";
 
 const EquipmentDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     useState(false);
+  const [isEditEquipmentModalOpen, setIsEditEquipmentModalOpen] =
+    useState(false);
+
   const { equipmentId } = useParams();
   const from = location.state?.from;
   const {
@@ -57,11 +61,22 @@ const EquipmentDetails = () => {
 
   return (
     <>
+      <ToastContainer />
       <Button onClick={() => navigate(`/equipment/${from}`)}>
         Back to All Equipment
       </Button>
-      //todo: handle equipment edit
-      <Button>Edit Equipment Details</Button>
+      <Button onClick={() => setIsEditEquipmentModalOpen(true)}>
+        Edit Equipment Details
+      </Button>
+      <Modal
+        open={isEditEquipmentModalOpen}
+        closeModal={() => setIsEditEquipmentModalOpen(false)}
+      >
+        <EditEquipmentForm
+          toggleModalOpen={setIsEditEquipmentModalOpen}
+          equipment={equipment}
+        />
+      </Modal>
       <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
         Delete Equipment
       </Button>

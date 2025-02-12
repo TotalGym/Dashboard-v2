@@ -38,14 +38,14 @@ const cardsInfo = [
     number: "4",
     text: "DEVICES NEEDING MAINTENANCE",
     icon: <EquipmentIcon />,
-    route: "/equipment",
+    route: "/equipment/1",
   },
   {
     number: "24",
     text: "TOTAL PROGRAMS",
     icon: <ProgramsIcon />,
     switched: true,
-    route: "/programs",
+    route: "/programs/1",
   },
 ];
 

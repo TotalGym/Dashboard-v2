@@ -1,5 +1,6 @@
 import { apiSlice } from "../../app/api/api.slice";
 import { EquipmentFormInputs } from "../../components/equipment-forms/add-equipment-form";
+import { Equipment } from "../../types/equipment";
 import {
   DeleteEquipmentResponse,
   GetAddUpdateEquipment,
@@ -27,6 +28,17 @@ export const equipmentApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Equipment"],
     }),
+    updateEquipment: builder.mutation<
+      GetAddUpdateEquipment,
+      { equipmentID: string; updatedFields: Partial<Equipment> }
+    >({
+      query: ({ equipmentID, updatedFields }) => ({
+        url: `equipment/${equipmentID}`,
+        method: "PUT",
+        body: updatedFields,
+      }),
+      invalidatesTags: ["Equipment"],
+    }),
     deleteEquipment: builder.mutation<DeleteEquipmentResponse, string>({
       query: (equipmentID) => ({
         url: `/equipment/${equipmentID}`,
@@ -42,4 +54,5 @@ export const {
   useGetEquipmentByIdQuery,
   useDeleteEquipmentMutation,
   useAddEquipmentMutation,
+  useUpdateEquipmentMutation,
 } = equipmentApiSlice;
