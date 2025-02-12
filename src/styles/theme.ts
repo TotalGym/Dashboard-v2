@@ -12,9 +12,9 @@ const theme: DefaultTheme = {
   },
 
   breakpoints: {
-    sm: "580px",
-    md: "925px",
-    lg: "1024px",
+    sm: "400px",
+    md: "1000px",
+    lg: "1320px",
   },
 
   typography: {
@@ -43,20 +43,6 @@ const theme: DefaultTheme = {
       wide: "0.05em", // Slightly wide spacing
       wider: "0.1em", // Wider spacing
     },
-  },
-  grid: {
-    col1: "8.33%",
-    col2: "16.66%",
-    col3: "25%",
-    col4: "33.33%",
-    col5: "41.66%",
-    col6: "50%",
-    col7: "58.33%",
-    col8: "66.66%",
-    col9: "75%",
-    col10: "83.33%",
-    col11: "91.66%",
-    col12: "100%",
   },
 };
 

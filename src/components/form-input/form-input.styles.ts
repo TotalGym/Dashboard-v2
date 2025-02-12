@@ -6,6 +6,10 @@ export const AuthInput = styled.input`
   border: none;
   border-bottom: 1px solid #e9e9f0;
   margin-top: 2em;
+ 
+  @media(max-width: ${({theme})=>theme.breakpoints.sm}){
+    width: 250px;
+  }
 `;
 
 export const CheckboxInput = styled.input.attrs({ type: "checkbox" })``;
