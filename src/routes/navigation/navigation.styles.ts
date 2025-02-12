@@ -28,16 +28,18 @@ export const StyledNavigationNavLink = styled(NavLink)`
   text-decoration: none;
   color: ${({ theme }) => theme.colors["font-primary"]}; // Default font color
 
-  &:hover {
-    opacity: 0.7;
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &.active:hover {
+      opacity: 1;
+    }
   }
 
   &.active {
     color: ${({ theme }) => theme.colors["font-secondary"]};
-  }
-
-  &.active:hover {
-    opacity: 1;
   }
 
   &.active::after {

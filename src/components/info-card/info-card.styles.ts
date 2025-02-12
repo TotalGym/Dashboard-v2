@@ -17,9 +17,11 @@ export const InfoCardContainer = styled.div`
   cursor: pointer;
   transition: width 0.5s;
 
-  &:hover {
-    width: 500px;
-    border: 1.5px solid ${({ theme }) => theme.colors["font-secondary"]};
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    &:hover {
+      width: 500px;
+      border: 1.5px solid ${({ theme }) => theme.colors["font-secondary"]};
+    }
   }
 `;
 

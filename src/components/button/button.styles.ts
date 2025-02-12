@@ -56,8 +56,10 @@ export const CloseModalButton = styled.button`
   top: 1em;
   right: 1em;
 
-  &:hover {
-    opacity: 0.7;
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   svg {
@@ -74,10 +76,12 @@ export const PaginationButton = styled.button`
   height: 1.5em;
   ${XXXLargeFontSize}
 
-  &:not(:disabled):hover {
-    background-color: white;
-    color: ${({ theme }) => theme.colors["bg-secondary"]};
-    outline: 2px solid ${({ theme }) => theme.colors["bg-secondary"]};
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    &:not(:disabled):hover {
+      background-color: white;
+      color: ${({ theme }) => theme.colors["bg-secondary"]};
+      outline: 2px solid ${({ theme }) => theme.colors["bg-secondary"]};
+    }
   }
 
   &:disabled {

@@ -13,11 +13,13 @@ export const NotFoundContainer = styled.div`
     padding: 2em;
     border-radius: 1em;
 
-    &:hover {
-      background-color: white;
-      outline: 1px solid red;
-      text-decoration: none;
-      font-weight: bold;
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      &:hover {
+        background-color: white;
+        outline: 1px solid red;
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
   }
 `;
