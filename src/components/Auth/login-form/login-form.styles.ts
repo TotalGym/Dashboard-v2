@@ -32,8 +32,10 @@ export const StyledForgetPasswordContainer = styled.div`
 export const StyledForgetPasswordText = styled.span`
   cursor: pointer;
 
-  &:hover {
-    opacity: 0.5;
-    text-decoration: underline;
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    &:hover {
+      opacity: 0.5;
+      text-decoration: underline;
+    }
   }
 `;

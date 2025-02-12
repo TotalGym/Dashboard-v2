@@ -19,22 +19,24 @@ export const BasicButton = styled.button<{
   width: ${({ $width }) => ($width ? $width : "")};
   user-select: none;
 
-  &:not(:disabled):hover {
-    background-color: white;
-    color: ${({ theme, $redColored }) => {
-      if ($redColored) {
-        return theme.colors["font-secondary-2"];
-      }
-      return theme.colors["bg-secondary"];
-    }};
-    outline: 2px solid
-      ${({ theme, $redColored }) => {
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    &:not(:disabled):hover {
+      background-color: white;
+      color: ${({ theme, $redColored }) => {
         if ($redColored) {
           return theme.colors["font-secondary-2"];
         }
-
         return theme.colors["bg-secondary"];
       }};
+      outline: 2px solid
+        ${({ theme, $redColored }) => {
+          if ($redColored) {
+            return theme.colors["font-secondary-2"];
+          }
+
+          return theme.colors["bg-secondary"];
+        }};
+    }
   }
 
   &:disabled {
