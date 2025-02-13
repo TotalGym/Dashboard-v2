@@ -1,6 +1,6 @@
 import { apiSlice } from "../../app/api/api.slice";
 import { EquipmentFormInputs } from "../../components/equipment-forms/add-equipment-form";
-import { Equipment } from "../../types/equipment";
+import { Equipment } from "../../types/equipment..types";
 import {
   DeleteEquipmentResponse,
   GetAddUpdateEquipment,

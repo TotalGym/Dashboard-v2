@@ -17,6 +17,7 @@ import RequireAuth from "../routes/require-auth/require-auth.component";
 import ProgramDetails from "../routes/program-details/program-details.component";
 import ProgramgsPage from "../routes/programs-page/programs-page";
 import EquipmentDetails from "../routes/equipment-details/equipment-details.component";
+import ProductDetails from "../routes/product-details/product-details.component";
 
 const Router = () => {
   return (
@@ -32,12 +33,19 @@ const Router = () => {
         <Route element={<RequireAuth />}>
           <Route index element={<Home />} />
           <Route path="trainees" element={<TraineeManagement />} />
-          <Route path="equipment/:equipmentPage" element={<EquipmentManagement />} />
+          <Route
+            path="equipment/:equipmentPage"
+            element={<EquipmentManagement />}
+          />
           <Route
             path="equipmentDetails/:equipmentId"
             element={<EquipmentDetails />}
           />
-          <Route path="sales" element={<SalesManagement />} />
+          <Route path="sales/:salesPage" element={<SalesManagement />} />
+          <Route
+            path="productDetails/:productId"
+            element={<ProductDetails />}
+          />
           <Route element={<ProgramsManagement />}>
             <Route path="programs/:programsPage" element={<ProgramgsPage />} />
           </Route>
@@ -46,10 +54,7 @@ const Router = () => {
             element={<ProgramDetails />}
           />
           <Route path="staff" element={<StaffManagement />} />
-          <Route
-            path="reports"
-            element={<ReportsAndAnalytics />}
-          />
+          <Route path="reports" element={<ReportsAndAnalytics />} />
         </Route>
       </Route>
       {/* catch all */}

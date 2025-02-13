@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useUpdateEquipmentMutation } from "../../features/equipment/equipment.api.slice";
 import { addNewEquipmentSchema } from "../../utils/yup/yup.utils";
-import { Equipment } from "../../types/equipment";
+import { Equipment } from "../../types/equipment..types";
 
 export type EquipmentFormInputs = {
   name: string;

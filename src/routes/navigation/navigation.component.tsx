@@ -19,7 +19,7 @@ const routes = [
   { name: "TRAINEE", path: "trainees" },
   { name: "EQUIPMENT", path: "equipment/1" },
   { name: "PROGRAMS", path: "programs/1" },
-  { name: "SALES", path: "sales" },
+  { name: "SALES", path: "sales/1" },
   { name: "STAFF", path: "staff" },
   { name: "REPORTS", path: "reports" },
 ];

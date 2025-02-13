@@ -71,6 +71,7 @@ const EquipmentDetails = () => {
       <Modal
         open={isEditEquipmentModalOpen}
         closeModal={() => setIsEditEquipmentModalOpen(false)}
+        title="Edit Equipment Details"
       >
         <EditEquipmentForm
           toggleModalOpen={setIsEditEquipmentModalOpen}

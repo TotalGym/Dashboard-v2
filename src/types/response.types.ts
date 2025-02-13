@@ -1,4 +1,5 @@
-import { Equipment, GetEquipmentResponse } from "./equipment";
+import { Equipment, GetEquipmentResponse } from "./equipment..types";
+import { GetProductsResponse, Product } from "./products.types";
 import { Program, ProgramsResponse } from "./programs.types";
 import { Roles } from "./staff.types";
 
@@ -61,4 +62,16 @@ export type HomeDataResponse = UnifiedResponse & {
     totalPrograms: number;
     programs: { _id: string; programName: string }[];
   };
+};
+
+export type GetAllProductsResponse = UnifiedResponse & {
+  data: GetProductsResponse;
+};
+
+export type GetAddUpdateProduct = UnifiedResponse & {
+  data: Product;
+};
+
+export type DeleteProductResponse = UnifiedResponse & {
+  data: null;
 };
