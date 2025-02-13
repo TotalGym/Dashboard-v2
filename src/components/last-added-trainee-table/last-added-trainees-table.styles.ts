@@ -15,6 +15,10 @@ export const LastAddedTraineesTableContainer = styled.div`
   padding: 2em;
   border-radius: 1em;
 
+  @media (max-width: 1100px) {
+    width: 800px;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 780px;
   }
