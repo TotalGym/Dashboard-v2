@@ -10,7 +10,7 @@ export const StyledSpanToHideBurger = styled.span`
   }
 `;
 
-export const HamburgerMenuContainer = styled.div`
+export const HamburgerMenuContainer = styled.div<{ $open: boolean }>`
   ${CenteredColFlexContainer}
   justify-content: space-evenly;
   position: absolute;
@@ -21,8 +21,11 @@ export const HamburgerMenuContainer = styled.div`
   height: 100vh;
   width: 500px;
 
-  @media(max-width: ${({theme})=>theme.breakpoints.sm}){
-    width: 50vw;
+  transform: ${({ $open }) => ($open ? "translateX(0)" : "translateX(-100%)")};
+  transition: transform 0.3s ease-in-out;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 100vw;
   }
 `;
 

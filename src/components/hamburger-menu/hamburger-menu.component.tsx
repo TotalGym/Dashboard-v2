@@ -5,6 +5,7 @@ import {
   StyledHamburgerNavLink,
   StyledSpanToHideBurger,
 } from "./hamburger-menu.styles";
+import { useLocation } from "react-router-dom";
 
 const routes = [
   { name: "DASHBOARD", path: "/" },
@@ -17,52 +18,59 @@ const routes = [
 ];
 
 const HamburgerMenu = () => {
+  const location = useLocation();
   const [open, setOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
 
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [open]);
+  }, []);
 
   return (
     <StyledSpanToHideBurger>
-      <Hamburger toggle={setOpen} toggled={open} />
-      {open && (
-        <HamburgerMenuContainer ref={menuRef}>
-          {routes.map((route) => {
-            const isActive =
-              location.pathname === route.path ||
-              (route.name === "PROGRAMS" &&
-                location.pathname.startsWith("/programs")) ||
-              (route.name === "EQUIPMENT" &&
-                location.pathname.startsWith("/equipment"));
-            return (
-              <StyledHamburgerNavLink
-                to={route.path}
-                className={isActive ? "active" : ""}
-                onClick={() => setOpen(false)}
-                key={route.name}
-              >
-                {route.name}
-              </StyledHamburgerNavLink>
-            );
-          })}
-        </HamburgerMenuContainer>
-      )}
+      <button ref={buttonRef} style={{ all: "unset" }}>
+        <Hamburger toggled={open} toggle={() => setOpen((prev) => !prev)} />
+      </button>
+
+      <HamburgerMenuContainer ref={menuRef} $open={open}>
+        {routes.map((route) => {
+          const isActive =
+            location.pathname === route.path ||
+            (route.name === "PROGRAMS" &&
+              location.pathname.startsWith("/programs")) ||
+            (route.name === "EQUIPMENT" &&
+              location.pathname.startsWith("/equipment"));
+          return (
+            <StyledHamburgerNavLink
+              to={route.path}
+              className={isActive ? "active" : ""}
+              onClick={() => setOpen(false)}
+              key={route.name}
+            >
+              {route.name}
+            </StyledHamburgerNavLink>
+          );
+        })}
+      </HamburgerMenuContainer>
     </StyledSpanToHideBurger>
   );
 };
