@@ -96,6 +96,21 @@ export const addNewEquipmentSchema = yup.object().shape({
     .required("Quantity is required"),
   status: yup
     .mixed<"Available" | "Under Maintenance">()
-    .oneOf(["Available", "Under Maintenance"],"status is required")
+    .oneOf(["Available", "Under Maintenance"], "status is required")
     .required("Status is required"),
+});
+
+export const addNewProductSchema = yup.object().shape({
+  productName: yup.string().trim().required("Name is Required"),
+  description: yup.string().trim().required("Description is Required"),
+  image: yup
+    .string()
+    .trim()
+    .url("Invalid image URL")
+    .required("Image URL is required"),
+  inventoryCount: yup
+    .number()
+    .typeError("Quantity is Required")
+    .positive("Quantity must be a positive number")
+    .required("Quantity is required"),
 });
