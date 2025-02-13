@@ -17,11 +17,28 @@ export const InfoCardContainer = styled.div`
   cursor: pointer;
   transition: width 0.5s;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     &:hover {
       width: 500px;
       border: 1.5px solid ${({ theme }) => theme.colors["font-secondary"]};
     }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}){
+    width: 400px;
+
+    &:hover {
+      opacity: 0.9;
+      border: 1.5px solid ${({ theme }) => theme.colors["font-secondary"]};
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}){
+    width: 380px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}){
+    width: 275px;
   }
 `;
 

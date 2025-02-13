@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {
   Bold,
+  CenteredColFlexContainer,
   CenteredFlexContainer,
   MainContentPadding,
   XLargeFontSize,
@@ -29,16 +30,39 @@ export const InfoCardsContainer = styled.div`
   ${CenteredFlexContainer}
   ${MainContentPadding}
   gap: 2em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 70%;
+    align-self: center;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    ${CenteredColFlexContainer}
+  }
 `;
 
 export const StyledHomePageChartsContainer = styled.div`
   ${MainContentPadding}
   ${CenteredFlexContainer}
   gap: 2em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-direction: column;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    display: none;
+  }
 `;
 
 export const StyledHomePageTablesContainer = styled.div`
   ${MainContentPadding}
   ${CenteredFlexContainer}
   gap: 2em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    flex-direction: column;
+  }
 `;

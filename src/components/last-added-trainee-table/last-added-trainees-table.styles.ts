@@ -14,6 +14,14 @@ export const LastAddedTraineesTableContainer = styled.div`
   background-color: white;
   padding: 2em;
   border-radius: 1em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 780px;
+  }
+
+  @media (max-width: 779px) {
+    display: none;
+  }
 `;
 
 export const StyledTableHeader = styled.h3`

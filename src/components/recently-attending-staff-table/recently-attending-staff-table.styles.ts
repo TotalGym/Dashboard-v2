@@ -15,6 +15,10 @@ export const RecentlyAttendingStaffTableContainer = styled.div`
   height: 580px;
   background-color: white;
   border-radius: 1em;
+
+  @media (max-width: 501px) {
+    display: none;
+  }
 `;
 
 export const RecentlyAttendingStaffTableRow = styled.div`
