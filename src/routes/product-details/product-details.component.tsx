@@ -108,6 +108,7 @@ const ProductDetails = () => {
         <img src={product.image} alt="product-image" width={500} height={500} />
         <p>{product.productName}</p>
         <p>{product.inventoryCount}</p>
+        <p>{product.description}</p>
       </div>
     </>
   );

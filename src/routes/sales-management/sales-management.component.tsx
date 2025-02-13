@@ -75,6 +75,7 @@ const SalesManagement = () => {
             >
               <p>{product.productName}</p>
               <p>{product.inventoryCount}</p>
+              <p>{product.description}</p>
               <img
                 src={product.image}
                 alt="equipment-image"
