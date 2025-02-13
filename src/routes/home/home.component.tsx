@@ -19,38 +19,45 @@ import MembersChart from "../../components/members-chart/members-chart.component
 import ClubEnrollmentChart from "../../components/club-enrollment-chart/club-enrollment-chart.component";
 import LastAddedTraineeTable from "../../components/last-added-trainee-table/last-added-trainees-table.component";
 import RecentlyAttendingStaffTable from "../../components/recently-attending-staff-table/recently-attending-staff-table.component";
-
-const cardsInfo = [
-  {
-    number: "38",
-    text: "TOTAL MEMBERS",
-    icon: <MembersIcon />,
-    route: "/trainees",
-  },
-  {
-    number: "16",
-    text: "PENDING PAYMENTS",
-    icon: <PaymentIcon />,
-    switched: true,
-    route: "/trainees",
-  },
-  {
-    number: "4",
-    text: "DEVICES NEEDING MAINTENANCE",
-    icon: <EquipmentIcon />,
-    route: "/equipment/1",
-  },
-  {
-    number: "24",
-    text: "TOTAL PROGRAMS",
-    icon: <ProgramsIcon />,
-    switched: true,
-    route: "/programs/1",
-  },
-];
+import { useAppSelector } from "../../app/hooks";
+import {
+  selectHomeData,
+  selectIsHomeDataLoading,
+} from "../../features/home/home.slice";
 
 const Home = () => {
   const navigate = useNavigate();
+  const homeData = useAppSelector(selectHomeData);
+  const isLoading = useAppSelector(selectIsHomeDataLoading);
+
+  const cardsInfo = [
+    {
+      number: homeData.trainees,
+      text: "TOTAL MEMBERS",
+      icon: <MembersIcon />,
+      route: "/trainees",
+    },
+    {
+      number: homeData.pendingPayments,
+      text: "PENDING PAYMENTS",
+      icon: <PaymentIcon />,
+      switched: true,
+      route: "/trainees",
+    },
+    {
+      number: homeData.underMaintenanceEquipments,
+      text: "DEVICES NEEDING MAINTENANCE",
+      icon: <EquipmentIcon />,
+      route: "/equipment/1",
+    },
+    {
+      number: homeData.totalPrograms,
+      text: "TOTAL PROGRAMS",
+      icon: <ProgramsIcon />,
+      switched: true,
+      route: "/programs/1",
+    },
+  ];
 
   return (
     <HomeContainer>
@@ -65,6 +72,7 @@ const Home = () => {
             text={info.text}
             numberColorSwitched={info.switched ? info.switched : false}
             onClick={() => navigate(info.route)}
+            isLoading={isLoading}
           >
             {info.icon}
           </InfoCard>
@@ -76,7 +84,7 @@ const Home = () => {
       </StyledHomePageChartsContainer>
       <StyledHomePageTablesContainer>
         <LastAddedTraineeTable />
-        <RecentlyAttendingStaffTable/>
+        <RecentlyAttendingStaffTable />
       </StyledHomePageTablesContainer>
     </HomeContainer>
   );

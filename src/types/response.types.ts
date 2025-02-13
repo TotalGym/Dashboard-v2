@@ -52,3 +52,13 @@ export type GetAddUpdateEquipment = UnifiedResponse & {
 export type DeleteEquipmentResponse = UnifiedResponse & {
   data: null;
 };
+
+export type HomeDataResponse = UnifiedResponse & {
+  data: {
+    trainees: number;
+    pendingPayments: number;
+    underMaintenanceEquipments: number;
+    totalPrograms: number;
+    programs: { _id: string; programName: string }[];
+  };
+};

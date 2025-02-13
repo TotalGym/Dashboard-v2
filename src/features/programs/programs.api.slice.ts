@@ -32,7 +32,7 @@ export const programsApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: programData,
       }),
-      invalidatesTags: ["Programs"],
+      invalidatesTags: ["Programs", "Home"],
     }),
     updateProgram: builder.mutation<
       GetAddUpdateProgramResponse,
@@ -50,7 +50,7 @@ export const programsApiSlice = apiSlice.injectEndpoints({
         url: `/programs/${programID}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Programs"],
+      invalidatesTags: ["Programs", "Home"],
     }),
   }),
 });

@@ -5,19 +5,28 @@ import Router from "./router/router";
 import theme from "./styles/theme";
 import { GlobalStyle } from "./styles/global.styles";
 import { ResetStyles } from "./styles/reset.styles";
-import { useAppDispatch } from "./app/hooks";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { useLazyGetUserDataQuery } from "./features/auth/auth.api.slice";
 import { useEffect } from "react";
 import { getCredentials } from "./utils/auth/auth.utils";
 import {
   logout,
+  selectUser,
   setCredentials,
   setUserData,
 } from "./features/auth/auth.slice";
+import { useGetHomeDataQuery } from "./features/home/home.api.slice";
+import {
+  setHomeData,
+  setIsHomeDataLoading,
+} from "./features/home/home.slice";
+import { setPrograms } from "./features/programs/programs.slice";
 
 function App() {
   const dispatch = useAppDispatch();
+  const userData = useAppSelector(selectUser);
   const [getUserData, { isLoading }] = useLazyGetUserDataQuery();
+  const { data: HomeData } = useGetHomeDataQuery();
 
   useEffect(() => {
     const token = getCredentials();
@@ -33,6 +42,18 @@ function App() {
         });
     }
   }, [getUserData]);
+
+  useEffect(() => {
+    if (userData) {
+      dispatch(setIsHomeDataLoading(true));
+
+      if (HomeData) {
+        dispatch(setHomeData(HomeData.data));
+        dispatch(setPrograms(HomeData.data.programs));
+        dispatch(setIsHomeDataLoading(false));
+      }
+    }
+  }, [userData, HomeData]);
 
   return (
     <>

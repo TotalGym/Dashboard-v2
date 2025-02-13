@@ -26,7 +26,7 @@ export const equipmentApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: equipmentData,
       }),
-      invalidatesTags: ["Equipment"],
+      invalidatesTags: ["Equipment", "Home"],
     }),
     updateEquipment: builder.mutation<
       GetAddUpdateEquipment,
@@ -37,14 +37,14 @@ export const equipmentApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: updatedFields,
       }),
-      invalidatesTags: ["Equipment"],
+      invalidatesTags: ["Equipment", "Home"],
     }),
     deleteEquipment: builder.mutation<DeleteEquipmentResponse, string>({
       query: (equipmentID) => ({
         url: `/equipment/${equipmentID}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Equipment"],
+      invalidatesTags: ["Equipment", "Home"],
     }),
   }),
 });

@@ -9,11 +9,12 @@ import {
 } from "./info-card.styles";
 
 type InfoCardProps = {
-  number: string;
+  number: number | null;
   text: string;
   children: ReactNode;
   onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
   numberColorSwitched?: boolean;
+  isLoading: boolean;
 };
 
 const InfoCard = ({
@@ -22,13 +23,14 @@ const InfoCard = ({
   children,
   onClick,
   numberColorSwitched = false,
+  isLoading,
 }: InfoCardProps) => {
   return (
     <InfoCardContainer onClick={onClick}>
       <div>
         <StyledNumberIcon $numberColorSwitched={numberColorSwitched}>
           <ThreeStripes />
-          <span>{number}</span>
+          {isLoading ? "loading..." : <span>{number}</span>}
         </StyledNumberIcon>
         <StyledInfoText>{text}</StyledInfoText>
       </div>
