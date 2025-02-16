@@ -9,6 +9,7 @@ import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
 import { StyledConfirmDeleteText } from "../program-details/program-details.styles";
 import EditProductForm from "../../components/product-forms/edit-product-form.component";
+import SellProductForm from "../../components/product-forms/sell-product-form.component";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const ProductDetails = () => {
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     useState(false);
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
+
+  const [isSellProductModalOpen, setIsSellProductModalOpen] = useState(false);
 
   const { productId } = useParams();
   const from = location.state?.from;
@@ -114,6 +117,16 @@ const ProductDetails = () => {
         <p>{product.inventoryCount}</p>
         <p>{product.description}</p>
       </div>
+      <Button onClick={() => setIsSellProductModalOpen(true)}>
+        Sell Product
+      </Button>
+      <Modal
+        open={isSellProductModalOpen}
+        closeModal={() => setIsSellProductModalOpen(false)}
+        title="Sell Product"
+      >
+        <SellProductForm product={product}/>
+      </Modal>
     </>
   );
 };
