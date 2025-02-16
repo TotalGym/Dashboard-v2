@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
 import { StyledConfirmDeleteText } from "../program-details/program-details.styles";
+import EditProductForm from "../../components/product-forms/edit-product-form.component";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -73,7 +74,10 @@ const ProductDetails = () => {
         closeModal={() => setIsEditProductModalOpen(false)}
         title="Edit Product Details"
       >
-        edit product details
+        <EditProductForm
+          product={product}
+          toggleModalOpen={setIsEditProductModalOpen}
+        />
       </Modal>
       <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
         Delete Product

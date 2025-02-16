@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
 import { ButtonTypes } from "../../components/button/button.types";
+import AddProductForm from "../../components/product-forms/add-product-form.component";
 
 const SalesManagement = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const SalesManagement = () => {
           closeModal={() => setIsModalOpen(false)}
           title="Add New Product"
         >
-          add new product
+          <AddProductForm toggleModalOpen={setIsModalOpen} />
         </Modal>
         {isLoading ? (
           <p>Loading...</p>

@@ -1,4 +1,6 @@
 import { apiSlice } from "../../app/api/api.slice";
+import { ProductFormInputs } from "../../components/product-forms/add-product-form.component";
+import { Product } from "../../types/products.types";
 import {
   DeleteProductResponse,
   GetAddUpdateProduct,
@@ -18,6 +20,25 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       query: ({ id }) => `/store/${id}`,
       providesTags: ["Products"],
     }),
+    addProduct: builder.mutation<GetAddUpdateProduct, ProductFormInputs>({
+      query: (productData) => ({
+        url: `/store`,
+        method: "POST",
+        body: productData,
+      }),
+      invalidatesTags: ["Products"],
+    }),
+    updateProduct: builder.mutation<
+      GetAddUpdateProduct,
+      { productId: string; updatedFields: Partial<Product> }
+    >({
+      query: ({ productId, updatedFields }) => ({
+        url: `store/${productId}`,
+        method: "PUT",
+        body: updatedFields,
+      }),
+      invalidatesTags: ["Products"],
+    }),
     deleteProduct: builder.mutation<DeleteProductResponse, string>({
       query: (productId) => ({
         url: `/store/${productId}`,
@@ -32,4 +53,6 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useDeleteProductMutation,
+  useAddProductMutation,
+  useUpdateProductMutation,
 } = productsApiSlice;
