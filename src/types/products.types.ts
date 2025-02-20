@@ -4,6 +4,7 @@ export type Product = {
   image: string;
   inventoryCount: number;
   createdAt: Date;
+  totalRevenue?: number;
   description: string;
 };
 

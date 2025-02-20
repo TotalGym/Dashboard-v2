@@ -1,14 +1,18 @@
 import styled from "styled-components";
-import { CenteredColFlexContainer } from "../../styles/general.styles";
+import {
+  CenteredColFlexContainer,
+  MainContentPadding,
+} from "../../styles/general.styles";
 
 export const ProgramsManagementContainer = styled.div`
   ${CenteredColFlexContainer}
-  height: calc(100vh - 160px);
+  ${MainContentPadding}
+  min-height: calc(100vh - 160px);
+  justify-content: space-between;
 `;
 
-export const StyledProgramsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+export const StyledPaginationContainer = styled.div`
+  margin-top: 5em;
 `;
 
 export const StyledPaginationSpan = styled.span`

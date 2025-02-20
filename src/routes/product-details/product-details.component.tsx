@@ -116,6 +116,7 @@ const ProductDetails = () => {
         <p>{product.productName}</p>
         <p>{product.inventoryCount}</p>
         <p>{product.description}</p>
+        <p>Revenue {product.totalRevenue}</p>
       </div>
       <Button onClick={() => setIsSellProductModalOpen(true)}>
         Sell Product
@@ -125,7 +126,7 @@ const ProductDetails = () => {
         closeModal={() => setIsSellProductModalOpen(false)}
         title="Sell Product"
       >
-        <SellProductForm product={product}/>
+        <SellProductForm product={product} />
       </Modal>
     </>
   );

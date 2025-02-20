@@ -3,6 +3,7 @@ import Button from "../../components/button/button.component";
 import { useGetProgramsQuery } from "../../features/programs/programs.api.slice";
 import {
   ProgramsManagementContainer,
+  StyledPaginationContainer,
   StyledPaginationSpan,
 } from "./programs-management.styles";
 import { useEffect, useState } from "react";
@@ -52,7 +53,7 @@ const ProgramsManagement = () => {
     <>
       <ToastContainer />
       <ProgramsManagementContainer>
-        <Button onClick={() => setIsModalOpen(true)}>Add Program</Button>
+        <Button onClick={() => setIsModalOpen(true)}>Add New Program</Button>
         <Modal
           open={isModalOpen}
           title="Add New Program"
@@ -61,7 +62,7 @@ const ProgramsManagement = () => {
           <AddProgramForm toggleModalOpen={setIsModalOpen} />
         </Modal>
         <Outlet />
-        <div>
+        <StyledPaginationContainer>
           <Button
             onClick={handlePrevPage}
             disabled={page === 1 || isFetching}
@@ -81,7 +82,7 @@ const ProgramsManagement = () => {
           >
             &gt;
           </Button>
-        </div>
+        </StyledPaginationContainer>
       </ProgramsManagementContainer>
     </>
   );

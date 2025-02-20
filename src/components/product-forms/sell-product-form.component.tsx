@@ -1,4 +1,5 @@
 import { Product } from "../../types/products.types";
+import Button from "../button/button.component";
 import FormInput from "../form-input/form-input.component";
 import { FormInputTypes } from "../form-input/form-input.types";
 import {
@@ -29,7 +30,14 @@ const SellProductForm = ({ product }: { product: Product }) => {
           formInputType={FormInputTypes.modalInput}
           placeholder="Quantity"
           type="number"
+          max={product.inventoryCount}
         />
+        <FormInput
+          formInputType={FormInputTypes.modalInput}
+          placeholder="Trainee"
+          type="search"
+        />
+        <Button type="submit">Sell</Button>
       </StyledSellProductForm>
     </SellProductFormContainer>
   );

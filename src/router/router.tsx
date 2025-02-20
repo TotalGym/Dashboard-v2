@@ -15,7 +15,7 @@ import ReportsAndAnalytics from "../routes/reports-and-analytics/reports-and-ana
 import NotFound from "../routes/not-found/not-found.component";
 import RequireAuth from "../routes/require-auth/require-auth.component";
 import ProgramDetails from "../routes/program-details/program-details.component";
-import ProgramgsPage from "../routes/programs-page/programs-page";
+import ProgramgsPage from "../routes/programs-page/programs-page.component";
 import EquipmentDetails from "../routes/equipment-details/equipment-details.component";
 import ProductDetails from "../routes/product-details/product-details.component";
 
