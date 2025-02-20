@@ -6,6 +6,12 @@ export const ProgramsPageContainer = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 2em;
   margin-top: 3em;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+  }
 `;
 
 export const StyledProgramCard = styled.div`
@@ -18,7 +24,7 @@ export const StyledProgramCard = styled.div`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
   height: 410px;
-  width: 30vw;
+  width: 430px;
 
   span {
     color: gray;
@@ -36,6 +42,9 @@ export const StyledProgramCard = styled.div`
       opacity: 0.8;
     }
   }
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    width: 350px;
+  }
 `;
 
 export const StyledColoredText = styled.p`
@@ -52,7 +61,7 @@ export const StyledProgramSkeletonCard = styled.div`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors["bg-primary"]};
   height: 410px;
-  width: 30vw;
+  width: 430px;
 
   .skeleton-text {
     height: 20px;
@@ -65,5 +74,9 @@ export const StyledProgramSkeletonCard = styled.div`
     height: 60%;
     background-color: ${({ theme }) => theme.colors["bg-secondary"]};
     border-radius: 15px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    width: 350px;
   }
 `;
