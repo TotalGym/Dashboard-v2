@@ -13,12 +13,17 @@ export const ModalContainer = styled.div`
   max-height: 720px;
   overflow: auto;
 
-  @media(max-width: 520px){
+  @media (max-width: 520px) {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
     border-radius: 0;
     max-height: none;
+  }
+
+  @media (max-height: 600px) {
+    height: 550px;
+    overflow-y: scroll;
   }
 `;
 
