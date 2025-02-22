@@ -7,7 +7,7 @@ import Button from "../../components/button/button.component";
 import { useState } from "react";
 import Modal from "../../components/modal/modal.component";
 import { StyledConfirmDeleteText } from "../program-details/program-details.styles";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import EditEquipmentForm from "../../components/equipment-forms/edit-equipment-form";
 
 const EquipmentDetails = () => {
@@ -61,7 +61,6 @@ const EquipmentDetails = () => {
 
   return (
     <>
-      <ToastContainer />
       <Button onClick={() => navigate(`/equipment/${from}`)}>
         Back to All Equipment
       </Button>

@@ -4,7 +4,7 @@ import {
   useDeleteProductMutation,
   useGetProductByIdQuery,
 } from "../../features/products/products.api.slice";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
 import { StyledConfirmDeleteText } from "../program-details/program-details.styles";
@@ -65,7 +65,6 @@ const ProductDetails = () => {
 
   return (
     <>
-      <ToastContainer />
       <Button onClick={() => navigate(`/sales/${from}`)}>
         Back to All Products
       </Button>

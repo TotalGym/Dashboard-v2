@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import { useGetProductsQuery } from "../../features/products/products.api.slice";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
 import { ButtonTypes } from "../../components/button/button.types";
@@ -44,7 +43,6 @@ const SalesManagement = () => {
 
   return (
     <>
-      <ToastContainer />
       <Button onClick={() => setIsModalOpen(true)}>Add New Product</Button>
       <div
         style={{

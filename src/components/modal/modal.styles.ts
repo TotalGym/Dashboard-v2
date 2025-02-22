@@ -12,6 +12,14 @@ export const ModalContainer = styled.div`
   z-index: 1000;
   max-height: 720px;
   overflow: auto;
+
+  @media(max-width: 520px){
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    border-radius: 0;
+    max-height: none;
+  }
 `;
 
 export const ModalOverLay = styled.div`
@@ -33,4 +41,8 @@ export const ModalTitle = styled.h2`
   margin: 0 auto;
   background-color: white;
   color: ${({ theme }) => theme.colors["font-secondary"]};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    display: none;
+  }
 `;

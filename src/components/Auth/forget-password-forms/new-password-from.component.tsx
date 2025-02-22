@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { newPasswordSchema } from "../../../utils/yup/yup.utils";
 import { useEffect } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import {
   ForgetPasswordFormContainer,
   StyledForgetPasswordForm,
@@ -59,7 +59,6 @@ const NewPasswordForm = () => {
 
   return (
     <ForgetPasswordFormContainer>
-      <ToastContainer />
       <Logo fontSize="60px" />
       <StyledFormText>
         Enter the verification code that was sent to your email.

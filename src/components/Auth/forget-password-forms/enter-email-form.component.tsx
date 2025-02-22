@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 import Logo from "../../logo/logo.component";
 import FormInput from "../../form-input/form-input.component";
@@ -60,7 +60,6 @@ const EnterEmailForm = () => {
 
   return (
     <ForgetPasswordFormContainer>
-      <ToastContainer />
       <Logo fontSize="60px" />
       <StyledFormText>
         Enter your email and we send you a password reset link.

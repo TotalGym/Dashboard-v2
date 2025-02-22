@@ -9,9 +9,15 @@ import {
   StyledDaySelect,
   StyledExerciseAndScheduleContainer,
   StyledExerciseLablesContainer,
+  StyledExtraSmallLabel,
+  StyledInputContainer,
   StyledProgramDescriptionTextArea,
   StyledProgramFormsText,
+  StyledScheduleContainer,
+  StyledSmallScreenLabel,
+  StyledSubmitButtonContainer,
   StyledSubmitText,
+  StyledTextGrid,
 } from "./program-forms.styles";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addNewProgramSchema } from "../../utils/yup/yup.utils";
@@ -181,23 +187,32 @@ const AddProgramForm = ({
         </StyledExerciseLablesContainer>
         {exerciseFields.map((exercise, index) => (
           <StyledExerciseAndScheduleContainer key={exercise.id}>
-            <FormInput
-              formInputType={FormInputTypes.modalInput}
-              {...register(`exercises.${index}.name`)}
-              placeholder="Exercise Name"
-            />
-            <FormInput
-              formInputType={FormInputTypes.modalInput}
-              type="number"
-              {...register(`exercises.${index}.sets`)}
-              placeholder="Sets"
-            />
-            <FormInput
-              formInputType={FormInputTypes.modalInput}
-              type="number"
-              {...register(`exercises.${index}.repetitions`)}
-              placeholder="Repetitions"
-            />
+            <StyledInputContainer>
+              <StyledSmallScreenLabel>Name</StyledSmallScreenLabel>
+              <FormInput
+                formInputType={FormInputTypes.modalInput}
+                {...register(`exercises.${index}.name`)}
+                placeholder="Exercise Name"
+              />
+            </StyledInputContainer>
+            <StyledInputContainer>
+              <StyledSmallScreenLabel>Sets</StyledSmallScreenLabel>
+              <FormInput
+                formInputType={FormInputTypes.modalInput}
+                type="number"
+                {...register(`exercises.${index}.sets`)}
+                placeholder="Sets"
+              />
+            </StyledInputContainer>
+            <StyledInputContainer>
+              <StyledSmallScreenLabel>Repetitions</StyledSmallScreenLabel>
+              <FormInput
+                formInputType={FormInputTypes.modalInput}
+                type="number"
+                {...register(`exercises.${index}.repetitions`)}
+                placeholder="Repetitions"
+              />
+            </StyledInputContainer>
             <Button
               width="100px"
               type="button"
@@ -221,34 +236,45 @@ const AddProgramForm = ({
           Add Exercise
         </Button>
 
-        <StyledProgramFormsText>Schedule</StyledProgramFormsText>
+        <StyledTextGrid>
+          <StyledProgramFormsText>Schedule</StyledProgramFormsText>
+          <StyledProgramFormsText>Start Time</StyledProgramFormsText>
+          <StyledProgramFormsText>End Time</StyledProgramFormsText>
+        </StyledTextGrid>
         {scheduleFields.map((schedule, index) => (
-          <StyledExerciseAndScheduleContainer key={schedule.id}>
-            <StyledDaySelect
-              {...register(`schedule.${index}.day`)}
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Select a day
-              </option>
-              {daysOfWeek.map((day) => (
-                <option key={day} value={day}>
-                  {day}
+          <StyledScheduleContainer key={schedule.id}>
+            <StyledInputContainer>
+              <StyledExtraSmallLabel>Day</StyledExtraSmallLabel>
+              <StyledDaySelect
+                {...register(`schedule.${index}.day`)}
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Select a day
                 </option>
-              ))}
-            </StyledDaySelect>
-            <FormInput
-              formInputType={FormInputTypes.modalInput}
-              type="time"
-              {...register(`schedule.${index}.startTime`)}
-              label="Start Time"
-            />
-            <FormInput
-              formInputType={FormInputTypes.modalInput}
-              type="time"
-              {...register(`schedule.${index}.endTime`)}
-              label="End Time"
-            />
+                {daysOfWeek.map((day) => (
+                  <option key={day} value={day}>
+                    {day}
+                  </option>
+                ))}
+              </StyledDaySelect>
+            </StyledInputContainer>
+            <StyledInputContainer>
+              <StyledExtraSmallLabel>Start Time</StyledExtraSmallLabel>
+              <FormInput
+                formInputType={FormInputTypes.modalInput}
+                type="time"
+                {...register(`schedule.${index}.startTime`)}
+              />
+            </StyledInputContainer>
+            <StyledInputContainer>
+              <StyledExtraSmallLabel>End Time</StyledExtraSmallLabel>
+              <FormInput
+                formInputType={FormInputTypes.modalInput}
+                type="time"
+                {...register(`schedule.${index}.endTime`)}
+              />
+            </StyledInputContainer>
             <Button
               width="100px"
               type="button"
@@ -257,7 +283,7 @@ const AddProgramForm = ({
             >
               Remove
             </Button>
-          </StyledExerciseAndScheduleContainer>
+          </StyledScheduleContainer>
         ))}
         <Button
           type="button"
@@ -272,17 +298,13 @@ const AddProgramForm = ({
           Add Schedule
         </Button>
 
-        <div
-          style={{
-            alignSelf: "center",
-          }}
-        >
+        <StyledSubmitButtonContainer>
           <Button type="submit" width="250px">
             <StyledSubmitText>
               {isLoading ? "Loading..." : "Submit"}
             </StyledSubmitText>
           </Button>
-        </div>
+        </StyledSubmitButtonContainer>
       </StyledAddProgramForm>
     </AddProgramFormContainer>
   );

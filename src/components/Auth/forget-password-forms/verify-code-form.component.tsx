@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 import Button from "../../button/button.component";
 import Logo from "../../logo/logo.component";
@@ -61,7 +61,6 @@ const VerifyCodeForm = () => {
 
   return (
     <ForgetPasswordFormContainer>
-      <ToastContainer />
       <Logo fontSize="60px" />
       <StyledFormText>
         Enter the verification code that was sent to your email.

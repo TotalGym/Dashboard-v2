@@ -9,7 +9,6 @@ import {
   useParams,
 } from "react-router-dom";
 import { ButtonTypes } from "../../components/button/button.types";
-import { ToastContainer } from "react-toastify";
 import AddEquipmentForm from "../../components/equipment-forms/add-equipment-form";
 
 const EquipmentManagement = () => {
@@ -46,7 +45,6 @@ const EquipmentManagement = () => {
 
   return (
     <>
-      <ToastContainer />
       <Button onClick={() => setIsModalOpen(true)}>Add New Equipment</Button>
       <div
         style={{

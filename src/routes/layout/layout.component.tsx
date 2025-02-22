@@ -3,6 +3,7 @@ import Navigation from "../navigation/navigation.component";
 import Footer from "../../components/footer/footer.component";
 import { useAppSelector } from "../../app/hooks";
 import { selectToken } from "../../features/auth/auth.slice";
+import { ToastContainer } from "react-toastify";
 
 export const Layout = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ export const Layout = () => {
         !isVerifyCodeRoute &&
         !isNewPasswordRoute &&
         token && <Footer />}
+      <ToastContainer />
     </>
   );
 };

@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import Modal from "../../components/modal/modal.component";
 import AddProgramForm from "../../components/Program-forms/add-program-form.component";
 import { ButtonTypes } from "../../components/button/button.types";
-import { ToastContainer } from "react-toastify";
 
 const ProgramsManagement = () => {
   const { programsPage } = useParams();
@@ -51,7 +50,6 @@ const ProgramsManagement = () => {
 
   return (
     <>
-      <ToastContainer />
       <ProgramsManagementContainer>
         <Button onClick={() => setIsModalOpen(true)}>Add New Program</Button>
         <Modal

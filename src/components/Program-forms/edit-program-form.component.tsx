@@ -12,6 +12,7 @@ import {
   StyledExerciseLablesContainer,
   StyledProgramDescriptionTextArea,
   StyledProgramFormsText,
+  StyledSubmitButtonContainer,
   StyledSubmitText,
 } from "./program-forms.styles";
 import FormInput from "../form-input/form-input.component";
@@ -266,13 +267,13 @@ const EditProgramForm = ({
           Add Schedule
         </Button>
 
-        <div style={{ alignSelf: "center" }}>
+        <StyledSubmitButtonContainer>
           <Button type="submit" width="250px" disabled={!isDirty || isLoading}>
             <StyledSubmitText>
               {isLoading ? "Loading..." : "Update"}
             </StyledSubmitText>
           </Button>
-        </div>
+        </StyledSubmitButtonContainer>
       </StyledAddProgramForm>
     </AddProgramFormContainer>
   );
