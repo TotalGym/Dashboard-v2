@@ -73,11 +73,11 @@ const ProductDetails = () => {
         <Button onClick={() => setIsEditProductModalOpen(true)}>
           Edit Product Details
         </Button>
-        <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
-          Delete Product
-        </Button>
         <Button onClick={() => setIsSellProductModalOpen(true)}>
           Sell Product
+        </Button>
+        <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
+          Delete Product
         </Button>
       </ButtonGroup>
 

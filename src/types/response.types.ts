@@ -75,3 +75,7 @@ export type GetAddUpdateProduct = UnifiedResponse & {
 export type DeleteProductResponse = UnifiedResponse & {
   data: null;
 };
+
+export type SearchTraineeByNameResponse = UnifiedResponse & {
+  data: { id: string; name: string }[];
+};
