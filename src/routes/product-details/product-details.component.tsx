@@ -10,67 +10,64 @@ import Modal from "../../components/modal/modal.component";
 import { StyledConfirmDeleteText } from "../program-details/program-details.styles";
 import EditProductForm from "../../components/product-forms/edit-product-form.component";
 import SellProductForm from "../../components/product-forms/sell-product-form.component";
+import {
+  ProductDetailsContainer,
+  ProductImage,
+  ProductInfo,
+  ProductDescription,
+  ButtonGroup,
+  DeleteModalContent,
+} from "./product-details.styles";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { productId } = useParams();
+  const from = location.state?.from;
+
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     useState(false);
   const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false);
-
   const [isSellProductModalOpen, setIsSellProductModalOpen] = useState(false);
-
-  const { productId } = useParams();
-  const from = location.state?.from;
 
   const {
     data: productData,
     isLoading,
     isError,
-  } = useGetProductByIdQuery({
-    id: productId,
-  });
+  } = useGetProductByIdQuery({ id: productId });
   const product = productData?.data;
-
   const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
 
   if (isLoading) return <p>Loading...</p>;
+  if (isError || !product) return <p>Something went wrong</p>;
 
-  if (isError || !product) return <p>something went wrong</p>;
-
-  const handleDelete = async (productId: string) => {
+  const handleDelete = async () => {
     try {
-      await deleteProduct(productId).unwrap();
-
+      await deleteProduct(product._id).unwrap();
       navigate(`/sales/${from}`, { replace: true });
-
-      setTimeout(() => {
-        toast.success("Product Successfully Deleted", {
-          position: "top-right",
-          closeOnClick: true,
-          draggable: true,
-        });
-      }, 500);
-    } catch (err) {
-      if (err) {
-        toast.error("something went wrong", {
-          position: "top-right",
-          hideProgressBar: true,
-          closeOnClick: true,
-          draggable: true,
-        });
-      }
+      setTimeout(() => toast.success("Product Successfully Deleted"), 500);
+    } catch {
+      toast.error("Something went wrong");
     }
   };
 
   return (
-    <>
-      <Button onClick={() => navigate(`/sales/${from}`)}>
-        Back to All Products
-      </Button>
-      <Button onClick={() => setIsEditProductModalOpen(true)}>
-        Edit Product Details
-      </Button>
+    <ProductDetailsContainer>
+      <ButtonGroup>
+        <Button onClick={() => navigate(`/sales/${from}`)}>
+          Back to All Products
+        </Button>
+        <Button onClick={() => setIsEditProductModalOpen(true)}>
+          Edit Product Details
+        </Button>
+        <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
+          Delete Product
+        </Button>
+        <Button onClick={() => setIsSellProductModalOpen(true)}>
+          Sell Product
+        </Button>
+      </ButtonGroup>
+
       <Modal
         open={isEditProductModalOpen}
         closeModal={() => setIsEditProductModalOpen(false)}
@@ -81,53 +78,48 @@ const ProductDetails = () => {
           toggleModalOpen={setIsEditProductModalOpen}
         />
       </Modal>
-      <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
-        Delete Product
-      </Button>
+
       <Modal
         open={isConfirmDeleteModalOpen}
         closeModal={() => setIsConfirmDeleteModalOpen(false)}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        <DeleteModalContent>
           <StyledConfirmDeleteText>
-            Do You Want To Delete This Product
+            Do you want to delete this product?
           </StyledConfirmDeleteText>
-          <Button
-            redColored
-            onClick={() => handleDelete(product._id)}
-            isLoading={isDeleting}
-          >
+          <Button redColored onClick={handleDelete} isLoading={isDeleting}>
             Confirm Delete
           </Button>
-        </div>
+        </DeleteModalContent>
       </Modal>
-      <div
-        style={{
-          cursor: "pointer",
-        }}
-      >
-        <img src={product.image} alt="product-image" width={500} height={500} />
-        <p>{product.productName}</p>
-        <p>{product.inventoryCount}</p>
-        <p>{product.description}</p>
-        <p>Revenue {product.totalRevenue}</p>
-      </div>
-      <Button onClick={() => setIsSellProductModalOpen(true)}>
-        Sell Product
-      </Button>
+
+      <ProductImage src={product.image} alt="product-image" />
+      <ProductInfo>
+        <p>
+          <strong>Product Name:</strong> {product.productName}
+        </p>
+        <p>
+          <strong>Price:</strong> ${product.price}
+        </p>
+        <p>
+          <strong>Inventory Count:</strong> {product.inventoryCount}
+        </p>
+        <p>
+          <strong>Total Revenue:</strong> ${product.totalRevenue}
+        </p>
+      </ProductInfo>
+      <ProductDescription>
+        <strong>Description:</strong> {product.description}
+      </ProductDescription>
+
       <Modal
         open={isSellProductModalOpen}
         closeModal={() => setIsSellProductModalOpen(false)}
-        title="Sell Product"
       >
         <SellProductForm product={product} />
       </Modal>
-    </>
+    </ProductDetailsContainer>
   );
 };
+
 export default ProductDetails;

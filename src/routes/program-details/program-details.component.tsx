@@ -1,141 +1,162 @@
+import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteProgramMutation,
   useGetProgramByNameQuery,
 } from "../../features/programs/programs.api.slice";
-import Button from "../../components/button/button.component";
-import { useState } from "react";
-import Modal from "../../components/modal/modal.component";
-import { StyledConfirmDeleteText } from "./program-details.styles";
 import { toast } from "react-toastify";
+import Button from "../../components/button/button.component";
+import Modal from "../../components/modal/modal.component";
 import EditProgramForm from "../../components/Program-forms/edit-program-form.component";
+import {
+  ProgramDetailsContainer,
+  ProgramImage,
+  ProgramInfo,
+  ProgramDescription,
+  ButtonGroup,
+  StyledConfirmDeleteText,
+  DeleteModalContent,
+  ExerciseContainer,
+  ScheduleContainer,
+  SkeletonContainer,
+  SkeletonImage,
+  SkeletonText,
+} from "./program-details.styles";
 
 const ProgramDetails = () => {
+  const navigate = useNavigate();
   const location = useLocation();
+  const { programName } = useParams();
   const from = location.state?.from;
+
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     useState(false);
-  const [isEditProgramModalOpen, setisEditProgramModalOpen] = useState(false);
-  const { programName } = useParams();
-  const navigate = useNavigate();
+  const [isEditProgramModalOpen, setIsEditProgramModalOpen] = useState(false);
+
   const {
     data: programData,
     isLoading,
     isError,
   } = useGetProgramByNameQuery({ programName });
-
   const program = programData?.data;
-
   const [deleteProgram, { isLoading: isDeleting }] = useDeleteProgramMutation();
 
-  const handleDelete = async (programID: string) => {
+  if (isLoading) {
+    return (
+      <ProgramDetailsContainer>
+        <SkeletonContainer>
+          <SkeletonImage />
+          <SkeletonText $width="60%" />
+          <SkeletonText $width="40%" />
+          <SkeletonText $width="80%" />
+        </SkeletonContainer>
+      </ProgramDetailsContainer>
+    );
+  }
+
+  if (isError || !program) return <p>Something went wrong</p>;
+
+  const handleDelete = async () => {
     try {
-      await deleteProgram(programID).unwrap();
-
+      await deleteProgram(program._id).unwrap();
       navigate(`/programs/${from}`, { replace: true });
-
-      setTimeout(() => {
-        toast.success("Program Successfully Deleted", {
-          position: "top-right",
-          closeOnClick: true,
-          draggable: true,
-        });
-      }, 500);
-    } catch (err) {
-      if (err) {
-        toast.error("something went wrong", {
-          position: "top-right",
-          hideProgressBar: true,
-          closeOnClick: true,
-          draggable: true,
-        });
-      }
+      setTimeout(() => toast.success("Program Successfully Deleted"), 500);
+    } catch {
+      toast.error("Something went wrong");
     }
   };
 
-  if (isLoading) return <p>Loading program details...</p>;
-  if (isError || !program) return <p>Failed to load program details.</p>;
-
   return (
-    <div>
-      <Modal
-        open={isConfirmDeleteModalOpen}
-        closeModal={() => setIsConfirmDeleteModalOpen(false)}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <StyledConfirmDeleteText>
-            Do You Want To Delete This Program
-          </StyledConfirmDeleteText>
-          <Button
-            redColored
-            onClick={() => handleDelete(program._id)}
-            isLoading={isDeleting}
-          >
-            Confirm Delete
-          </Button>
-        </div>
-      </Modal>
+    <ProgramDetailsContainer>
+      <ButtonGroup>
+        <Button onClick={() => navigate(`/programs/${from}`)}>
+          Back to All Programs
+        </Button>
+        <Button onClick={() => setIsEditProgramModalOpen(true)}>
+          Edit Program
+        </Button>
+        <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
+          Delete Program
+        </Button>
+      </ButtonGroup>
+
       <Modal
         open={isEditProgramModalOpen}
-        closeModal={() => setisEditProgramModalOpen(false)}
+        closeModal={() => setIsEditProgramModalOpen(false)}
         title="Edit Program"
       >
         <EditProgramForm
           program={program}
           from={from}
-          toggleModalOpen={setisEditProgramModalOpen}
+          toggleModalOpen={setIsEditProgramModalOpen}
         />
       </Modal>
-      <Button onClick={() => navigate(`/programs/${from}`)}>
-        Back To All Programs
-      </Button>
-      <Button onClick={() => setisEditProgramModalOpen(true)}>
-        Edit Program
-      </Button>
-      <Button
-        redColored={true}
-        onClick={() => setIsConfirmDeleteModalOpen(true)}
+
+      <Modal
+        open={isConfirmDeleteModalOpen}
+        closeModal={() => setIsConfirmDeleteModalOpen(false)}
       >
-        Delete Program
-      </Button>
-      <img
-        src={program.image}
-        alt={program.programName}
-        width="500px"
-        height="500px"
-      />
-      <h2>{program.programName}</h2>
-      <p>
+        <DeleteModalContent>
+          <StyledConfirmDeleteText>
+            Do you want to delete this program?
+          </StyledConfirmDeleteText>
+          <Button redColored onClick={handleDelete} isLoading={isDeleting}>
+            Confirm Delete
+          </Button>
+        </DeleteModalContent>
+      </Modal>
+
+      <ProgramImage src={program.image} alt={program.programName} />
+      <ProgramInfo>
+        <p>
+          <strong>Program Name:</strong> {program.programName}
+        </p>
+        <p>
+          <strong>Monthly Price:</strong> ${program.monthlyPrice}
+        </p>
+        <p>
+          <strong>Annual Price:</strong> ${program.annuallyPrice}
+        </p>
+        <p>
+          <strong>Number of Participants:</strong>{" "}
+          {program.registeredTrainees.length}
+        </p>
+      </ProgramInfo>
+      <ProgramDescription>
         <strong>Description:</strong> {program.description}
-      </p>
-      <p>
-        <strong>Monthly Price:</strong> ${program.monthlyPrice}
-        <strong>Annual Price:</strong> ${program.annuallyPrice}
-      </p>
-      {program.exercises.map((excersie) => (
-        <div key={excersie._id}>
-          <hr />
-          <p>{excersie.name}</p>
-          <p>sets: {excersie.sets}</p>
-          <p>repetitions: {excersie.repetitions}</p>
-          <hr />
-        </div>
+      </ProgramDescription>
+
+      <h3>Exercises</h3>
+      {program.exercises.map((exercise) => (
+        <ExerciseContainer key={exercise._id}>
+          <p>
+            <strong>Name:</strong> {exercise.name}
+          </p>
+          <p>
+            <strong>Sets:</strong> {exercise.sets}
+          </p>
+          <p>
+            <strong>Repetitions:</strong> {exercise.repetitions}
+          </p>
+        </ExerciseContainer>
       ))}
-      <p>Number of participants: {program.registeredTrainees.length}</p>
+
       <h3>Schedule</h3>
       {program.schedule.map((day) => (
-        <div key={day._id}>
-          <p>Day: {day.day}</p>
-          <p>Starts at: {day.startTime}</p>
-          <p>Ends at: {day.endTime}</p>
-        </div>
+        <ScheduleContainer key={day._id}>
+          <p>
+            <strong>Day:</strong> {day.day}
+          </p>
+          <p>
+            <strong>Starts at:</strong> {day.startTime}
+          </p>
+          <p>
+            <strong>Ends at:</strong> {day.endTime}
+          </p>
+        </ScheduleContainer>
       ))}
-    </div>
+    </ProgramDetailsContainer>
   );
 };
+
 export default ProgramDetails;

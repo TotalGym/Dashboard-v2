@@ -20,9 +20,9 @@ export const StyledProductsForm = styled.form`
 `;
 
 export const SellProductFormContainer = styled.div`
-  ${CenteredFlexContainer}
+  ${CenteredColFlexContainer}
   width: 300px;
-  height: 300px;
+  height: 420px;
 `;
 
 export const StyledSellProductForm = styled.form`

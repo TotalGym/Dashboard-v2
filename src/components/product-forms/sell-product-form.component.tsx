@@ -11,6 +11,7 @@ import {
 const SellProductForm = ({ product }: { product: Product }) => {
   return (
     <SellProductFormContainer>
+      <h2>Sell Product</h2>
       <StyledSellProductForm>
         <div
           style={{
@@ -23,7 +24,10 @@ const SellProductForm = ({ product }: { product: Product }) => {
             product name: {product.productName}
           </StyledSellProductText>
           <StyledSellProductText>
-            Available Quantity: {product.inventoryCount}{" "}
+            Product Price: {product.price}
+          </StyledSellProductText>
+          <StyledSellProductText>
+            Available Quantity: {product.inventoryCount}
           </StyledSellProductText>
         </div>
         <FormInput
