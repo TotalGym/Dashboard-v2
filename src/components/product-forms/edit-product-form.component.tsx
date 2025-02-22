@@ -38,6 +38,7 @@ const EditProductForm = ({
       updatedData.productName = data.productName;
     if (data.description !== product.description)
       updatedData.description = data.description;
+    if (data.price !== product.price) updatedData.price = data.price;
     if (data.image !== product.image) updatedData.image = data.image;
     if (data.inventoryCount !== product.inventoryCount)
       updatedData.inventoryCount = data.inventoryCount;
@@ -52,7 +53,7 @@ const EditProductForm = ({
       }
       setTimeout(() => toggleModalOpen(false), 1000);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       if (error) toast.error("Failed to update product details");
       reset(product);
     }
@@ -91,6 +92,13 @@ const EditProductForm = ({
           formInputType={FormInputTypes.modalInput}
           placeholder="Image"
           {...register("image")}
+        />
+        <FormInput
+          formInputType={FormInputTypes.modalInput}
+          type="number"
+          min={0}
+          placeholder="Price"
+          {...register("price")}
         />
         <FormInput
           formInputType={FormInputTypes.modalInput}

@@ -17,6 +17,7 @@ export type ProductFormInputs = {
   description: string;
   image: string;
   inventoryCount: number;
+  price: number;
 };
 
 const AddProductForm = ({
@@ -94,6 +95,13 @@ const AddProductForm = ({
           formInputType={FormInputTypes.modalInput}
           placeholder="Image"
           {...register("image")}
+        />
+        <FormInput
+          formInputType={FormInputTypes.modalInput}
+          type="number"
+          min={0}
+          placeholder="Price"
+          {...register("price")}
         />
         <FormInput
           formInputType={FormInputTypes.modalInput}

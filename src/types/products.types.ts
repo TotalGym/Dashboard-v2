@@ -6,6 +6,7 @@ export type Product = {
   createdAt: Date;
   totalRevenue?: number;
   description: string;
+  price: number;
 };
 
 export type GetProductsResponse = {
