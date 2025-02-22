@@ -17,6 +17,9 @@ import {
   ProductDescription,
   ButtonGroup,
   DeleteModalContent,
+  SkeletonContainer,
+  SkeletonImage,
+  SkeletonText,
 } from "./product-details.styles";
 
 const ProductDetails = () => {
@@ -38,7 +41,17 @@ const ProductDetails = () => {
   const product = productData?.data;
   const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <SkeletonContainer>
+        <SkeletonImage />
+        <SkeletonText $width="60%" />
+        <SkeletonText $width="40%" />
+        <SkeletonText $width="50%" />
+        <SkeletonText $width="70%" />
+        <SkeletonText $width="90%" />
+      </SkeletonContainer>
+    );
   if (isError || !product) return <p>Something went wrong</p>;
 
   const handleDelete = async () => {

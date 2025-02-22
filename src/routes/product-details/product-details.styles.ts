@@ -47,3 +47,38 @@ export const DeleteModalContent = styled.div`
   align-items: center;
   gap: 15px;
 `;
+
+export const SkeletonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+`;
+
+export const SkeletonBox = styled.div`
+  background: #e0e0e0;
+  border-radius: 8px;
+  animation: pulse 1.5s infinite ease-in-out;
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+
+export const SkeletonImage = styled(SkeletonBox)`
+  width: 500px;
+  height: 500px;
+`;
+
+export const SkeletonText = styled(SkeletonBox)<{ $width?: string }>`
+  width: ${(props) => props.$width || "100%"};
+  height: 20px;
+`;
