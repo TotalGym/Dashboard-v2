@@ -10,6 +10,13 @@ import {
 } from "react-router-dom";
 import { ButtonTypes } from "../../components/button/button.types";
 import AddEquipmentForm from "../../components/equipment-forms/add-equipment-form";
+import {
+  Container,
+  Grid,
+  EquipmentCard,
+  SkeletonCard,
+  PaginationContainer,
+} from "./equipment-management.styles";
 
 const EquipmentManagement = () => {
   const navigate = useNavigate();
@@ -33,7 +40,6 @@ const EquipmentManagement = () => {
   if (isError) return <p>Something went wrong</p>;
 
   const numberOfPages = Math.ceil((equipments?.data.totalCount || 0) / 10);
-
   const pagesArray = Array.from(
     { length: numberOfPages },
     (_, index) => index + 1
@@ -44,70 +50,62 @@ const EquipmentManagement = () => {
   }
 
   return (
-    <>
+    <Container>
       <Button onClick={() => setIsModalOpen(true)}>Add New Equipment</Button>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-        }}
+      <Modal
+        open={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+        title="Add New Equipment"
       >
-        <Modal
-          open={isModalOpen}
-          closeModal={() => setIsModalOpen(false)}
-          title="Add New Equipment"
-        >
-          <AddEquipmentForm toggleModalOpen={setIsModalOpen} />
-        </Modal>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          equipments?.data.results.map((equipment) => (
-            <div
-              key={equipment._id}
-              style={{
-                cursor: "pointer",
-              }}
-              onClick={() =>
-                navigate(`/equipmentDetails/${equipment._id}`, {
-                  state: { from: pageNumber },
-                })
-              }
+        <AddEquipmentForm toggleModalOpen={setIsModalOpen} />
+      </Modal>
+
+      <Grid>
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))
+          : equipments?.data.results.map((equipment) => (
+              <EquipmentCard
+                key={equipment._id}
+                onClick={() =>
+                  navigate(`/equipmentDetails/${equipment._id}`, {
+                    state: { from: pageNumber },
+                  })
+                }
+              >
+                <p>
+                  <strong>Name:</strong> {equipment.name}
+                </p>
+                <p>
+                  <strong>Quantity:</strong> {equipment.quantity}
+                </p>
+                <p>
+                  <strong>Type:</strong> {equipment.type}
+                </p>
+                <p>
+                  <strong>Status:</strong> {equipment.status}
+                </p>
+                <img src={equipment.image} alt="equipment-image" />
+              </EquipmentCard>
+            ))}
+      </Grid>
+
+      {numberOfPages > 1 && (
+        <PaginationContainer>
+          {pagesArray.map((item, index) => (
+            <Button
+              buttonType={ButtonTypes.paginationButton}
+              key={index}
+              disabled={item === pageNumber}
+              onClick={() => navigate(`/equipment/${item}`)}
             >
-              <p>{equipment.name}</p>
-              <p>{equipment.quantity}</p>
-              <p>{equipment.type}</p>
-              <p>{equipment.status}</p>
-              <img
-                src={equipment.image}
-                alt="equipment-image"
-                width={500}
-                height={500}
-              />
-            </div>
-          ))
-        )}
-      </div>
-      {numberOfPages > 1 ? (
-        pagesArray.map((item, index) => (
-          <Button
-            buttonType={ButtonTypes.paginationButton}
-            key={index}
-            disabled={item === pageNumber}
-            onClick={() => navigate(`/equipment/${item}`)}
-          >
-            {item}
-          </Button>
-        ))
-      ) : (
-        <Button
-          buttonType={ButtonTypes.paginationButton}
-          disabled={pageNumber === 1}
-        >
-          1
-        </Button>
+              {item}
+            </Button>
+          ))}
+        </PaginationContainer>
       )}
-    </>
+    </Container>
   );
 };
 

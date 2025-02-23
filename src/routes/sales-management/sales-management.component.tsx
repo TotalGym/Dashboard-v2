@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Navigate,
   useLocation,
@@ -5,11 +6,17 @@ import {
   useParams,
 } from "react-router-dom";
 import { useGetProductsQuery } from "../../features/products/products.api.slice";
-import { useEffect, useState } from "react";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
 import { ButtonTypes } from "../../components/button/button.types";
 import AddProductForm from "../../components/product-forms/add-product-form.component";
+import {
+  Container,
+  Grid,
+  Card,
+  SkeletonCard,
+  PaginationContainer,
+} from "./sales-management.styles";
 
 const SalesManagement = () => {
   const navigate = useNavigate();
@@ -22,7 +29,10 @@ const SalesManagement = () => {
     data: products,
     isLoading,
     isError,
-  } = useGetProductsQuery({ limit: 10, page: pageNumber });
+  } = useGetProductsQuery({
+    limit: 10,
+    page: pageNumber,
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,7 +41,6 @@ const SalesManagement = () => {
   if (isError) return <p>Something went wrong</p>;
 
   const numberOfPages = Math.ceil((products?.data.totalCount || 0) / 10);
-
   const pagesArray = Array.from(
     { length: numberOfPages },
     (_, index) => index + 1
@@ -42,69 +51,59 @@ const SalesManagement = () => {
   }
 
   return (
-    <>
+    <Container>
       <Button onClick={() => setIsModalOpen(true)}>Add New Product</Button>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-        }}
+      <Modal
+        open={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+        title="Add New Product"
       >
-        <Modal
-          open={isModalOpen}
-          closeModal={() => setIsModalOpen(false)}
-          title="Add New Product"
-        >
-          <AddProductForm toggleModalOpen={setIsModalOpen} />
-        </Modal>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          products?.data.results.map((product) => (
-            <div
-              key={product._id}
-              style={{
-                cursor: "pointer",
-              }}
-              onClick={() =>
-                navigate(`/productDetails/${product._id}`, {
-                  state: { from: pageNumber },
-                })
-              }
+        <AddProductForm toggleModalOpen={setIsModalOpen} />
+      </Modal>
+
+      <Grid>
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))
+          : products?.data.results.map((product) => (
+              <Card
+                key={product._id}
+                onClick={() =>
+                  navigate(`/productDetails/${product._id}`, {
+                    state: { from: pageNumber },
+                  })
+                }
+              >
+                <p>
+                  <strong>Product Name:</strong> {product.productName}
+                </p>
+                <p>
+                  <strong>Inventory Count:</strong> {product.inventoryCount}
+                </p>
+                <p>
+                  <strong>Description:</strong> {product.description}
+                </p>
+                <img src={product.image} alt="product-image" />
+              </Card>
+            ))}
+      </Grid>
+
+      {numberOfPages > 1 && (
+        <PaginationContainer>
+          {pagesArray.map((item, index) => (
+            <Button
+              buttonType={ButtonTypes.paginationButton}
+              key={index}
+              disabled={item === pageNumber}
+              onClick={() => navigate(`/sales/${item}`)}
             >
-              <p>{product.productName}</p>
-              <p>{product.inventoryCount}</p>
-              <p>{product.description}</p>
-              <img
-                src={product.image}
-                alt="equipment-image"
-                width={500}
-                height={500}
-              />
-            </div>
-          ))
-        )}
-      </div>
-      {numberOfPages > 1 ? (
-        pagesArray.map((item, index) => (
-          <Button
-            buttonType={ButtonTypes.paginationButton}
-            key={index}
-            disabled={item === pageNumber}
-            onClick={() => navigate(`/equipment/${item}`)}
-          >
-            {item}
-          </Button>
-        ))
-      ) : (
-        <Button
-          buttonType={ButtonTypes.paginationButton}
-          disabled={pageNumber === 1}
-        >
-          1
-        </Button>
+              {item}
+            </Button>
+          ))}
+        </PaginationContainer>
       )}
-    </>
+    </Container>
   );
 };
 
