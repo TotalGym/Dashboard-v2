@@ -5,6 +5,7 @@ import {
   DeleteProductResponse,
   GetAddUpdateProduct,
   GetAllProductsResponse,
+  UnifiedResponse,
 } from "../../types/response.types";
 
 export const productsApiSlice = apiSlice.injectEndpoints({
@@ -46,6 +47,17 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Products"],
     }),
+    sellProduct: builder.mutation<
+      UnifiedResponse,
+      { ProductID: string; quantitySold: number; TraineeID: string }
+    >({
+      query: (purchaseDetails) => ({
+        url: "/sales",
+        method: "POST",
+        body: purchaseDetails,
+      }),
+      invalidatesTags: ["Products"],
+    }),
   }),
 });
 
@@ -55,4 +67,5 @@ export const {
   useDeleteProductMutation,
   useAddProductMutation,
   useUpdateProductMutation,
+  useSellProductMutation,
 } = productsApiSlice;

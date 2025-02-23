@@ -14,6 +14,7 @@ import {
 import { useLazySearchTraineesByNameQuery } from "../../features/trainees/trainees.api.slice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { sellProductSchema } from "../../utils/yup/yup.utils";
+import { useSellProductMutation } from "../../features/products/products.api.slice";
 
 type FormValues = {
   quantity: number;
@@ -21,6 +22,9 @@ type FormValues = {
 };
 
 const SellProductForm = ({ product }: { product: Product }) => {
+  const [sellProduct, { isLoading, isError, error, isSuccess }] =
+    useSellProductMutation();
+
   const {
     register,
     handleSubmit,
@@ -55,6 +59,7 @@ const SellProductForm = ({ product }: { product: Product }) => {
     const value = e.target.value;
     setNotFound(false);
     setValue("searchTrainee", value);
+    setSelectedTrainee(null);
 
     if (value.trim() === "") {
       setShowDropdown(false);
@@ -96,10 +101,20 @@ const SellProductForm = ({ product }: { product: Product }) => {
     };
   }, []);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     if (!selectedTrainee) return;
-    console.log("Form Data:", data);
-    console.log("Errors:", errors);
+
+    try {
+      await sellProduct({
+        ProductID: product._id,
+        quantitySold: data.quantity,
+        TraineeID: selectedTrainee.id,
+      }).unwrap();
+
+      console.log("Product sold successfully");
+    } catch (err) {
+      console.error("Failed to sell product:", err);
+    }
   };
 
   return (
@@ -134,6 +149,7 @@ const SellProductForm = ({ product }: { product: Product }) => {
             formInputType={FormInputTypes.modalInput}
             placeholder="Search Trainee"
             type="text"
+            autoComplete="off"
             {...register("searchTrainee")}
             onChange={handleInputChange}
           />
@@ -161,10 +177,18 @@ const SellProductForm = ({ product }: { product: Product }) => {
 
         <Button
           type="submit"
-          disabled={!selectedTrainee || watch("quantity") === 0}
+          disabled={!selectedTrainee || watch("quantity") === 0 || isLoading}
         >
-          Sell
+          {isLoading ? "Processing..." : "Sell"}
         </Button>
+        {isError && (
+          <p style={{ color: "red" }}>
+            Error: {(error as { message: string })?.message}
+          </p>
+        )}
+        {isSuccess && (
+          <p style={{ color: "green" }}>Product sold successfully!</p>
+        )}
       </StyledSellProductForm>
     </SellProductFormContainer>
   );

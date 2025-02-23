@@ -41,6 +41,7 @@ const Button = ({
       $width={width}
       $redColored={redColored}
       className={className}
+      disabled={isLoading}
     >
       {buttonType === ButtonTypes.closeModal ? <CloseIcon /> : null}
       {isLoading ? "loading..." : children}
