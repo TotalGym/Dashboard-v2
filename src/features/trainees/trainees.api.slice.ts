@@ -16,5 +16,5 @@ export const traineesApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetTraineesDataQuery, useSearchTraineesByNameQuery } =
+export const { useGetTraineesDataQuery, useLazySearchTraineesByNameQuery } =
   traineesApiSlice;

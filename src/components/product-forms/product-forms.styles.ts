@@ -37,3 +37,29 @@ export const StyledSellProductText = styled.p`
   border-bottom: 1px solid gray;
   padding-bottom: 1em;
 `;
+
+export const StyledTraineesList = styled.ul`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1001;
+
+  li {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+  }
+`;
+
+export const StyledNotFoundText = styled.p`
+  color: red;
+  margin-top: 1em;
+`;

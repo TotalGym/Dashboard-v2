@@ -126,8 +126,8 @@ export const sellProductSchema = yup.object().shape({
     .typeError("Quantity is Required")
     .positive("Quantity must be a positive number")
     .required("Quantity is required"),
-  traineeName: yup
+  searchTrainee: yup
     .string()
     .trim()
-    .required("choose the trainee You want to sell to"),
+    .required("select trainee"),
 });
