@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Link,
   Navigate,
   useLocation,
   useNavigate,
@@ -53,7 +54,9 @@ const SalesManagement = () => {
   return (
     <SalesManagementContainer>
       <Button onClick={() => setIsModalOpen(true)}>Add New Product</Button>
-      <Button>Sales History</Button>
+      <Link to={"/salesHistory"}>
+        <Button>Sales History</Button>
+      </Link>
       <Modal
         open={isModalOpen}
         closeModal={() => setIsModalOpen(false)}

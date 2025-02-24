@@ -23,3 +23,20 @@ export type GetProductsResponse = {
     limit: number;
   };
 };
+
+export type SalesHistoryRecord = {
+  _id: string;
+  ProductID: {
+    _id: string;
+    productName: string;
+  };
+  TraineeID: {
+    _id: string;
+    name: string;
+  };
+  quantitySold: number;
+  price: number;
+  totalSaleValue: number;
+  SaleDate: Date;
+  createdAt: Date;
+};

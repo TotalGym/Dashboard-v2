@@ -18,6 +18,7 @@ import ProgramDetails from "../routes/program-details/program-details.component"
 import ProgramgsPage from "../routes/programs-page/programs-page.component";
 import EquipmentDetails from "../routes/equipment-details/equipment-details.component";
 import ProductDetails from "../routes/product-details/product-details.component";
+import SalesHistory from "../routes/sales-history/sales-history.component";
 
 const Router = () => {
   return (
@@ -42,6 +43,7 @@ const Router = () => {
             element={<EquipmentDetails />}
           />
           <Route path="sales/:salesPage" element={<SalesManagement />} />
+          <Route path="salesHistory" element={<SalesHistory />} />
           <Route
             path="productDetails/:productId"
             element={<ProductDetails />}

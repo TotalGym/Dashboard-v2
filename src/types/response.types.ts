@@ -1,5 +1,9 @@
 import { Equipment, GetEquipmentResponse } from "./equipment..types";
-import { GetProductsResponse, Product } from "./products.types";
+import {
+  GetProductsResponse,
+  Product,
+  SalesHistoryRecord,
+} from "./products.types";
 import { Program, ProgramsResponse } from "./programs.types";
 import { Roles } from "./staff.types";
 
@@ -78,4 +82,8 @@ export type DeleteProductResponse = UnifiedResponse & {
 
 export type SearchTraineeByNameResponse = UnifiedResponse & {
   data: { id: string; name: string }[];
+};
+
+export type GetSalesHistoryResponse = UnifiedResponse & {
+  data: SalesHistoryRecord[];
 };

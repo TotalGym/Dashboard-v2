@@ -5,6 +5,7 @@ import {
   DeleteProductResponse,
   GetAddUpdateProduct,
   GetAllProductsResponse,
+  GetSalesHistoryResponse,
   UnifiedResponse,
 } from "../../types/response.types";
 
@@ -58,6 +59,13 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Products"],
     }),
+    getSalesHistory: builder.query<
+      GetSalesHistoryResponse,
+      { page: number; limit: number }
+    >({
+      query: ({ page, limit }) => `/sales?page=${page}&limit=${limit}`,
+      providesTags: ["Sales-History"],
+    }),
   }),
 });
 
@@ -68,4 +76,5 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useSellProductMutation,
+  useGetSalesHistoryQuery,
 } = productsApiSlice;
