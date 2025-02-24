@@ -16,6 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { sellProductSchema } from "../../utils/yup/yup.utils";
 import { useSellProductMutation } from "../../features/products/products.api.slice";
 import { toast } from "react-toastify";
+import { useDebounce } from "../../hooks/useDebounce";
 
 type FormValues = {
   quantity: number;
@@ -67,29 +68,34 @@ const SellProductForm = ({
   const [notFound, setNotFound] = useState(false);
   const [searchTrainee] = useLazySearchTraineesByNameQuery();
 
-  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setNotFound(false);
-    setValue("searchTrainee", value);
-    setSelectedTrainee(null);
+  const searchValue = watch("searchTrainee");
+  const debouncedSearch = useDebounce(searchValue, 500);
 
-    if (value.trim() === "") {
+  useEffect(() => {
+    if (debouncedSearch.trim() === "") {
       setShowDropdown(false);
       setData(null);
       return;
     }
 
-    try {
-      const results = await searchTrainee({ search: value }).unwrap();
-      setData(results.data);
-      setShowDropdown(results.data.length > 0);
-    } catch (error) {
-      if ((error as { status: number }).status === 404) {
-        setNotFound(true);
-        setShowDropdown(false);
+    const fetchTrainees = async () => {
+      setNotFound(false);
+      setSelectedTrainee(null);
+
+      try {
+        const results = await searchTrainee({ search: debouncedSearch }).unwrap();
+        setData(results.data);
+        setShowDropdown(results.data.length > 0);
+      } catch (error) {
+        if ((error as { status: number }).status === 404) {
+          setNotFound(true);
+          setShowDropdown(false);
+        }
       }
-    }
-  };
+    };
+
+    fetchTrainees();
+  }, [debouncedSearch, searchTrainee]);
 
   const handleSelectTrainee = (traineeId: string, traineeName: string) => {
     setSelectedTrainee({ id: traineeId, name: traineeName });
@@ -163,7 +169,6 @@ const SellProductForm = ({
             type="text"
             autoComplete="off"
             {...register("searchTrainee")}
-            onChange={handleInputChange}
           />
           {errors.searchTrainee && (
             <StyledNotFoundText>
@@ -197,9 +202,6 @@ const SellProductForm = ({
           <p style={{ color: "red" }}>
             Error: {(error as { message: string })?.message}
           </p>
-        )}
-        {isSuccess && (
-          <p style={{ color: "green" }}>Product sold successfully!</p>
         )}
       </StyledSellProductForm>
     </SellProductFormContainer>
