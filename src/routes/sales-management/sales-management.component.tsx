@@ -53,6 +53,7 @@ const SalesManagement = () => {
   return (
     <SalesManagementContainer>
       <Button onClick={() => setIsModalOpen(true)}>Add New Product</Button>
+      <Button>Sales History</Button>
       <Modal
         open={isModalOpen}
         closeModal={() => setIsModalOpen(false)}

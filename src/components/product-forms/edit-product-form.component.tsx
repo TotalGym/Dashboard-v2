@@ -107,7 +107,7 @@ const EditProductForm = ({
           placeholder="Quantity"
           {...register("inventoryCount")}
         />
-        <Button type="submit" isLoading={isLoading} disabled={!isDirty}>
+        <Button type="submit" isLoading={isLoading} disable={!isDirty}>
           Update Product
         </Button>
       </StyledProductsForm>

@@ -113,7 +113,7 @@ const EditEquipmentForm = ({
           <option value="Available">Available</option>
           <option value="Under Maintenance">Under Maintenance</option>
         </StyledStatusSelect>
-        <Button type="submit" isLoading={isLoading} disabled={!isDirty}>
+        <Button type="submit" isLoading={isLoading} disable={!isDirty}>
           Update Equipment
         </Button>
       </StyledEquipmentsForm>

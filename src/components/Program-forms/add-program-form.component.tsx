@@ -217,7 +217,7 @@ const AddProgramForm = ({
               width="100px"
               type="button"
               onClick={() => removeExercise(index)}
-              disabled={exerciseFields.length === 1}
+              disable={exerciseFields.length === 1}
             >
               Remove
             </Button>
@@ -231,7 +231,7 @@ const AddProgramForm = ({
               appendExercise({ name: "", sets: 0, repetitions: 0 });
             }
           }}
-          disabled={exerciseFields.length === 6}
+          disable={exerciseFields.length === 6}
         >
           Add Exercise
         </Button>
@@ -279,7 +279,7 @@ const AddProgramForm = ({
               width="100px"
               type="button"
               onClick={() => removeSchedule(index)}
-              disabled={scheduleFields.length === 1}
+              disable={scheduleFields.length === 1}
             >
               Remove
             </Button>
@@ -293,7 +293,7 @@ const AddProgramForm = ({
               appendSchedule({ day: "", startTime: "", endTime: "" });
             }
           }}
-          disabled={scheduleFields.length === 7}
+          disable={scheduleFields.length === 7}
         >
           Add Schedule
         </Button>

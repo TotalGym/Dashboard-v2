@@ -40,7 +40,10 @@ const Navigation = () => {
             (route.name === "PROGRAMS" &&
               location.pathname.startsWith("/programs")) ||
             (route.name === "EQUIPMENT" &&
-              location.pathname.startsWith("/equipment"));
+              location.pathname.startsWith("/equipment")) ||
+            (route.name === "SALES" &&
+              (location.pathname.startsWith("/sales") ||
+                location.pathname.startsWith("/productDetails")));
 
           return (
             <StyledNavigationListItem key={index}>

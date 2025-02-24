@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { Bold, XXXLargeFontSize } from "../../styles/general.styles";
+import {
+  Bold,
+  CenteredFlexContainer,
+  XXXLargeFontSize,
+} from "../../styles/general.styles";
 
 export const ModalContainer = styled.div`
   position: fixed;
@@ -14,8 +18,9 @@ export const ModalContainer = styled.div`
   overflow: auto;
 
   @media (max-width: 520px) {
-    width: 100%;
-    height: 100%;
+    /* ${CenteredFlexContainer} */
+    width: 100vw;
+    height: 100vh;
     overflow-x: hidden;
     border-radius: 0;
     max-height: none;

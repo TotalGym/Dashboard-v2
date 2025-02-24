@@ -66,9 +66,8 @@ const ProgramgsPage = () => {
             </StyledProgramCard>
           ))}
       {isFetching &&
-      programs?.data.results.length &&
-      programs?.data.results.length < 3 &&
-      programs?.data.results.length > 0 ? (
+      programs?.data.results &&
+      programs.data.results.length < 3 ? (
         <StyledProgramSkeletonCard>
           <div className="skeleton-text"></div>
           <div className="skeleton-text"></div>

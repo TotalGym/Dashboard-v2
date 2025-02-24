@@ -6,6 +6,7 @@ export const EquipmentManagementContainer = styled.div`
   align-items: center;
   gap: 20px;
   min-height: calc(100vh - 160px);
+  margin-top: 2em;
 `;
 
 export const StyledEquipmentGrid = styled.div`

@@ -2,6 +2,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectToken } from "../../features/auth/auth.slice";
 import { useEffect, useState } from "react";
+import Spinner from "../../components/spinner/spinner.component";
 
 const RequireAuth = () => {
   const token = useAppSelector(selectToken);
@@ -13,7 +14,7 @@ const RequireAuth = () => {
   }, [token]);
 
   if (checkingAuth) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   return token ? (

@@ -1,21 +1,16 @@
 import styled from "styled-components";
-import {
-  Bold,
-  CenteredColFlexContainer,
-  CenteredFlexContainer,
-} from "../../styles/general.styles";
+import { Bold, CenteredColFlexContainer } from "../../styles/general.styles";
 
 export const ProductsFormContainer = styled.div`
-  ${CenteredFlexContainer}
-  width: 500px;
-  height: 500px;
+  ${CenteredColFlexContainer}
+  width: 300px;
+  height: 420px;
+  padding-top: 2em;
 `;
 
 export const StyledProductsForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 100%;
+  ${CenteredColFlexContainer}
+  gap: 2em;
   height: 100%;
 `;
 
