@@ -63,7 +63,7 @@ const ProgramsManagement = () => {
         <StyledPaginationContainer>
           <Button
             onClick={handlePrevPage}
-            disabled={page === 1 || isFetching}
+            disable={page === 1 || isFetching}
             buttonType={ButtonTypes.paginationButton}
           >
             &lt;
@@ -75,7 +75,7 @@ const ProgramsManagement = () => {
           </StyledPaginationSpan>
           <Button
             onClick={handleNextPage}
-            disabled={page === totalPages || isFetching}
+            disable={page === totalPages || isFetching}
             buttonType={ButtonTypes.paginationButton}
           >
             &gt;

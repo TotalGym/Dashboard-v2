@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const EquipmentManagementContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +8,7 @@ export const Container = styled.div`
   min-height: calc(100vh - 160px);
 `;
 
-export const Grid = styled.div`
+export const StyledEquipmentGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
@@ -16,7 +16,7 @@ export const Grid = styled.div`
   max-width: 800px;
 `;
 
-export const EquipmentCard = styled.div`
+export const StyledEquipmentCard = styled.div`
   cursor: pointer;
   padding: 16px;
   border-radius: 8px;
@@ -30,12 +30,13 @@ export const EquipmentCard = styled.div`
 
   img {
     width: 100%;
-    height: auto;
+    height: 250px;
+    object-fit: contain;
     border-radius: 4px;
   }
 `;
 
-export const SkeletonCard = styled.div`
+export const StyledEquipmentSkeletonCard = styled.div`
   width: 100%;
   height: 200px;
   background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
@@ -53,7 +54,7 @@ export const SkeletonCard = styled.div`
   }
 `;
 
-export const PaginationContainer = styled.div`
+export const StyledEquipmenmtPaginationContainer = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 20px;

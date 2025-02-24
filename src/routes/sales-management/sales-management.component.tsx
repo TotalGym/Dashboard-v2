@@ -11,11 +11,11 @@ import Modal from "../../components/modal/modal.component";
 import { ButtonTypes } from "../../components/button/button.types";
 import AddProductForm from "../../components/product-forms/add-product-form.component";
 import {
-  Container,
-  Grid,
-  Card,
-  SkeletonCard,
-  PaginationContainer,
+  SalesManagementContainer,
+  StyledSalesGrid,
+  StyledSaslesCard,
+  StyledSalesSkeletonCard,
+  StyledSalesPaginationContainer,
 } from "./sales-management.styles";
 
 const SalesManagement = () => {
@@ -51,7 +51,7 @@ const SalesManagement = () => {
   }
 
   return (
-    <Container>
+    <SalesManagementContainer>
       <Button onClick={() => setIsModalOpen(true)}>Add New Product</Button>
       <Modal
         open={isModalOpen}
@@ -61,13 +61,13 @@ const SalesManagement = () => {
         <AddProductForm toggleModalOpen={setIsModalOpen} />
       </Modal>
 
-      <Grid>
+      <StyledSalesGrid>
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
-              <SkeletonCard key={index} />
+              <StyledSalesSkeletonCard key={index} />
             ))
           : products?.data.results.map((product) => (
-              <Card
+              <StyledSaslesCard
                 key={product._id}
                 onClick={() =>
                   navigate(`/productDetails/${product._id}`, {
@@ -85,25 +85,25 @@ const SalesManagement = () => {
                   <strong>Description:</strong> {product.description}
                 </p>
                 <img src={product.image} alt="product-image" />
-              </Card>
+              </StyledSaslesCard>
             ))}
-      </Grid>
+      </StyledSalesGrid>
 
       {numberOfPages > 1 && (
-        <PaginationContainer>
+        <StyledSalesPaginationContainer>
           {pagesArray.map((item, index) => (
             <Button
               buttonType={ButtonTypes.paginationButton}
               key={index}
-              disabled={item === pageNumber}
+              disable={item === pageNumber}
               onClick={() => navigate(`/sales/${item}`)}
             >
               {item}
             </Button>
           ))}
-        </PaginationContainer>
+        </StyledSalesPaginationContainer>
       )}
-    </Container>
+    </SalesManagementContainer>
   );
 };
 

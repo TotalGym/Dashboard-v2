@@ -1,3 +1,13 @@
+import {
+  EquipmentDetailsContainer,
+  StyledEquipmentInfo,
+  StyledImage,
+  StyledModalContent,
+  StyledButtonGroup,
+  StyledEquipmentSkeletonContainer,
+  StyledEquipmentSkeletonImage,
+  StyledEquipmentSkeletonBox,
+} from "./equipment-details.styles";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteEquipmentMutation,
@@ -55,18 +65,29 @@ const EquipmentDetails = () => {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
-
+  if (isLoading)
+    return (
+      <StyledEquipmentSkeletonContainer>
+        <StyledEquipmentSkeletonImage />
+        <StyledEquipmentSkeletonBox $width="55%" />
+        <StyledEquipmentSkeletonBox $width="40%" />
+        <StyledEquipmentSkeletonBox $width="50%" />
+        <StyledEquipmentSkeletonBox $width="40%" />
+        <StyledEquipmentSkeletonBox $width="30%" />
+      </StyledEquipmentSkeletonContainer>
+    );
   if (isError || !equipment) return <p>something went wrong</p>;
 
   return (
-    <>
-      <Button onClick={() => navigate(`/equipment/${from}`)}>
-        Back to All Equipment
-      </Button>
-      <Button onClick={() => setIsEditEquipmentModalOpen(true)}>
-        Edit Equipment Details
-      </Button>
+    <EquipmentDetailsContainer>
+      <StyledButtonGroup>
+        <Button onClick={() => navigate(`/equipment/${from}`)}>
+          Back to All Equipment
+        </Button>
+        <Button onClick={() => setIsEditEquipmentModalOpen(true)}>
+          Edit Equipment Details
+        </Button>
+      </StyledButtonGroup>
       <Modal
         open={isEditEquipmentModalOpen}
         closeModal={() => setIsEditEquipmentModalOpen(false)}
@@ -84,14 +105,9 @@ const EquipmentDetails = () => {
         open={isConfirmDeleteModalOpen}
         closeModal={() => setIsConfirmDeleteModalOpen(false)}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        <StyledModalContent>
           <StyledConfirmDeleteText>
-            Do You Want To Delete This Equipment
+            Do You Want To Delete This Equipment?
           </StyledConfirmDeleteText>
           <Button
             redColored
@@ -100,26 +116,25 @@ const EquipmentDetails = () => {
           >
             Confirm Delete
           </Button>
-        </div>
+        </StyledModalContent>
       </Modal>
-      <div
-        key={equipment._id}
-        style={{
-          cursor: "pointer",
-        }}
-      >
-        <p>{equipment.name}</p>
-        <p>{equipment.quantity}</p>
-        <p>{equipment.type}</p>
-        <p>{equipment.status}</p>
-        <img
-          src={equipment.image}
-          alt="equipment-image"
-          width={500}
-          height={500}
-        />
-      </div>
-    </>
+      <StyledEquipmentInfo key={equipment._id}>
+        <p>
+          Equipment Name: <span>{equipment.name}</span>
+        </p>
+        <p>
+          Quantity: <span>{equipment.quantity}</span>
+        </p>
+        <p>
+          Type: <span>{equipment.type}</span>
+        </p>
+        <p>
+          Status: <span>{equipment.status}</span>
+        </p>
+        <StyledImage src={equipment.image} alt="equipment-image" />
+      </StyledEquipmentInfo>
+    </EquipmentDetailsContainer>
   );
 };
+
 export default EquipmentDetails;

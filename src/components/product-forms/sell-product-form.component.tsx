@@ -15,13 +15,20 @@ import { useLazySearchTraineesByNameQuery } from "../../features/trainees/traine
 import { yupResolver } from "@hookform/resolvers/yup";
 import { sellProductSchema } from "../../utils/yup/yup.utils";
 import { useSellProductMutation } from "../../features/products/products.api.slice";
+import { toast } from "react-toastify";
 
 type FormValues = {
   quantity: number;
   searchTrainee: string;
 };
 
-const SellProductForm = ({ product }: { product: Product }) => {
+const SellProductForm = ({
+  product,
+  toggleIsModalOpen,
+}: {
+  product: Product;
+  toggleIsModalOpen: (open: boolean) => void;
+}) => {
   const [sellProduct, { isLoading, isError, error, isSuccess }] =
     useSellProductMutation();
 
@@ -39,11 +46,16 @@ const SellProductForm = ({ product }: { product: Product }) => {
     },
   });
 
-  const searchTerm = watch("searchTrainee");
-
   useEffect(() => {
-    console.log("Search term updated:", searchTerm);
-  }, [searchTerm]);
+    if (isSuccess) {
+      toggleIsModalOpen(false);
+      toast.success("Equipment Sold Successfully", {
+        position: "top-right",
+        closeOnClick: true,
+        draggable: true,
+      });
+    }
+  });
 
   const [selectedTrainee, setSelectedTrainee] = useState<{
     id: string;
@@ -177,7 +189,7 @@ const SellProductForm = ({ product }: { product: Product }) => {
 
         <Button
           type="submit"
-          disabled={!selectedTrainee || watch("quantity") === 0 || isLoading}
+          disable={!selectedTrainee || watch("quantity") === 0 || isLoading}
         >
           {isLoading ? "Processing..." : "Sell"}
         </Button>

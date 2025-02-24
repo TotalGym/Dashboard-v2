@@ -8,7 +8,7 @@ export const ProductDetailsContainer = styled.div`
   padding: 20px;
 `;
 
-export const ProductImage = styled.img`
+export const StyledProductImage = styled.img`
   width: 500px;
   height: 500px;
   object-fit: contain;
@@ -17,7 +17,7 @@ export const ProductImage = styled.img`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
-export const ProductInfo = styled.div`
+export const StyledProductInfo = styled.div`
   text-align: center;
   font-size: 18px;
   font-weight: 500;
@@ -27,28 +27,28 @@ export const ProductInfo = styled.div`
   }
 `;
 
-export const ProductDescription = styled.p`
+export const StyledProductDescription = styled.p`
   font-size: 16px;
   text-align: center;
   max-width: 600px;
   color: #555;
 `;
 
-export const ButtonGroup = styled.div`
+export const StyledProductButtonGroup = styled.div`
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
 `;
 
-export const DeleteModalContent = styled.div`
+export const StyledProductDeleteModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
 `;
 
-export const SkeletonContainer = styled.div`
+export const StyledProductSkeletonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,7 +56,7 @@ export const SkeletonContainer = styled.div`
   padding: 20px;
 `;
 
-export const SkeletonBox = styled.div`
+export const StyledProductSkeletonBox = styled.div`
   background: #e0e0e0;
   border-radius: 8px;
   animation: pulse 1.5s infinite ease-in-out;
@@ -73,12 +73,14 @@ export const SkeletonBox = styled.div`
   }
 `;
 
-export const SkeletonImage = styled(SkeletonBox)`
+export const StyledProductSkeletonImage = styled(StyledProductSkeletonBox)`
   width: 500px;
   height: 500px;
 `;
 
-export const SkeletonText = styled(SkeletonBox)<{ $width?: string }>`
+export const StyledProductSkeletonText = styled(StyledProductSkeletonBox)<{
+  $width?: string;
+}>`
   width: ${(props) => props.$width || "100%"};
   height: 20px;
 `;

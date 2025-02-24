@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const SalesManagementContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 `;
 
-export const Grid = styled.div`
+export const StyledSalesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
@@ -15,7 +15,7 @@ export const Grid = styled.div`
   max-width: 800px;
 `;
 
-export const Card = styled.div`
+export const StyledSaslesCard = styled.div`
   cursor: pointer;
   padding: 16px;
   border-radius: 8px;
@@ -34,12 +34,13 @@ export const Card = styled.div`
 
   img {
     width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: contain;
     border-radius: 4px;
   }
 `;
 
-export const SkeletonCard = styled.div`
+export const StyledSalesSkeletonCard = styled.div`
   width: 100%;
   height: 200px;
   background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
@@ -57,7 +58,7 @@ export const SkeletonCard = styled.div`
   }
 `;
 
-export const PaginationContainer = styled.div`
+export const StyledSalesPaginationContainer = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 20px;

@@ -12,14 +12,14 @@ import EditProductForm from "../../components/product-forms/edit-product-form.co
 import SellProductForm from "../../components/product-forms/sell-product-form.component";
 import {
   ProductDetailsContainer,
-  ProductImage,
-  ProductInfo,
-  ProductDescription,
-  ButtonGroup,
-  DeleteModalContent,
-  SkeletonContainer,
-  SkeletonImage,
-  SkeletonText,
+  StyledProductButtonGroup,
+  StyledProductDeleteModalContent,
+  StyledProductDescription,
+  StyledProductImage,
+  StyledProductInfo,
+  StyledProductSkeletonContainer,
+  StyledProductSkeletonImage,
+  StyledProductSkeletonText,
 } from "./product-details.styles";
 
 const ProductDetails = () => {
@@ -43,14 +43,14 @@ const ProductDetails = () => {
 
   if (isLoading)
     return (
-      <SkeletonContainer>
-        <SkeletonImage />
-        <SkeletonText $width="60%" />
-        <SkeletonText $width="40%" />
-        <SkeletonText $width="50%" />
-        <SkeletonText $width="70%" />
-        <SkeletonText $width="90%" />
-      </SkeletonContainer>
+      <StyledProductSkeletonContainer>
+        <StyledProductSkeletonImage />
+        <StyledProductSkeletonText $width="60%" />
+        <StyledProductSkeletonText $width="40%" />
+        <StyledProductSkeletonText $width="50%" />
+        <StyledProductSkeletonText $width="70%" />
+        <StyledProductSkeletonText $width="90%" />
+      </StyledProductSkeletonContainer>
     );
   if (isError || !product) return <p>Something went wrong</p>;
 
@@ -66,7 +66,7 @@ const ProductDetails = () => {
 
   return (
     <ProductDetailsContainer>
-      <ButtonGroup>
+      <StyledProductButtonGroup>
         <Button onClick={() => navigate(`/sales/${from}`)}>
           Back to All Products
         </Button>
@@ -79,7 +79,7 @@ const ProductDetails = () => {
         <Button redColored onClick={() => setIsConfirmDeleteModalOpen(true)}>
           Delete Product
         </Button>
-      </ButtonGroup>
+      </StyledProductButtonGroup>
 
       <Modal
         open={isEditProductModalOpen}
@@ -96,18 +96,18 @@ const ProductDetails = () => {
         open={isConfirmDeleteModalOpen}
         closeModal={() => setIsConfirmDeleteModalOpen(false)}
       >
-        <DeleteModalContent>
+        <StyledProductDeleteModalContent>
           <StyledConfirmDeleteText>
             Do you want to delete this product?
           </StyledConfirmDeleteText>
           <Button redColored onClick={handleDelete} isLoading={isDeleting}>
             Confirm Delete
           </Button>
-        </DeleteModalContent>
+        </StyledProductDeleteModalContent>
       </Modal>
 
-      <ProductImage src={product.image} alt="product-image" />
-      <ProductInfo>
+      <StyledProductImage src={product.image} alt="product-image" />
+      <StyledProductInfo>
         <p>
           <strong>Product Name:</strong> {product.productName}
         </p>
@@ -120,16 +120,19 @@ const ProductDetails = () => {
         <p>
           <strong>Total Revenue:</strong> ${product.totalRevenue}
         </p>
-      </ProductInfo>
-      <ProductDescription>
+      </StyledProductInfo>
+      <StyledProductDescription>
         <strong>Description:</strong> {product.description}
-      </ProductDescription>
+      </StyledProductDescription>
 
       <Modal
         open={isSellProductModalOpen}
         closeModal={() => setIsSellProductModalOpen(false)}
       >
-        <SellProductForm product={product} />
+        <SellProductForm
+          product={product}
+          toggleIsModalOpen={setIsSellProductModalOpen}
+        />
       </Modal>
     </ProductDetailsContainer>
   );

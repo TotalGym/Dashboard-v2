@@ -11,11 +11,11 @@ import {
 import { ButtonTypes } from "../../components/button/button.types";
 import AddEquipmentForm from "../../components/equipment-forms/add-equipment-form";
 import {
-  Container,
-  Grid,
-  EquipmentCard,
-  SkeletonCard,
-  PaginationContainer,
+  EquipmentManagementContainer,
+  StyledEquipmentGrid,
+  StyledEquipmentCard,
+  StyledEquipmentSkeletonCard,
+  StyledEquipmenmtPaginationContainer,
 } from "./equipment-management.styles";
 
 const EquipmentManagement = () => {
@@ -50,7 +50,7 @@ const EquipmentManagement = () => {
   }
 
   return (
-    <Container>
+    <EquipmentManagementContainer>
       <Button onClick={() => setIsModalOpen(true)}>Add New Equipment</Button>
       <Modal
         open={isModalOpen}
@@ -60,13 +60,13 @@ const EquipmentManagement = () => {
         <AddEquipmentForm toggleModalOpen={setIsModalOpen} />
       </Modal>
 
-      <Grid>
+      <StyledEquipmentGrid>
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
-              <SkeletonCard key={index} />
+              <StyledEquipmentSkeletonCard key={index} />
             ))
           : equipments?.data.results.map((equipment) => (
-              <EquipmentCard
+              <StyledEquipmentCard
                 key={equipment._id}
                 onClick={() =>
                   navigate(`/equipmentDetails/${equipment._id}`, {
@@ -87,25 +87,25 @@ const EquipmentManagement = () => {
                   <strong>Status:</strong> {equipment.status}
                 </p>
                 <img src={equipment.image} alt="equipment-image" />
-              </EquipmentCard>
+              </StyledEquipmentCard>
             ))}
-      </Grid>
+      </StyledEquipmentGrid>
 
       {numberOfPages > 1 && (
-        <PaginationContainer>
+        <StyledEquipmenmtPaginationContainer>
           {pagesArray.map((item, index) => (
             <Button
               buttonType={ButtonTypes.paginationButton}
               key={index}
-              disabled={item === pageNumber}
+              disable={item === pageNumber}
               onClick={() => navigate(`/equipment/${item}`)}
             >
               {item}
             </Button>
           ))}
-        </PaginationContainer>
+        </StyledEquipmenmtPaginationContainer>
       )}
-    </Container>
+    </EquipmentManagementContainer>
   );
 };
 
