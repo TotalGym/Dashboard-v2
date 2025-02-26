@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { Bold, CenteredColFlexContainer } from "../../styles/general.styles";
+import {
+  Bold,
+  CenteredColFlexContainer,
+  CenteredFlexContainer,
+} from "../../styles/general.styles";
 
 export const ProductsFormContainer = styled.div`
   ${CenteredColFlexContainer}
@@ -17,7 +21,7 @@ export const StyledProductsForm = styled.form`
 export const SellProductFormContainer = styled.div`
   ${CenteredColFlexContainer}
   width: 300px;
-  height: 420px;
+  height: 500px;
 `;
 
 export const StyledSellProductForm = styled.form`
@@ -27,10 +31,12 @@ export const StyledSellProductForm = styled.form`
 `;
 
 export const StyledSellProductText = styled.p`
+  ${CenteredFlexContainer}
   ${Bold}
   color: ${({ theme }) => theme.colors["font-secondary"]};
   border-bottom: 1px solid gray;
   padding-bottom: 1em;
+  width: 300px;
 `;
 
 export const StyledTraineesList = styled.ul`
@@ -57,4 +63,20 @@ export const StyledTraineesList = styled.ul`
 export const StyledNotFoundText = styled.p`
   color: red;
   margin-top: 1em;
+`;
+
+export const StyledTraineeToSellCard = styled.p`
+  ${CenteredFlexContainer}
+  border-radius: 40px;
+  background-color: ${({ theme }) => theme.colors["bg-secondary"]};
+  height: 2em;
+  padding: 1em;
+  color: white;
+  margin-left: 0.5em;
+  cursor: pointer;
+
+  p {
+    cursor: pointer;
+    margin-left: 0.5em;
+  }
 `;

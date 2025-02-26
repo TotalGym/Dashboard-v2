@@ -10,6 +10,7 @@ import {
   StyledSellProductForm,
   StyledSellProductText,
   StyledTraineesList,
+  StyledTraineeToSellCard,
 } from "./product-forms.styles";
 import { useLazySearchTraineesByNameQuery } from "../../features/trainees/trainees.api.slice";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -80,10 +81,11 @@ const SellProductForm = ({
 
     const fetchTrainees = async () => {
       setNotFound(false);
-      setSelectedTrainee(null);
 
       try {
-        const results = await searchTrainee({ search: debouncedSearch }).unwrap();
+        const results = await searchTrainee({
+          search: debouncedSearch,
+        }).unwrap();
         setData(results.data);
         setShowDropdown(results.data.length > 0);
       } catch (error) {
@@ -98,6 +100,7 @@ const SellProductForm = ({
   }, [debouncedSearch, searchTrainee]);
 
   const handleSelectTrainee = (traineeId: string, traineeName: string) => {
+    setData(null);
     setSelectedTrainee({ id: traineeId, name: traineeName });
     setValue("searchTrainee", traineeName);
     setShowDropdown(false);
@@ -139,7 +142,13 @@ const SellProductForm = ({
     <SellProductFormContainer>
       <h2>Sell Product</h2>
       <StyledSellProductForm onSubmit={handleSubmit(onSubmit)}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1em",
+          }}
+        >
           <StyledSellProductText>
             Product Name: {product.productName}
           </StyledSellProductText>
@@ -148,6 +157,26 @@ const SellProductForm = ({
           </StyledSellProductText>
           <StyledSellProductText>
             Available Quantity: {product.inventoryCount}
+          </StyledSellProductText>
+          <StyledSellProductText>
+            Sell to:{" "}
+            <StyledTraineeToSellCard>
+              {selectedTrainee?.name
+                ? selectedTrainee?.name
+                : "Select a trainee"}
+              {selectedTrainee ? (
+                <p
+                  onClick={() => {
+                    setSelectedTrainee(null);
+                    setValue("searchTrainee", "");
+                  }}
+                >
+                  X
+                </p>
+              ) : (
+                ""
+              )}
+            </StyledTraineeToSellCard>
           </StyledSellProductText>
         </div>
 
@@ -168,6 +197,7 @@ const SellProductForm = ({
             placeholder="Search Trainee"
             type="text"
             autoComplete="off"
+            disabled={!!selectedTrainee}
             {...register("searchTrainee")}
           />
           {errors.searchTrainee && (
@@ -178,7 +208,7 @@ const SellProductForm = ({
           {notFound && (
             <StyledNotFoundText>No Trainee found</StyledNotFoundText>
           )}
-          {showDropdown && data && data.length > 0 && (
+          {showDropdown && data && data.length > 0 && !selectedTrainee && (
             <StyledTraineesList ref={dropdownRef}>
               {data.map((trainee) => (
                 <li

@@ -16,11 +16,9 @@ import {
   setUserData,
 } from "./features/auth/auth.slice";
 import { useGetHomeDataQuery } from "./features/home/home.api.slice";
-import {
-  setHomeData,
-  setIsHomeDataLoading,
-} from "./features/home/home.slice";
+import { setHomeData, setIsHomeDataLoading } from "./features/home/home.slice";
 import { setPrograms } from "./features/programs/programs.slice";
+import Spinner from "./components/spinner/spinner.component";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -60,7 +58,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <ResetStyles />
         <GlobalStyle />
-        {isLoading ? <p>Loading...</p> : <Router />}
+        {isLoading ? <Spinner /> : <Router />}
       </ThemeProvider>
     </>
   );
