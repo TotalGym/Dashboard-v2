@@ -85,5 +85,14 @@ export type SearchTraineeByNameResponse = UnifiedResponse & {
 };
 
 export type GetSalesHistoryResponse = UnifiedResponse & {
-  data: SalesHistoryRecord[];
+  data: {
+    results: SalesHistoryRecord[];
+    totalCount: number;
+    page: number;
+    limit: number;
+    next?: {
+      page: number;
+      limit: number;
+    };
+  };
 };

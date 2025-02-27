@@ -46,7 +46,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         url: `/store/${productId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Products"],
+      invalidatesTags: ["Products", "Sales-History"],
     }),
     sellProduct: builder.mutation<
       UnifiedResponse,
@@ -57,7 +57,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: purchaseDetails,
       }),
-      invalidatesTags: ["Products"],
+      invalidatesTags: ["Products", "Sales-History"],
     }),
     getSalesHistory: builder.query<
       GetSalesHistoryResponse,
@@ -65,6 +65,21 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ page, limit }) => `/sales?page=${page}&limit=${limit}`,
       providesTags: ["Sales-History"],
+      // Add logic to merge incoming data with existing data
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        if (newItems.data.page === 1) {
+          return newItems;
+        }
+        currentCache.data.results.push(...newItems.data.results);
+        currentCache.data.next = newItems.data.next;
+        return currentCache;
+      },
+      forceRefetch: ({ currentArg, previousArg }) => {
+        return currentArg?.page !== previousArg?.page;
+      },
     }),
   }),
 });
