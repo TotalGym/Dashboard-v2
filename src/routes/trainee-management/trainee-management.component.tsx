@@ -18,6 +18,7 @@ import {
 import { Trainee } from "../../types/trainee.types";
 import Button from "../../components/button/button.component";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../components/modal/modal.component";
 
 const columnHelper = createColumnHelper<Trainee>();
 
@@ -45,6 +46,8 @@ const columns = [
 
 const TraineeManagement = () => {
   const navigate = useNavigate();
+  const [isAddNewTraineeModalOpen, setIsAddNewTraineeModalOpen] =
+    useState(false);
   const [page, setPage] = useState(1);
   const limit = 10;
   const { data: trainees, isLoading } = useGetTraineesDataQuery({
@@ -60,6 +63,16 @@ const TraineeManagement = () => {
 
   return (
     <TraineeManagementContainer>
+      <Button onClick={() => setIsAddNewTraineeModalOpen((prev) => !prev)}>
+        Add New Trainee
+      </Button>
+      <Modal
+        open={isAddNewTraineeModalOpen}
+        closeModal={() => setIsAddNewTraineeModalOpen(false)}
+        title="ADD NEW TRAINEE"
+      >
+        Add new Trainee
+      </Modal>
       {isLoading ? (
         <StyledSkeleton>Loading trainees...</StyledSkeleton>
       ) : (

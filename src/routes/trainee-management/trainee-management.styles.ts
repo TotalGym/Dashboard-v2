@@ -6,9 +6,9 @@ export const TraineeManagementContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1em;
   width: 100%;
   padding: 20px;
-  background: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   min-height: 100vh;

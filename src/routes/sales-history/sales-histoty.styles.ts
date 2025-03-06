@@ -7,7 +7,6 @@ export const SalesHistoryContainer = styled.div`
   margin-top: 2em;
   padding: 20px;
   padding-inline: 6em;
-  background: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
