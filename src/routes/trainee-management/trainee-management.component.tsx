@@ -17,6 +17,7 @@ import {
 } from "./trainee-management.styles";
 import { Trainee } from "../../types/trainee.types";
 import Button from "../../components/button/button.component";
+import { useNavigate } from "react-router-dom";
 
 const columnHelper = createColumnHelper<Trainee>();
 
@@ -43,6 +44,7 @@ const columns = [
 ];
 
 const TraineeManagement = () => {
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const limit = 10;
   const { data: trainees, isLoading } = useGetTraineesDataQuery({
@@ -78,7 +80,10 @@ const TraineeManagement = () => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <StyledTR key={row.id}>
+              <StyledTR
+                key={row.id}
+                onClick={() => navigate(`/trainees/${row.original._id}`)}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <StyledTD key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -19,6 +19,7 @@ import ProgramgsPage from "../routes/programs-page/programs-page.component";
 import EquipmentDetails from "../routes/equipment-details/equipment-details.component";
 import ProductDetails from "../routes/product-details/product-details.component";
 import SalesHistory from "../routes/sales-history/sales-history.component";
+import TraineeDetails from "../routes/trainee-details/trainee-details.component";
 
 const Router = () => {
   return (
@@ -34,6 +35,7 @@ const Router = () => {
         <Route element={<RequireAuth />}>
           <Route index element={<Home />} />
           <Route path="trainees" element={<TraineeManagement />} />
+          <Route path="trainees/:traineeID" element={<TraineeDetails />} />
           <Route
             path="equipment/:equipmentPage"
             element={<EquipmentManagement />}

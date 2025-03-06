@@ -21,6 +21,13 @@ const baseQuery = retry(
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery,
-  tagTypes: ["Programs", "Equipment", "Products", "Home", "Sales-History"],
+  tagTypes: [
+    "Programs",
+    "Equipment",
+    "Products",
+    "Home",
+    "Sales-History",
+    "Trainees",
+  ],
   endpoints: () => ({}),
 });

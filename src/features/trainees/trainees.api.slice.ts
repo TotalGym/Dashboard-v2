@@ -11,6 +11,7 @@ export const traineesApiSlice = apiSlice.injectEndpoints({
       { page: number; limit: number }
     >({
       query: ({ page, limit }) => `/trainee?page=${page}&limit=${limit}`,
+      providesTags: ["Trainees"],
     }),
     searchTraineesByName: builder.query<
       SearchTraineeByNameResponse,
