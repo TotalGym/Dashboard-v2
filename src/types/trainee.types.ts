@@ -36,10 +36,11 @@ type Progress = {
   };
 };
 
-export type TraineeData = {
+export type Trainee = {
   contact: ContactInfo;
   membership: MemberShip;
   progress: Progress;
+  assignedCoach: string[];
   attendance: AttendanceObject[];
   selectedPrograms: SelectedProgram[];
   subscriptionType: "monthly" | "annually";
@@ -49,10 +50,11 @@ export type TraineeData = {
   name: string;
   gender: "Male" | "Female";
   role: "Trainee";
+  status: "new" | "active" | "inactive";
 };
 
-export type GetTraineesResponse = {
-  results: TraineeData[];
+export type GetTraineesData = {
+  results: Trainee[];
   totalCount: number;
   page: number;
   limit: number;

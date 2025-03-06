@@ -43,6 +43,7 @@ const SalesHistory = () => {
         loader={<StyledLoader>Loading more records...</StyledLoader>}
         endMessage={<p>No more records</p>}
       >
+        {/*//todo : add fiters to sales history */} 
         {data?.data.results.map((record) => (
           <StyledRecord key={record._id}>
             <h3>{record.ProductID.productName}</h3>

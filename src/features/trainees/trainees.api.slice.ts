@@ -1,11 +1,16 @@
 import { apiSlice } from "../../app/api/api.slice";
-import { SearchTraineeByNameResponse } from "../../types/response.types";
-import { GetTraineesResponse } from "../../types/trainee.types";
+import {
+  GetTraineesDataResponse,
+  SearchTraineeByNameResponse,
+} from "../../types/response.types";
 
 export const traineesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getTraineesData: builder.query<GetTraineesResponse, { page: number }>({
-      query: ({ page }) => `/trainee?page=${page}`,
+    getTraineesData: builder.query<
+      GetTraineesDataResponse,
+      { page: number; limit: number }
+    >({
+      query: ({ page, limit }) => `/trainee?page=${page}&limit=${limit}`,
     }),
     searchTraineesByName: builder.query<
       SearchTraineeByNameResponse,

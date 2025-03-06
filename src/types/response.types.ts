@@ -6,6 +6,7 @@ import {
 } from "./products.types";
 import { Program, ProgramsResponse } from "./programs.types";
 import { Roles } from "./staff.types";
+import { GetTraineesData } from "./trainee.types";
 
 export type UnifiedResponse = {
   success: boolean;
@@ -82,6 +83,10 @@ export type DeleteProductResponse = UnifiedResponse & {
 
 export type SearchTraineeByNameResponse = UnifiedResponse & {
   data: { id: string; name: string }[];
+};
+
+export type GetTraineesDataResponse = UnifiedResponse & {
+  data: GetTraineesData;
 };
 
 export type GetSalesHistoryResponse = UnifiedResponse & {
