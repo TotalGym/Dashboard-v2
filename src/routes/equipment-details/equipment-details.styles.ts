@@ -1,6 +1,9 @@
 import styled, { keyframes } from "styled-components";
+import { MainBgColor, MainContentPadding } from "../../styles/general.styles";
 
 export const EquipmentDetailsContainer = styled.div`
+  ${MainBgColor}
+  ${MainContentPadding}
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,7 +31,7 @@ export const StyledEquipmentInfo = styled.div`
 export const StyledImage = styled.img`
   width: 500px;
   height: 500px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
 `;
 

@@ -1,9 +1,13 @@
 import styled from "styled-components";
-import { CenteredFlexContainer } from "../../styles/general.styles";
+import {
+  CenteredFlexContainer,
+  MainBgColor,
+} from "../../styles/general.styles";
 
 export const NotFoundContainer = styled.div`
   ${CenteredFlexContainer}
-  height: calc(100vh - 160px );
+  ${MainBgColor}
+  height: 100vh;
   gap: 1em;
 
   a {

@@ -3,15 +3,16 @@ import {
   Bold,
   CenteredColFlexContainer,
   CenteredFlexContainer,
+  MainBgColor,
   MainContentPadding,
   XLargeFontSize,
 } from "../../styles/general.styles";
 
 export const HomeContainer = styled.div`
+  ${MainBgColor}
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
 `;
 
 export const StyledHomeHeader = styled.div`

@@ -1,12 +1,14 @@
 import styled from "styled-components";
+import { MainBgColor, MainContentPadding } from "../../styles/general.styles";
 
 export const SalesManagementContainer = styled.div`
+  ${MainBgColor}
+  ${MainContentPadding}
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   min-height: calc(100vh - 160px);
-  margin-top: 2em;
 `;
 
 export const StyledSalesGrid = styled.div`

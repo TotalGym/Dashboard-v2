@@ -1,12 +1,13 @@
 import styled, { keyframes } from "styled-components";
-import { Bold } from "../../styles/general.styles";
+import { Bold, MainBgColor, MainContentPadding } from "../../styles/general.styles";
 
 export const ProgramDetailsContainer = styled.div`
+  ${MainBgColor}
+  ${MainContentPadding}
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 20px;
 `;
 
 export const ProgramImage = styled.img`

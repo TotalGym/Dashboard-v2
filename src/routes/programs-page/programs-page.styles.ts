@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { Bold, MainContentPadding } from "../../styles/general.styles";
+import { Bold, MainBgColor, MainContentPadding } from "../../styles/general.styles";
 
 export const ProgramsPageContainer = styled.div`
+${MainBgColor}
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 2em;

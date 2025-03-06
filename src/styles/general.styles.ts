@@ -13,6 +13,14 @@ export const CenteredColFlexContainer = css`
   align-items: center;
 `;
 
+export const MainBgColor = css`
+  background-color: ${({ theme }) => theme.colors["bg-primary"]};
+`;
+
+export const SeconderyBgColor = css`
+  background-color: ${({ theme }) => theme.colors["bg-secondary"]};
+`;
+
 export const MainContentPadding = css`
   padding: 2em;
 `;

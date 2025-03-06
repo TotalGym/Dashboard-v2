@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import {
   CenteredColFlexContainer,
+  MainBgColor,
   MainContentPadding,
 } from "../../styles/general.styles";
 
 export const ProgramsManagementContainer = styled.div`
   ${CenteredColFlexContainer}
   ${MainContentPadding}
+  ${MainBgColor}
   min-height: calc(100vh - 160px);
   justify-content: space-between;
 `;

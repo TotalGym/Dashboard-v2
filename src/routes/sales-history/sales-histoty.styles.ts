@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { MainBgColor } from "../../styles/general.styles";
 
 export const SalesHistoryContainer = styled.div`
+  ${MainBgColor}
   max-width: 100%;
   margin-top: 2em;
   padding: 20px;

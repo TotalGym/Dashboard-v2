@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { MainBgColor } from "../../styles/general.styles";
 
 export const TraineeManagementContainer = styled.div`
+  ${MainBgColor}
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +12,6 @@ export const TraineeManagementContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   min-height: 100vh;
-  background-color: ${({ theme }) => theme.colors["bg-primary"]};
 `;
 
 export const StyledTable = styled.table`
