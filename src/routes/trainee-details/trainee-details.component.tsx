@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetTraineeDataByIdQuery } from "../../features/trainees/trainees.api.slice";
 import {
   TraineeDetailsContainer,
@@ -7,12 +7,18 @@ import {
   Value,
   StyledSkeleton,
   StyledDetailsContainer,
+  StyledButtonsContainer,
 } from "./trainee-details.styles";
 import Button from "../../components/button/button.component";
+import { useState } from "react";
+import Modal from "../../components/modal/modal.component";
+import EditTraineeForm from "../../components/trainee-forms/edit-trainee.form";
+import { TraineeFormInputs } from "../../components/trainee-forms/edit-trainee.form"; // Import the type
 
 const TraineeDetails = () => {
   const { traineeID } = useParams<{ traineeID: string }>();
   const { data, isLoading } = useGetTraineeDataByIdQuery({ id: traineeID! });
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   if (isLoading) {
     return <StyledSkeleton>Loading trainee details...</StyledSkeleton>;
@@ -24,17 +30,39 @@ const TraineeDetails = () => {
 
   const trainee = data.data;
 
+  const initialFormData: TraineeFormInputs = {
+    name: trainee.name,
+    email: trainee.contact.email,
+    password: "",
+    phoneNumber: trainee.contact.phoneNumber,
+    gender: trainee.gender,
+    subscriptionType: trainee.subscriptionType,
+    selectedProgram: trainee.selectedPrograms[0]?._id || "",
+    assignedCoach: trainee.assignedCoach || "",
+  };
+
   return (
     <TraineeDetailsContainer>
-      <div
-        style={{
-          display: "flex",
-          gap: "1em",
-        }}
-      >
-        <Button>Edit Trainee Data</Button>
+      <StyledButtonsContainer>
+        <Link to={"/trainees"}>
+          <Button>Back to all Trainees</Button>
+        </Link>
+        <Button onClick={() => setIsEditModalOpen(true)}>
+          Edit Trainee Data
+        </Button>
         <Button redColored>Delete Trainee</Button>
-      </div>
+      </StyledButtonsContainer>
+      <Modal
+        open={isEditModalOpen}
+        closeModal={() => setIsEditModalOpen(false)}
+        title="Edit Trainee Data"
+      >
+        <EditTraineeForm
+          initialData={initialFormData}
+          toggleModalOpen={setIsEditModalOpen}
+          traineeID={trainee._id}
+        />
+      </Modal>
       <StyledDetailsContainer>
         <h1>{trainee.name}</h1>
         <StyledInfoContainer>
@@ -59,7 +87,7 @@ const TraineeDetails = () => {
         </StyledInfoContainer>
         <StyledInfoContainer>
           <Label>Assigned Coaches:</Label>
-          <Value>{trainee.assignedCoach.join(", ") || "None"}</Value>
+          <Value>{trainee.assignedCoach}</Value>
         </StyledInfoContainer>
         <StyledInfoContainer>
           <Label>Created At:</Label>

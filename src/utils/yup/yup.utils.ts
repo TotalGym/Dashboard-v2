@@ -126,8 +126,27 @@ export const sellProductSchema = yup.object().shape({
     .typeError("Quantity is Required")
     .positive("Quantity must be a positive number")
     .required("Quantity is required"),
-  searchTrainee: yup
-    .string()
-    .trim()
-    .required("select trainee"),
+  searchTrainee: yup.string().trim().required("select trainee"),
+});
+
+export const traineeSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup.string().required("password is required"),
+  phoneNumber: yup.string().required("Phone number is required"),
+  gender: yup.string().required("Gender is required"),
+  subscriptionType: yup.string().required("Subscription type is required"),
+  selectedProgram: yup.string(),
+  assignedCoach: yup.string(),
+});
+
+export const editTraineeSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup.string(),
+  phoneNumber: yup.string().required("Phone number is required"),
+  gender: yup.string().required("Gender is required"),
+  subscriptionType: yup.string().required("Subscription type is required"),
+  selectedProgram: yup.string(),
+  assignedCoach: yup.string(),
 });

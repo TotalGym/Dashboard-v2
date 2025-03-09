@@ -19,6 +19,7 @@ import { Trainee } from "../../types/trainee.types";
 import Button from "../../components/button/button.component";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/modal/modal.component";
+import AddTraineeForm from "../../components/trainee-forms/add-trainee.form";
 
 const columnHelper = createColumnHelper<Trainee>();
 
@@ -34,7 +35,11 @@ const columns = [
   }),
   columnHelper.accessor("assignedCoach", {
     header: "ASSIGNED COACHES",
-    cell: (props) => props.getValue().join(", "),
+    cell: ({ getValue }) => {
+      const coach =
+        typeof getValue() === "string" ? JSON.parse(getValue()) : getValue();
+      return coach?.name || "N/A";
+    },
   }),
   columnHelper.accessor("subscriptionType", {
     header: "SUBSCRIPTION TYPE",
@@ -71,7 +76,7 @@ const TraineeManagement = () => {
         closeModal={() => setIsAddNewTraineeModalOpen(false)}
         title="ADD NEW TRAINEE"
       >
-        Add new Trainee
+        <AddTraineeForm toggleModalOpen={setIsAddNewTraineeModalOpen} />
       </Modal>
       {isLoading ? (
         <StyledSkeleton>Loading trainees...</StyledSkeleton>

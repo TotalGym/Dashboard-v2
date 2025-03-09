@@ -9,9 +9,23 @@ export const TraineeDetailsContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 2em;
-
   h1 {
     color: ${({ theme }) => theme.colors["font-secondary"]};
+  }
+
+  button {
+    @media (max-width: 640px) {
+      width: 300px;
+    }
+  }
+`;
+
+export const StyledButtonsContainer = styled.div`
+  display: flex;
+  gap: 1em;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
   }
 `;
 
@@ -21,6 +35,7 @@ export const StyledDetailsContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   width: 600px;
+  max-width: 100%;
   margin: auto;
   border-radius: 10px;
   background-color: white;

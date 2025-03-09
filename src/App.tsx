@@ -19,6 +19,7 @@ import { useGetHomeDataQuery } from "./features/home/home.api.slice";
 import { setHomeData, setIsHomeDataLoading } from "./features/home/home.slice";
 import { setPrograms } from "./features/programs/programs.slice";
 import Spinner from "./components/spinner/spinner.component";
+import { setAvailableCoaches } from "./features/staff/staff.slice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -48,6 +49,7 @@ function App() {
       if (HomeData) {
         dispatch(setHomeData(HomeData.data));
         dispatch(setPrograms(HomeData.data.programs));
+        dispatch(setAvailableCoaches(HomeData.data.coaches));
         dispatch(setIsHomeDataLoading(false));
       }
     }

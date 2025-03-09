@@ -3,8 +3,9 @@ import logger from "redux-logger";
 
 import { apiSlice } from "./api/api.slice";
 import authReducer from "../features/auth/auth.slice";
-import programsReducer from "../features/programs/programs.slice";
 import homeReducer from "../features/home/home.slice";
+import programsReducer from "../features/programs/programs.slice";
+import staffReducer from "../features/staff/staff.slice";
 
 const middlewares = [
   apiSlice.middleware,
@@ -15,8 +16,9 @@ export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authReducer,
-    programs: programsReducer,
     home: homeReducer,
+    programs: programsReducer,
+    staff: staffReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(middlewares),

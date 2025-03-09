@@ -66,6 +66,7 @@ export type HomeDataResponse = UnifiedResponse & {
     underMaintenanceEquipments: number;
     totalPrograms: number;
     programs: { _id: string; programName: string }[];
+    coaches: { _id: string; name: string }[];
   };
 };
 
@@ -89,7 +90,7 @@ export type GetTraineesDataResponse = UnifiedResponse & {
   data: GetTraineesData;
 };
 
-export type GetTraineeDataById = UnifiedResponse & {
+export type GetAddUpdateTrainee = UnifiedResponse & {
   data: Trainee;
 };
 

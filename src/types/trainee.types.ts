@@ -28,19 +28,10 @@ type MemberShip = {
   endDate: Date;
 };
 
-type Progress = {
-  milestones: string[];
-  metrics: {
-    fitness: string;
-    strength: string;
-  };
-};
-
 export type Trainee = {
   contact: ContactInfo;
   membership: MemberShip;
-  progress: Progress;
-  assignedCoach: string[];
+  assignedCoach: string;
   attendance: AttendanceObject[];
   selectedPrograms: SelectedProgram[];
   subscriptionType: "monthly" | "annually";
