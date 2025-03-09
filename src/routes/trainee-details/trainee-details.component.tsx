@@ -14,8 +14,11 @@ import { useState } from "react";
 import Modal from "../../components/modal/modal.component";
 import EditTraineeForm from "../../components/trainee-forms/edit-trainee.form";
 import { TraineeFormInputs } from "../../components/trainee-forms/edit-trainee.form"; // Import the type
+import { useAppSelector } from "../../app/hooks";
+import { selectAvailabelCoaches } from "../../features/staff/staff.slice";
 
 const TraineeDetails = () => {
+  const coaches = useAppSelector(selectAvailabelCoaches);
   const { traineeID } = useParams<{ traineeID: string }>();
   const { data, isLoading } = useGetTraineeDataByIdQuery({ id: traineeID! });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -29,6 +32,10 @@ const TraineeDetails = () => {
   }
 
   const trainee = data.data;
+  
+  const coach = coaches?.filter(
+    (coach) => coach._id === trainee.assignedCoach
+  )[0].name;
 
   const initialFormData: TraineeFormInputs = {
     name: trainee.name,
@@ -86,8 +93,8 @@ const TraineeDetails = () => {
           <Value>{trainee.subscriptionType}</Value>
         </StyledInfoContainer>
         <StyledInfoContainer>
-          <Label>Assigned Coaches:</Label>
-          <Value>{trainee.assignedCoach}</Value>
+          <Label>Assigned Coache:</Label>
+          <Value>{coach}</Value>
         </StyledInfoContainer>
         <StyledInfoContainer>
           <Label>Created At:</Label>
