@@ -1,5 +1,8 @@
-import { Link, useParams } from "react-router-dom";
-import { useGetTraineeDataByIdQuery } from "../../features/trainees/trainees.api.slice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  useDeleteTraineeMutation,
+  useGetTraineeDataByIdQuery,
+} from "../../features/trainees/trainees.api.slice";
 import {
   TraineeDetailsContainer,
   StyledInfoContainer,
@@ -16,12 +19,19 @@ import EditTraineeForm from "../../components/trainee-forms/edit-trainee.form";
 import { TraineeFormInputs } from "../../components/trainee-forms/edit-trainee.form"; // Import the type
 import { useAppSelector } from "../../app/hooks";
 import { selectAvailabelCoaches } from "../../features/staff/staff.slice";
+import { StyledProductDeleteModalContent } from "../product-details/product-details.styles";
+import { StyledConfirmDeleteText } from "../program-details/program-details.styles";
+import { toast } from "react-toastify";
 
 const TraineeDetails = () => {
+  const navigate = useNavigate();
   const coaches = useAppSelector(selectAvailabelCoaches);
   const { traineeID } = useParams<{ traineeID: string }>();
   const { data, isLoading } = useGetTraineeDataByIdQuery({ id: traineeID! });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const [deleteTrainee, { isLoading: isDeleting }] = useDeleteTraineeMutation();
 
   if (isLoading) {
     return <StyledSkeleton>Loading trainee details...</StyledSkeleton>;
@@ -32,7 +42,7 @@ const TraineeDetails = () => {
   }
 
   const trainee = data.data;
-  
+
   const coach = coaches?.filter(
     (coach) => coach._id === trainee.assignedCoach
   )[0].name;
@@ -48,6 +58,16 @@ const TraineeDetails = () => {
     assignedCoach: trainee.assignedCoach || "",
   };
 
+  const handleDelete = async () => {
+    try {
+      await deleteTrainee(trainee._id).unwrap();
+      navigate(`/trainees`);
+      setTimeout(() => toast.success("Trainee Successfully Deleted"), 500);
+    } catch {
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <TraineeDetailsContainer>
       <StyledButtonsContainer>
@@ -57,8 +77,23 @@ const TraineeDetails = () => {
         <Button onClick={() => setIsEditModalOpen(true)}>
           Edit Trainee Data
         </Button>
-        <Button redColored>Delete Trainee</Button>
+        <Button redColored onClick={() => setIsDeleteModalOpen(true)}>
+          Delete Trainee
+        </Button>
       </StyledButtonsContainer>
+      <Modal
+        open={isDeleteModalOpen}
+        closeModal={() => setIsDeleteModalOpen(false)}
+      >
+        <StyledProductDeleteModalContent>
+          <StyledConfirmDeleteText>
+            Do you want to delete this product?
+          </StyledConfirmDeleteText>
+          <Button redColored onClick={handleDelete} isLoading={isDeleting}>
+            Confirm Delete
+          </Button>
+        </StyledProductDeleteModalContent>
+      </Modal>
       <Modal
         open={isEditModalOpen}
         closeModal={() => setIsEditModalOpen(false)}

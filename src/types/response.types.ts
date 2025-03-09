@@ -94,6 +94,10 @@ export type GetAddUpdateTrainee = UnifiedResponse & {
   data: Trainee;
 };
 
+export type DeleteTraineeResponse = UnifiedResponse & {
+  data: null;
+};
+
 export type GetSalesHistoryResponse = UnifiedResponse & {
   data: {
     results: SalesHistoryRecord[];

@@ -1,5 +1,6 @@
 import { apiSlice } from "../../app/api/api.slice";
 import {
+  DeleteTraineeResponse,
   GetAddUpdateTrainee,
   GetTraineesDataResponse,
   SearchTraineeByNameResponse,
@@ -50,6 +51,13 @@ export const traineesApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Trainees"],
     }),
+    deleteTrainee: builder.mutation<DeleteTraineeResponse, string>({
+      query: (traineeID) => ({
+        url: `/trainee/${traineeID}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Trainees", "Home"],
+    }),
     searchTraineesByName: builder.query<
       SearchTraineeByNameResponse,
       { search: string }
@@ -66,4 +74,5 @@ export const {
   useLazySearchTraineesByNameQuery,
   useAddTraineMutation,
   useEditTraineeMutation,
+  useDeleteTraineeMutation,
 } = traineesApiSlice;
