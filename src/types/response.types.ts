@@ -5,7 +5,7 @@ import {
   SalesHistoryRecord,
 } from "./products.types";
 import { Program, ProgramsResponse } from "./programs.types";
-import { Roles } from "./staff.types";
+import { GetStaffData, Roles, Staff } from "./staff.types";
 import { GetTraineesData, Trainee } from "./trainee.types";
 
 export type UnifiedResponse = {
@@ -109,4 +109,12 @@ export type GetSalesHistoryResponse = UnifiedResponse & {
       limit: number;
     };
   };
+};
+
+export type GetStaffResponse = UnifiedResponse & {
+  data: GetStaffData;
+};
+
+export type GetAddUpdateStaff = UnifiedResponse & {
+  data: Staff;
 };

@@ -45,7 +45,7 @@ const TraineeDetails = () => {
 
   const coach = coaches?.filter(
     (coach) => coach._id === trainee.assignedCoach
-  )[0].name;
+  )[0]?.name;
 
   const initialFormData: TraineeFormInputs = {
     name: trainee.name,
@@ -129,7 +129,7 @@ const TraineeDetails = () => {
         </StyledInfoContainer>
         <StyledInfoContainer>
           <Label>Assigned Coache:</Label>
-          <Value>{coach}</Value>
+          <Value>{coach || "N/A"}</Value>
         </StyledInfoContainer>
         <StyledInfoContainer>
           <Label>Created At:</Label>

@@ -20,6 +20,7 @@ import EquipmentDetails from "../routes/equipment-details/equipment-details.comp
 import ProductDetails from "../routes/product-details/product-details.component";
 import SalesHistory from "../routes/sales-history/sales-history.component";
 import TraineeDetails from "../routes/trainee-details/trainee-details.component";
+import StaffDetails from "../routes/staff-details/staff-details.component";
 
 const Router = () => {
   return (
@@ -58,6 +59,7 @@ const Router = () => {
             element={<ProgramDetails />}
           />
           <Route path="staff" element={<StaffManagement />} />
+          <Route path="staff/:staffId" element={<StaffDetails />} />
           <Route path="reports" element={<ReportsAndAnalytics />} />
         </Route>
       </Route>
