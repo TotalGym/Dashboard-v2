@@ -1,6 +1,9 @@
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { useGetStaffByIdQuery } from "../../features/staff/staff.api.slice";
+import {
+  useDeleteStaffMutation,
+  useGetStaffByIdQuery,
+} from "../../features/staff/staff.api.slice";
 import {
   StaffDetailsContainer,
   StyledStaffDetailsInfoRow,
@@ -10,10 +13,46 @@ import {
   StyledStaffDetailsTitle,
   StyledStaffDetailsValue,
 } from "./staff-details.styles";
+import Button from "../../components/button/button.component";
+import { useState } from "react";
+import Modal from "../../components/modal/modal.component";
+import UpdateStaffForm from "../../components/staff-forms/edit-staff-form.component";
+import {
+  DeleteModalContent,
+  StyledConfirmDeleteText,
+} from "../program-details/program-details.styles";
+import { toast } from "react-toastify";
 
 const StaffDetails = () => {
+  const navigate = useNavigate();
   const { staffId } = useParams<{ staffId: string }>();
   const { data, error, isLoading } = useGetStaffByIdQuery({ id: staffId });
+  const [isEditModalOpane, setisEditModalOpane] = useState(false);
+  const [isDeleteModalOpen, setisDeleteModalOpen] = useState(false);
+
+  const [deleteStaff, { isLoading: isDeleting }] = useDeleteStaffMutation();
+
+  const handleDelete = async () => {
+    try {
+      await deleteStaff(staffId!).unwrap();
+      navigate("/staff");
+      toast.success("Staff deleted successfully", {
+        position: "top-right",
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+      });
+      setisDeleteModalOpen(false);
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to delete staff. Please try again.", {
+        position: "top-right",
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+      });
+    }
+  };
 
   if (isLoading)
     return <StaffDetailsContainer>Loading...</StaffDetailsContainer>;
@@ -29,7 +68,51 @@ const StaffDetails = () => {
   const staff = data.data;
 
   return (
-    <>
+    <div
+      style={{
+        padding: "2em",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "1em",
+          marginBottom: "2em",
+        }}
+      >
+        <Link to={"/staff"}>
+          <Button>Back to All Staff</Button>
+        </Link>
+        <Button onClick={() => setisEditModalOpane(true)}>
+          Edit Staff Details
+        </Button>
+        <Button redColored onClick={() => setisDeleteModalOpen(true)}>
+          Delete Staff
+        </Button>
+      </div>
+      <Modal
+        open={isEditModalOpane}
+        closeModal={() => setisEditModalOpane(false)}
+      >
+        <UpdateStaffForm
+          closeModal={() => setisEditModalOpane(false)}
+          staffData={staff}
+        />
+      </Modal>
+      <Modal
+        open={isDeleteModalOpen}
+        closeModal={() => setisDeleteModalOpen(false)}
+      >
+        <DeleteModalContent>
+          <StyledConfirmDeleteText>
+            Do you want to delete this staff?
+          </StyledConfirmDeleteText>
+          <Button redColored onClick={handleDelete} isLoading={isDeleting}>
+            Confirm Delete
+          </Button>
+        </DeleteModalContent>
+      </Modal>
       <StaffDetailsContainer>
         <StyledStaffDetailsTitle>{staff.name}</StyledStaffDetailsTitle>
 
@@ -127,7 +210,7 @@ const StaffDetails = () => {
           </StyledStaffDetailsInfoRow>
         </StyledStaffDetailsSection>
       </StaffDetailsContainer>
-    </>
+    </div>
   );
 };
 

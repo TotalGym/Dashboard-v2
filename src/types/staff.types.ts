@@ -37,9 +37,9 @@ export type Staff = {
   }[];
 
   status?: string;
-  _id?: string;
+  _id: string;
   name: string;
-  role: Roles;
+  role: "Coach" | "EquipmentManager" | "SalesManager";
   createdAt?: Date;
 };
 

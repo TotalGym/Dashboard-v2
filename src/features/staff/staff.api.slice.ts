@@ -23,8 +23,31 @@ export const staffApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Staff"],
     }),
+    updateStaff: builder.mutation<
+      GetAddUpdateStaff,
+      Partial<Staff> & { _id: string }
+    >({
+      query: (updatedStaffData) => ({
+        url: `/staff/${updatedStaffData._id}`,
+        method: "PUT",
+        body: updatedStaffData,
+      }),
+      invalidatesTags: ["Staff"],
+    }),
+    deleteStaff: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/staff/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Staff"],
+    }),
   }),
 });
 
-export const { useGetStaffQuery, useGetStaffByIdQuery, useAddStaffMutation } =
-  staffApiSlice;
+export const {
+  useGetStaffQuery,
+  useGetStaffByIdQuery,
+  useAddStaffMutation,
+  useUpdateStaffMutation,
+  useDeleteStaffMutation,
+} = staffApiSlice;

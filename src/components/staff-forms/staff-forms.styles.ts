@@ -33,7 +33,9 @@ export const FormLabel = styled.label`
   color: #333;
 `;
 
-export const FormError = styled.span`
+
+export const ErrorText = styled.p`
   color: red;
   font-size: 12px;
+  margin-top: 4px;
 `;

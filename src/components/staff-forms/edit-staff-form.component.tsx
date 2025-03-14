@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useAddStaffMutation } from "../../features/staff/staff.api.slice";
+import { useUpdateStaffMutation } from "../../features/staff/staff.api.slice";
 import Button from "../../components/button/button.component";
 import { toast } from "react-toastify";
 import FormInput from "../form-input/form-input.component";
@@ -19,19 +19,35 @@ type FormInputs = {
     phoneNumber: string;
   };
   role: "Coach" | "EquipmentManager" | "SalesManager";
-  password: string;
   payroll: {
     salary: number;
   };
 };
 
-const AddStaffForm = ({ closeModal }: { closeModal: () => void }) => {
+type UpdateStaffFormProps = {
+  closeModal: () => void;
+  staffData: FormInputs & { _id: string }; // Include the staff ID for updating
+};
+
+const UpdateStaffForm = ({ closeModal, staffData }: UpdateStaffFormProps) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormInputs>();
-  const [addStaff, { isLoading }] = useAddStaffMutation();
+
+  const [updateStaff, { isLoading }] = useUpdateStaffMutation();
+
+  useEffect(() => {
+    if (staffData) {
+      setValue("name", staffData.name);
+      setValue("contact.email", staffData.contact.email);
+      setValue("contact.phoneNumber", staffData.contact.phoneNumber);
+      setValue("role", staffData.role);
+      setValue("payroll.salary", staffData.payroll.salary);
+    }
+  }, [staffData, setValue]);
 
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
@@ -50,22 +66,22 @@ const AddStaffForm = ({ closeModal }: { closeModal: () => void }) => {
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     try {
-      const staffData = {
+      const updatedStaffData = {
+        _id: staffData._id, // Include the staff ID for the update
         name: data.name,
         role: data.role,
         contact: {
           email: data.contact.email,
           phoneNumber: data.contact.phoneNumber,
         },
-        password: data.password,
         payroll: {
           salary: data.payroll.salary,
         },
       };
 
-      const response = await addStaff(staffData).unwrap();
+      const response = await updateStaff(updatedStaffData).unwrap();
       if (response) {
-        toast.success("Staff created successfully", {
+        toast.success("Staff updated successfully", {
           position: "top-right",
           hideProgressBar: true,
           closeOnClick: true,
@@ -75,7 +91,13 @@ const AddStaffForm = ({ closeModal }: { closeModal: () => void }) => {
       }
     } catch (error) {
       console.log(error);
-      toast.error((error as { data: { message: string } }).data.message, {
+      let errorMessage = "An error occurred while updating the staff.";
+      if ((error as { status: number }).status === 404) {
+        errorMessage = "Resource not found. Please check the endpoint.";
+      } else if ((error as { data: { message: string } }).data?.message) {
+        errorMessage = (error as { data: { message: string } }).data.message;
+      }
+      toast.error(errorMessage, {
         position: "top-right",
         hideProgressBar: true,
         closeOnClick: true,
@@ -123,20 +145,8 @@ const AddStaffForm = ({ closeModal }: { closeModal: () => void }) => {
         <ErrorText>{errors.contact.phoneNumber.message}</ErrorText>
       )}
 
-      <FormLabel>Password</FormLabel>
-      <FormInput
-        formInputType={FormInputTypes.modalInput}
-        placeholder="Password"
-        type="password"
-        {...register("password", { required: "Password is required" })}
-      />
-      {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
-
       <FormLabel>Role</FormLabel>
       <FormSelect {...register("role", { required: "Role is required" })}>
-        <option selected disabled>
-          Select role
-        </option>
         <option value="Coach">Coach</option>
         <option value="EquipmentManager">Equipment Manager</option>
         <option value="SalesManager">Sales Manager</option>
@@ -158,10 +168,10 @@ const AddStaffForm = ({ closeModal }: { closeModal: () => void }) => {
       )}
 
       <Button type="submit" disabled={isLoading}>
-        {isLoading ? "Adding..." : "Add Staff"}
+        {isLoading ? "Updating..." : "Update Staff"}
       </Button>
     </FormContainer>
   );
 };
 
-export default AddStaffForm;
+export default UpdateStaffForm;
