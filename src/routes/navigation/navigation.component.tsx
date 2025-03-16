@@ -15,11 +15,11 @@ import {
 } from "./navigation.styles";
 import HamburgerMenu from "../../components/hamburger-menu/hamburger-menu.component";
 import { useAppSelector } from "../../app/hooks";
-import { selectUser } from "../../features/auth/auth.slice";
+import { selectRole } from "../../features/auth/auth.slice";
 
 const Navigation = () => {
-  const userData = useAppSelector(selectUser);
-  console.log(userData);
+  const role = useAppSelector(selectRole);
+  console.log(role);
   const location = useLocation();
   const routes = [
     { name: "DASHBOARD", path: "/" },
