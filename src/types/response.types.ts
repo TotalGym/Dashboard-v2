@@ -36,10 +36,13 @@ export type LoginResponse = UnifiedResponse & {
 
 export type GetUserDataResponse = UnifiedResponse & {
   data: {
-    id: string;
-    name: string;
-    email: string;
-    role: Roles;
+    token: string;
+    userData: {
+      id: string;
+      name: string;
+      email: string;
+      role: Roles;
+    };
   };
 };
 

@@ -35,7 +35,7 @@ function App() {
 
       getUserData()
         .unwrap()
-        .then((userData) => dispatch(setUserData(userData.data)))
+        .then((userData) => dispatch(setUserData(userData.data.userData)))
         .catch(() => {
           dispatch(logout());
         });
