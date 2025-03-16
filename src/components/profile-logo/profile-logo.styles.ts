@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { CenteredFlexContainer } from "../../styles/general.styles";
+import {
+  CenteredColFlexContainer,
+  CenteredFlexContainer,
+} from "../../styles/general.styles";
 
 export const ProfileLogoContainer = styled.div`
   ${CenteredFlexContainer}
@@ -18,10 +21,13 @@ export const StyledArrow = styled.span<{ $shown: boolean }>`
 `;
 
 export const StyledLogOutContainer = styled.div<{ $shown: boolean }>`
-  ${CenteredFlexContainer}
+  ${CenteredColFlexContainer}
+  gap: 1em;
   background-color: white;
-  height: 100px;
+  height: 250px;
   width: 250px;
+  border-radius: 2em;
+  border: 5px solid ${({ theme }) => theme.colors["bg-secondary"]};
   position: absolute;
   top: 4em;
   margin-right: calc(200px / 2);

@@ -28,7 +28,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: productData,
       }),
-      invalidatesTags: ["Products"],
+      invalidatesTags: ["Products", "StoreReport"],
     }),
     updateProduct: builder.mutation<
       GetAddUpdateProduct,
@@ -39,14 +39,14 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: updatedFields,
       }),
-      invalidatesTags: ["Products"],
+      invalidatesTags: ["Products", "StoreReport"],
     }),
     deleteProduct: builder.mutation<DeleteProductResponse, string>({
       query: (productId) => ({
         url: `/store/${productId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Products", "Sales-History"],
+      invalidatesTags: ["Products", "Sales-History", "StoreReport"],
     }),
     sellProduct: builder.mutation<
       UnifiedResponse,
@@ -57,7 +57,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: purchaseDetails,
       }),
-      invalidatesTags: ["Products", "Sales-History"],
+      invalidatesTags: ["Products", "Sales-History", "StoreReport"],
     }),
     getSalesHistory: builder.query<
       GetSalesHistoryResponse,

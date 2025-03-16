@@ -11,7 +11,7 @@ import EquipmentManagement from "../routes/equipment-management/equipment-manage
 import SalesManagement from "../routes/sales-management/sales-management.component";
 import ProgramsManagement from "../routes/programs-management/programs-management.component";
 import StaffManagement from "../routes/staff-management/staff-management.component";
-import ReportsAndAnalytics from "../routes/reports-and-analytics/reports-and-analytics.component";
+import Reports from "../routes/reports/reports.component";
 import NotFound from "../routes/not-found/not-found.component";
 import RequireAuth from "../routes/require-auth/require-auth.component";
 import ProgramDetails from "../routes/program-details/program-details.component";
@@ -21,6 +21,13 @@ import ProductDetails from "../routes/product-details/product-details.component"
 import SalesHistory from "../routes/sales-history/sales-history.component";
 import TraineeDetails from "../routes/trainee-details/trainee-details.component";
 import StaffDetails from "../routes/staff-details/staff-details.component";
+import StoreReport from "../routes/reports/store-report.component";
+import StaffReport from "../routes/reports/staff-report.components";
+import TraineeReport from "../routes/reports/trainee-report.component";
+import EquipmentReport from "../routes/reports/equipment-report..component";
+import ProgramsReport from "../routes/reports/programs-report.component";
+import PaymentsReport from "../routes/reports/payments-report.component";
+import AdminsManagement from "../routes/admins-management/admins-management.component";
 
 const Router = () => {
   return (
@@ -35,8 +42,12 @@ const Router = () => {
         {/* protected routes */}
         <Route element={<RequireAuth />}>
           <Route index element={<Home />} />
-          <Route path="trainees" element={<TraineeManagement />} />
-          <Route path="trainees/:traineeID" element={<TraineeDetails />} />
+          <Route path="sales/:salesPage" element={<SalesManagement />} />
+          <Route path="salesHistory" element={<SalesHistory />} />
+          <Route
+            path="productDetails/:productId"
+            element={<ProductDetails />}
+          />
           <Route
             path="equipment/:equipmentPage"
             element={<EquipmentManagement />}
@@ -45,24 +56,31 @@ const Router = () => {
             path="equipmentDetails/:equipmentId"
             element={<EquipmentDetails />}
           />
-          <Route path="sales/:salesPage" element={<SalesManagement />} />
-          <Route path="salesHistory" element={<SalesHistory />} />
-          <Route
-            path="productDetails/:productId"
-            element={<ProductDetails />}
-          />
+          <Route path="trainees" element={<TraineeManagement />} />
+          <Route path="trainees/:traineeID" element={<TraineeDetails />} />
           <Route element={<ProgramsManagement />}>
             <Route path="programs/:programsPage" element={<ProgramgsPage />} />
+            <Route
+              path="programsDetails/:programName"
+              element={<ProgramDetails />}
+            />
           </Route>
-          <Route
-            path="programsDetails/:programName"
-            element={<ProgramDetails />}
-          />
           <Route path="staff" element={<StaffManagement />} />
           <Route path="staff/:staffId" element={<StaffDetails />} />
-          <Route path="reports" element={<ReportsAndAnalytics />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="reports/store-report" element={<StoreReport />} />
+          <Route path="reports/staff-report" element={<StaffReport />} />
+          <Route path="reports/trainee-report" element={<TraineeReport />} />
+          <Route
+            path="reports/equipment-report"
+            element={<EquipmentReport />}
+          />
+          <Route path="reports/program-report" element={<ProgramsReport />} />
+          <Route path="reports/payment-report" element={<PaymentsReport />} />
+          <Route path="admins" element={<AdminsManagement />} />
         </Route>
       </Route>
+
       {/* catch all */}
       <Route path="*" element={<NotFound />} />
     </Routes>

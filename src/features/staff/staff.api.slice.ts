@@ -21,7 +21,7 @@ export const staffApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: staffData,
       }),
-      invalidatesTags: ["Staff"],
+      invalidatesTags: ["Staff", "StaffReport"],
     }),
     updateStaff: builder.mutation<
       GetAddUpdateStaff,
@@ -32,14 +32,14 @@ export const staffApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: updatedStaffData,
       }),
-      invalidatesTags: ["Staff"],
+      invalidatesTags: ["Staff", "StaffReport"],
     }),
     deleteStaff: builder.mutation<void, string>({
       query: (id) => ({
         url: `/staff/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Staff"],
+      invalidatesTags: ["Staff", "StaffReport"],
     }),
   }),
 });

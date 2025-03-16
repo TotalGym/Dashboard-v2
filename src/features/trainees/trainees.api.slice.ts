@@ -38,7 +38,7 @@ export const traineesApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: traineeData,
       }),
-      invalidatesTags: ["Trainees", "Home"],
+      invalidatesTags: ["Trainees", "Home", "TraineeReport"],
     }),
     editTrainee: builder.mutation<
       GetAddUpdateTrainee,
@@ -49,14 +49,14 @@ export const traineesApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: updatedFields,
       }),
-      invalidatesTags: ["Trainees"],
+      invalidatesTags: ["Trainees", "TraineeReport"],
     }),
     deleteTrainee: builder.mutation<DeleteTraineeResponse, string>({
       query: (traineeID) => ({
         url: `/trainee/${traineeID}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Trainees", "Home"],
+      invalidatesTags: ["Trainees", "Home", "TraineeReport"],
     }),
     searchTraineesByName: builder.query<
       SearchTraineeByNameResponse,

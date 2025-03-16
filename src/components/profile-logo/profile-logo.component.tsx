@@ -9,10 +9,11 @@ import {
 } from "./profile-logo.styles";
 import { useAppDispatch } from "../../app/hooks";
 import { logout } from "../../features/auth/auth.slice";
+import { Link } from "react-router-dom";
 
 const ProfileLogo = () => {
-  const [shown, setShown] = useState(false);
   const dispatch = useAppDispatch();
+  const [shown, setShown] = useState(false);
 
   const handleLogOut = () => {
     dispatch(logout());
@@ -42,6 +43,9 @@ const ProfileLogo = () => {
         </svg>
       </StyledArrow>
       <StyledLogOutContainer $shown={shown}>
+        <Link to={"/admins"}>
+          <Button>Manage Adminss</Button>
+        </Link>
         <Button onClick={handleLogOut}>LogOut</Button>
       </StyledLogOutContainer>
     </ProfileLogoContainer>

@@ -5,6 +5,14 @@ import {
   SalesHistoryRecord,
 } from "./products.types";
 import { Program, ProgramsResponse } from "./programs.types";
+import {
+  EquipmentReportData,
+  PaymentReportData,
+  ProgramReportData,
+  StaffReportData,
+  StoreReportData,
+  TraineeReportData,
+} from "./reports.types";
 import { GetStaffData, Roles, Staff } from "./staff.types";
 import { GetTraineesData, Trainee } from "./trainee.types";
 
@@ -117,4 +125,28 @@ export type GetStaffResponse = UnifiedResponse & {
 
 export type GetAddUpdateStaff = UnifiedResponse & {
   data: Staff;
+};
+
+export type GetStoreReportResponse = UnifiedResponse & {
+  data: StoreReportData;
+};
+
+export type GetStaffReportResponse = UnifiedResponse & {
+  data: StaffReportData;
+};
+
+export type GetTraineeReportResponse = UnifiedResponse & {
+  data: TraineeReportData;
+};
+
+export type GetPaymentReportResponse = UnifiedResponse & {
+  data: PaymentReportData;
+};
+
+export type GetEquipmentReportResponse = UnifiedResponse & {
+  data: EquipmentReportData;
+};
+
+export type GetProgramReportResponse = UnifiedResponse & {
+  data: ProgramReportData;
 };

@@ -20,11 +20,11 @@ const theme: DefaultTheme = {
   typography: {
     fontFamily: "quicksand, sans-serif",
     fontSize: {
-      small: "12px", // Small font size
-      medium: "14px", // Medium font size
-      large: "20px", // Large font size
-      xlarge: "22px", // Extra large font size
-      xxlarge: "28px", // Extra extra large font size
+      small: "12px",
+      medium: "14px",
+      large: "20px",
+      xlarge: "22px",
+      xxlarge: "28px",
       xxxlarge: "32px",
     },
     fontWeight: {
@@ -34,14 +34,14 @@ const theme: DefaultTheme = {
       bold: "700",
     },
     lineHeight: {
-      small: "1.4", // Line height for small text
-      medium: "1.6", // Line height for medium text
-      large: "1.8", // Line height for large text
+      small: "1.4",
+      medium: "1.6",
+      large: "1.8",
     },
     letterSpacing: {
-      normal: "0", // Default letter spacing
-      wide: "0.05em", // Slightly wide spacing
-      wider: "0.1em", // Wider spacing
+      normal: "0",
+      wide: "0.05em",
+      wider: "0.1em",
     },
   },
 };

@@ -17,14 +17,14 @@ declare module "styled-components" {
       lg: string;
     };
     typography: {
-      fontFamily: string; // Default font family
+      fontFamily: string;
       fontSize: {
         small: string;
         medium: string;
         large: string;
         xlarge: string;
         xxlarge: string;
-        xxxlarge:string;
+        xxxlarge: string;
       };
       fontWeight: {
         light: string;

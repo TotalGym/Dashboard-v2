@@ -17,6 +17,12 @@ export const NavigationContainer = styled.div`
       display: none;
     }
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    .hide-from-nav-bar {
+      display: none;
+    }
+  }
 `;
 
 export const StyledNavigationList = styled.ul`
@@ -36,7 +42,7 @@ export const StyledNavigationListItem = styled.li`
 export const StyledNavigationNavLink = styled(NavLink)`
   position: relative;
   text-decoration: none;
-  color: ${({ theme }) => theme.colors["font-primary"]}; // Default font color
+  color: ${({ theme }) => theme.colors["font-primary"]};
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     &:hover {
@@ -93,7 +99,7 @@ export const BellIconContainer = styled.div`
 `;
 
 export const HideLogoSpan = styled.span`
-  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
   }
 `;

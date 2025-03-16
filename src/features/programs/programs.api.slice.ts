@@ -32,7 +32,7 @@ export const programsApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: programData,
       }),
-      invalidatesTags: ["Programs", "Home"],
+      invalidatesTags: ["Programs", "Home", "ProgramReport"],
     }),
     updateProgram: builder.mutation<
       GetAddUpdateProgramResponse,
@@ -43,14 +43,14 @@ export const programsApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: updatedFields,
       }),
-      invalidatesTags: ["Programs"],
+      invalidatesTags: ["Programs", "ProgramReport"],
     }),
     deleteProgram: builder.mutation<DeleteProgramResponse, string>({
       query: (programID) => ({
         url: `/programs/${programID}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Programs", "Home"],
+      invalidatesTags: ["Programs", "Home", "ProgramReport"],
     }),
   }),
 });
