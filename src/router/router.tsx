@@ -10,6 +10,7 @@ import SuperAdminOnly from "../routes/role-based-routes/super-admin-only.compone
 import SalesManagerRoutes from "../routes/role-based-routes/sales-manager-routes.component";
 import CoachRoutes from "../routes/role-based-routes/coach-routes.component";
 import EquipmentManagerRoutes from "../routes/role-based-routes/equipment-manager-routes.component";
+import Spinner from "../components/spinner/spinner.component";
 
 const SignIn = lazy(() => import("../routes/auth/sign-in.component"));
 const EnterEmail = lazy(() => import("../routes/auth/enter-email.component"));
@@ -75,7 +76,13 @@ const PaymentsReport = lazy(
 
 const Router = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <>
+          <Spinner />
+        </>
+      }
+    >
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}
