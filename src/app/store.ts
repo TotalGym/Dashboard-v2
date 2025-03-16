@@ -9,7 +9,7 @@ import staffReducer from "../features/staff/staff.slice";
 
 const middlewares = [
   apiSlice.middleware,
-  // import.meta.env.MODE !== "production" && logger,
+  import.meta.env.MODE !== "production" && logger,
 ].filter((middleware): middleware is Middleware => Boolean(middleware));
 
 export const store = configureStore({
