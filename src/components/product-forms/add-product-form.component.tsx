@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAddProductMutation } from "../../features/products/products.api.slice";
+import { useAddProductMutation } from "../../services/products.services";
 import { addNewProductSchema } from "../../utils/yup/yup.utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";

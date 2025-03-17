@@ -12,10 +12,10 @@ import {
   StyledTraineesList,
   StyledTraineeToSellCard,
 } from "./product-forms.styles";
-import { useLazySearchTraineesByNameQuery } from "../../features/trainees/trainees.api.slice";
+import { useLazySearchTraineesByNameQuery } from "../../services/trainee.services";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { sellProductSchema } from "../../utils/yup/yup.utils";
-import { useSellProductMutation } from "../../features/products/products.api.slice";
+import { useSellProductMutation } from "../../services/products.services";
 import { toast } from "react-toastify";
 import { useDebounce } from "../../hooks/useDebounce";
 

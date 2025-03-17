@@ -12,7 +12,7 @@ import { addNewEquipmentSchema } from "../../utils/yup/yup.utils";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { MessagedError } from "../../types/error.types";
-import { useAddEquipmentMutation } from "../../features/equipment/equipment.api.slice";
+import { useAddEquipmentMutation } from "../../services/equipment.services";
 
 export type EquipmentFormInputs = {
   name: string;

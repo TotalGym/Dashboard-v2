@@ -1,5 +1,5 @@
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { useUpdateProgramMutation } from "../../features/programs/programs.api.slice";
+import { useUpdateProgramMutation } from "../../services/programs.services";
 import { Program } from "../../types/programs.types";
 import { daysOfWeek, ProgramFormInputs } from "./add-program-form.component";
 import { useEffect } from "react";

@@ -24,7 +24,7 @@ import { addNewProgramSchema } from "../../utils/yup/yup.utils";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { MessagedError } from "../../types/error.types";
-import { useAddProgramMutation } from "../../features/programs/programs.api.slice";
+import { useAddProgramMutation } from "../../services/programs.services";
 
 type Exercise = {
   _id?: string;

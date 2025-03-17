@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useUpdateProductMutation } from "../../features/products/products.api.slice";
+import { useUpdateProductMutation } from "../../services/products.services";
 import { Product } from "../../types/products.types";
 import { ProductFormInputs } from "./add-product-form.component";
 import { addNewProductSchema } from "../../utils/yup/yup.utils";

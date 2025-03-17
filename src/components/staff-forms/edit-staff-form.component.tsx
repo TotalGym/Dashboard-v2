@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useUpdateStaffMutation } from "../../features/staff/staff.api.slice";
+import { useUpdateStaffMutation } from "../../services/staff.services";
 import Button from "../../components/button/button.component";
 import { toast } from "react-toastify";
 import FormInput from "../form-input/form-input.component";

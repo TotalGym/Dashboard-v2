@@ -1,4 +1,4 @@
-import { Equipment, GetEquipmentResponse } from "./equipment..types";
+import { Equipment, GetEquipmentResponse } from "./equipment.types";
 import {
   GetProductsResponse,
   Product,

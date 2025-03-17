@@ -12,7 +12,7 @@ import Logo from "../../logo/logo.component";
 import { FormInputTypes } from "../../form-input/form-input.types";
 import { loginSchema } from "../../../utils/yup/yup.utils";
 
-import { useLoginMutation } from "../../../features/auth/auth.api.slice";
+import { useLoginMutation } from "../../../services/auth.services";
 
 import {
   LoginFormContainer,

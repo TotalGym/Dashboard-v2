@@ -10,9 +10,9 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useUpdateEquipmentMutation } from "../../features/equipment/equipment.api.slice";
+import { useUpdateEquipmentMutation } from "../../services/equipment.services";
 import { addNewEquipmentSchema } from "../../utils/yup/yup.utils";
-import { Equipment } from "../../types/equipment..types";
+import { Equipment } from "../../types/equipment.types";
 
 export type EquipmentFormInputs = {
   name: string;

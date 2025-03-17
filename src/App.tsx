@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ThemeProvider } from "styled-components";
 
 import Router from "./router/router";
@@ -6,7 +7,7 @@ import theme from "./styles/theme";
 import { GlobalStyle } from "./styles/global.styles";
 import { ResetStyles } from "./styles/reset.styles";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
-import { useLazyGetUserDataQuery } from "./features/auth/auth.api.slice";
+import { useLazyGetUserDataQuery } from "./services/auth.services";
 import { useEffect } from "react";
 import { getCredentials } from "./utils/auth/auth.utils";
 import {
@@ -15,7 +16,7 @@ import {
   setCredentials,
   setUserData,
 } from "./features/auth/auth.slice";
-import { useGetHomeDataQuery } from "./features/home/home.api.slice";
+import { useGetHomeDataQuery } from "./services/home.services";
 import { setHomeData, setIsHomeDataLoading } from "./features/home/home.slice";
 import { setPrograms } from "./features/programs/programs.slice";
 import Spinner from "./components/spinner/spinner.component";

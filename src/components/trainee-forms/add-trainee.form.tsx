@@ -16,7 +16,7 @@ import { selectAvailabelCoaches } from "../../features/staff/staff.slice";
 import {
   AddTraineeRequest,
   useAddTraineMutation,
-} from "../../features/trainees/trainees.api.slice";
+} from "../../services/trainee.services";
 
 export type TraineeFormInputs = {
   name: string;
