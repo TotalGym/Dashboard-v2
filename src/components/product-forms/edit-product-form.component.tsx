@@ -53,7 +53,6 @@ const EditProductForm = ({
       }
       setTimeout(() => toggleModalOpen(false), 1000);
     } catch (error) {
-      console.log(error);
       if (error) toast.error("Failed to update product details");
       reset(product);
     }

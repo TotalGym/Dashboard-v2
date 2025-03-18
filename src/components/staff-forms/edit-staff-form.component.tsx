@@ -90,7 +90,6 @@ const UpdateStaffForm = ({ closeModal, staffData }: UpdateStaffFormProps) => {
         closeModal();
       }
     } catch (error) {
-      console.log(error);
       let errorMessage = "An error occurred while updating the staff.";
       if ((error as { status: number }).status === 404) {
         errorMessage = "Resource not found. Please check the endpoint.";

@@ -14,12 +14,8 @@ import {
   HideLogoSpan,
 } from "./navigation.styles";
 import HamburgerMenu from "../../components/hamburger-menu/hamburger-menu.component";
-import { useAppSelector } from "../../app/hooks";
-import { selectRole } from "../../features/auth/auth.slice";
 
 const Navigation = () => {
-  const role = useAppSelector(selectRole);
-  console.log(role);
   const location = useLocation();
   const routes = [
     { name: "DASHBOARD", path: "/" },

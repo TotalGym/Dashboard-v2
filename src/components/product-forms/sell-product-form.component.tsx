@@ -131,8 +131,6 @@ const SellProductForm = ({
         quantitySold: data.quantity,
         TraineeID: selectedTrainee.id,
       }).unwrap();
-
-      console.log("Product sold successfully");
     } catch (err) {
       console.error("Failed to sell product:", err);
     }

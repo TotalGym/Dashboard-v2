@@ -74,7 +74,6 @@ const AddStaffForm = ({ closeModal }: { closeModal: () => void }) => {
         closeModal();
       }
     } catch (error) {
-      console.log(error);
       toast.error((error as { data: { message: string } }).data.message, {
         position: "top-right",
         hideProgressBar: true,

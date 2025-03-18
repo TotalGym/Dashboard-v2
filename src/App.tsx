@@ -16,17 +16,18 @@ import {
   setCredentials,
   setUserData,
 } from "./features/auth/auth.slice";
-import { useGetHomeDataQuery } from "./services/home.services";
 import { setHomeData, setIsHomeDataLoading } from "./features/home/home.slice";
 import { setPrograms } from "./features/programs/programs.slice";
 import Spinner from "./components/spinner/spinner.component";
 import { setAvailableCoaches } from "./features/staff/staff.slice";
+import { useLazyGetHomeDataQuery } from "./services/home.services";
+import { toast } from "react-toastify";
 
 function App() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(selectUser);
   const [getUserData, { isLoading }] = useLazyGetUserDataQuery();
-  const { data: HomeData } = useGetHomeDataQuery();
+  const [getHomeData] = useLazyGetHomeDataQuery();
 
   useEffect(() => {
     const token = getCredentials();
@@ -44,17 +45,20 @@ function App() {
   }, [getUserData]);
 
   useEffect(() => {
-    if (userData) {
+    const token = getCredentials();
+    if (userData && token) {
       dispatch(setIsHomeDataLoading(true));
-
-      if (HomeData) {
-        dispatch(setHomeData(HomeData.data));
-        dispatch(setPrograms(HomeData.data.programs));
-        dispatch(setAvailableCoaches(HomeData.data.coaches));
-        dispatch(setIsHomeDataLoading(false));
-      }
+      getHomeData()
+        .unwrap()
+        .then((homeData) => {
+          dispatch(setHomeData(homeData.data));
+          dispatch(setPrograms(homeData.data.programs));
+          dispatch(setAvailableCoaches(homeData.data.coaches));
+          dispatch(setIsHomeDataLoading(false));
+        })
+        .catch(() => toast.error("something went wrong"));
     }
-  }, [userData, HomeData]);
+  }, [userData]);
 
   return (
     <>

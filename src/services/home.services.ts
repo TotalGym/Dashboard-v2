@@ -10,4 +10,4 @@ export const homeApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetHomeDataQuery } = homeApiSlice;
+export const { useLazyGetHomeDataQuery } = homeApiSlice;

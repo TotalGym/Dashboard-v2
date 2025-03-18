@@ -67,8 +67,7 @@ const AddTraineeForm = ({
       reset();
       toggleModalOpen(false);
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to add trainee");
+      if (error) toast.error("Failed to add trainee");
     }
   };
 

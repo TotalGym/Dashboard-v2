@@ -44,13 +44,14 @@ const StaffDetails = () => {
       });
       setisDeleteModalOpen(false);
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to delete staff. Please try again.", {
-        position: "top-right",
-        hideProgressBar: true,
-        closeOnClick: true,
-        draggable: true,
-      });
+      if (error) {
+        toast.error("Failed to delete staff. Please try again.", {
+          position: "top-right",
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+        });
+      }
     }
   };
 

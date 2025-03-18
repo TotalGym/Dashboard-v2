@@ -85,8 +85,7 @@ const EditTraineeForm = ({
         toast.info("No changes detected.");
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to update trainee");
+      if (error) toast.error("Failed to update trainee");
     }
   };
 
