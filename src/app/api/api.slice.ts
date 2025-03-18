@@ -11,7 +11,7 @@ const baseQuery = retry(
       }
       return headers;
     },
-    timeout: 10000,
+    timeout: 3000,
   }),
   {
     maxRetries: 3,
