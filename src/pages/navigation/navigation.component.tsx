@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Button from "../../components/button/button.component";
 import BellIcon from "../../components/icons/bell-icon.component";
@@ -16,7 +16,9 @@ import {
 import HamburgerMenu from "../../components/hamburger-menu/hamburger-menu.component";
 
 const Navigation = () => {
+  const navigate = useNavigate();
   const location = useLocation();
+  const isTraineeRoute = location.pathname.includes("trainees");
   const routes = [
     { name: "DASHBOARD", path: "/" },
     { name: "TRAINEE", path: "trainees" },
@@ -57,7 +59,14 @@ const Navigation = () => {
           );
         })}
       </StyledNavigationList>
-      <Button className="hide-from-nav-bar">ADD NEW TRAINEE</Button>
+      {!isTraineeRoute && (
+        <Button
+          className="hide-from-nav-bar"
+          onClick={() => navigate("/trainees", { state: { ModalOpen: true } })}
+        >
+          ADD NEW TRAINEE
+        </Button>
+      )}
       <BellIconAndProfileContainer>
         <BellIconContainer>
           <BellIcon />

@@ -100,3 +100,20 @@ export const StyledSkeleton = styled.div`
   font-size: 18px;
   color: #777;
 `;
+
+export const StyledDropDown = styled.ul`
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  li {
+    cursor: pointer;
+    height: 50px;
+    padding: 1em;
+    border: 1px solid ${({ theme }) => theme.colors["bg-secondary"]};
+
+    &:hover {
+      opacity: 0.8;
+      background-color: lightgreen;
+    }
+  }
+`;
