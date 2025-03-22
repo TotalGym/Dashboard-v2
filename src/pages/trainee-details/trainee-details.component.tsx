@@ -11,6 +11,7 @@ import {
   StyledSkeleton,
   StyledDetailsContainer,
   StyledButtonsContainer,
+  StyledP,
 } from "./trainee-details.styles";
 import Button from "../../components/button/button.component";
 import { useState } from "react";
@@ -22,6 +23,7 @@ import { selectAvailabelCoaches } from "../../features/staff/staff.slice";
 import { StyledProductDeleteModalContent } from "../product-details/product-details.styles";
 import { StyledConfirmDeleteText } from "../program-details/program-details.styles";
 import { toast } from "react-toastify";
+import { useCreatePaymentMutation } from "../../services/payment.services";
 
 const TraineeDetails = () => {
   const navigate = useNavigate();
@@ -30,8 +32,10 @@ const TraineeDetails = () => {
   const { data, isLoading } = useGetTraineeDataByIdQuery({ id: traineeID! });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
 
   const [deleteTrainee, { isLoading: isDeleting }] = useDeleteTraineeMutation();
+  const [createPayment, { isLoading: isPaying }] = useCreatePaymentMutation();
 
   if (isLoading) {
     return <StyledSkeleton>Loading trainee details...</StyledSkeleton>;
@@ -68,6 +72,20 @@ const TraineeDetails = () => {
     }
   };
 
+  const handlePayment = async () => {
+    try {
+      const res = await createPayment({
+        TraineeID: trainee._id,
+        ProgramID: trainee.selectedPrograms[0]._id,
+      }).unwrap();
+      if (res.success) {
+        toast.success("payment created successfuly");
+      }
+    } catch {
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <TraineeDetailsContainer>
       <StyledButtonsContainer>
@@ -77,6 +95,8 @@ const TraineeDetails = () => {
         <Button onClick={() => setIsEditModalOpen(true)}>
           Edit Trainee Data
         </Button>
+        {/* todo: handle checkout */}
+        <Button onClick={() => setIsCheckoutModalOpen(true)}>Checkout</Button>
         <Button redColored onClick={() => setIsDeleteModalOpen(true)}>
           Delete Trainee
         </Button>
@@ -104,6 +124,27 @@ const TraineeDetails = () => {
           toggleModalOpen={setIsEditModalOpen}
           traineeID={trainee._id}
         />
+      </Modal>
+      <Modal
+        open={isCheckoutModalOpen}
+        closeModal={() => setIsCheckoutModalOpen(false)}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyItems: "center",
+            alignItems: "center",
+            gap: "1em",
+            padding: "2em",
+            width: "100%",
+          }}
+        >
+          <StyledP>Are You Sure You Want To Checkout Trainee</StyledP>
+          <Button width="280px" onClick={handlePayment} isLoading={isPaying}>
+            Checkout
+          </Button>
+        </div>
       </Modal>
       <StyledDetailsContainer>
         <h1>{trainee.name}</h1>

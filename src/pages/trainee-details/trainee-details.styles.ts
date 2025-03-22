@@ -69,3 +69,9 @@ export const StyledSkeleton = styled.div`
   border-radius: 10px;
   color: #aaa;
 `;
+
+export const StyledP = styled.p`
+  font-weight: bold;
+  font-size: larger;
+  color: ${({theme})=>theme.colors["font-secondary"]};
+`
