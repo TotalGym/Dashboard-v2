@@ -64,6 +64,7 @@ export const traineesApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ search }) => `/trainee/search?search=${search}`,
       providesTags: ["Trainees"],
+      extraOptions: { maxRetries: 0 },
     }),
   }),
 });
