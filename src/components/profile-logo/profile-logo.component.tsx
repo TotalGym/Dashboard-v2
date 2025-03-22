@@ -43,7 +43,9 @@ const ProfileLogo = () => {
         </svg>
       </StyledArrow>
       <StyledLogOutContainer $shown={shown}>
-        <Button>View Profile</Button>
+        <Link to={"/profile"}>
+          <Button>View Profile</Button>
+        </Link>
         <Link to={"/admins"}>
           <Button>Manage Adminss</Button>
         </Link>

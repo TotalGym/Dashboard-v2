@@ -11,6 +11,7 @@ import SalesManagerRoutes from "../pages/role-based-routes/sales-manager-routes.
 import CoachRoutes from "../pages/role-based-routes/coach-routes.component";
 import EquipmentManagerRoutes from "../pages/role-based-routes/equipment-manager-routes.component";
 import Spinner from "../components/spinner/spinner.component";
+import Profile from "../pages/profile/profile.component";
 
 const SignIn = lazy(() => import("../pages/auth/sign-in.component"));
 const EnterEmail = lazy(() => import("../pages/auth/enter-email.component"));
@@ -95,6 +96,7 @@ const Router = () => {
           <Route element={<RequireAuth />}>
             <Route index element={<Home />} />
             <Route path="reports" element={<Reports />} />
+            <Route path="profile" element={<Profile />} />
 
             {/* Sales Manager Routes */}
             <Route element={<SalesManagerRoutes />}>

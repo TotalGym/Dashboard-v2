@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Button from "../../components/button/button.component";
+import { useAppSelector } from "../../app/hooks";
+import { selectUser } from "../../features/auth/auth.slice";
 
 const Unauthorized = () => {
+  const userData = useAppSelector(selectUser);
+
+  if (userData === null) {
+    return <Navigate to={"/auth"} />;
+  }
+
   return (
     <div
       style={{
