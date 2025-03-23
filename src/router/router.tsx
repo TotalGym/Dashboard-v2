@@ -12,6 +12,7 @@ import CoachRoutes from "../pages/role-based-routes/coach-routes.component";
 import EquipmentManagerRoutes from "../pages/role-based-routes/equipment-manager-routes.component";
 import Spinner from "../components/spinner/spinner.component";
 import Profile from "../pages/profile/profile.component";
+import AdminDetails from "../pages/admin-details/admin-details.component";
 
 const SignIn = lazy(() => import("../pages/auth/sign-in.component"));
 const EnterEmail = lazy(() => import("../pages/auth/enter-email.component"));
@@ -160,6 +161,7 @@ const Router = () => {
           {/* Super Admin only Routes */}
           <Route element={<SuperAdminOnly />}>
             <Route path="admins" element={<AdminsManagement />} />
+            <Route path="admins/:adminId" element={<AdminDetails />} />
             <Route path="reports/payment-report" element={<PaymentsReport />} />
           </Route>
 

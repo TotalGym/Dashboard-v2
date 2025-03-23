@@ -82,7 +82,7 @@ const PaymentReport = () => {
       setPage(page - 1);
     }
   };
-
+  
   return (
     <Container>
       <Title>Payment Reports</Title>
@@ -112,7 +112,7 @@ const PaymentReport = () => {
             <TableRow key={index}>
               <TableCell>{payment.TraineeName}</TableCell>
               <TableCell>{payment.TraineeEmail}</TableCell>
-              <TableCell>${payment.Amount.toFixed(2)}</TableCell>
+              <TableCell>${payment.Amount}</TableCell>
               <TableCell>{payment.Status}</TableCell>
               <TableCell>
                 {new Date(payment.DueDate).toLocaleDateString()}

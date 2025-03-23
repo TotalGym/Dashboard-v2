@@ -1,11 +1,5 @@
-import { useEffect, useState } from "react";
-import {
-  Link,
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useState } from "react";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../../services/products.services";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
@@ -21,7 +15,6 @@ import {
 
 const SalesManagement = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { salesPage } = useParams();
   const pageNumber = Number(salesPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,15 +22,12 @@ const SalesManagement = () => {
   const {
     data: products,
     isLoading,
+    isFetching,
     isError,
   } = useGetProductsQuery({
     limit: 10,
     page: pageNumber,
   });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   if (isError) return <p>Something went wrong</p>;
 
@@ -66,7 +56,7 @@ const SalesManagement = () => {
       </Modal>
 
       <StyledSalesGrid>
-        {isLoading
+        {isLoading || isFetching
           ? Array.from({ length: 6 }).map((_, index) => (
               <StyledSalesSkeletonCard key={index} />
             ))

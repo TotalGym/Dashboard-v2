@@ -95,7 +95,6 @@ const TraineeDetails = () => {
         <Button onClick={() => setIsEditModalOpen(true)}>
           Edit Trainee Data
         </Button>
-        {/* todo: handle checkout */}
         <Button onClick={() => setIsCheckoutModalOpen(true)}>Checkout</Button>
         <Button redColored onClick={() => setIsDeleteModalOpen(true)}>
           Delete Trainee

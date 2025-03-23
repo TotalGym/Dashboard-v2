@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { ThemeProvider } from "styled-components";
 
 import Router from "./router/router";
@@ -22,6 +21,7 @@ import Spinner from "./components/spinner/spinner.component";
 import { setAvailableCoaches } from "./features/staff/staff.slice";
 import { useLazyGetHomeDataQuery } from "./services/home.services";
 import { toast } from "react-toastify";
+import ScrollToTop from "./components/scroll-to-top/scroll-to-top.component";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -62,6 +62,7 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       <ThemeProvider theme={theme}>
         <ResetStyles />
         <GlobalStyle />

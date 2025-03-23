@@ -2,11 +2,9 @@ import styled from "styled-components";
 
 export const StaffManagementContainer = styled.div`
   padding: 20px;
-  font-family: "Arial", sans-serif;
-  max-width: 1200px;
   margin: 0 auto;
   font-size: large;
-
+  min-height: calc(100vh - 160px);
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
     font-size: small;
   }

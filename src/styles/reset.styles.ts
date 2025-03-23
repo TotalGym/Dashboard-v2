@@ -44,7 +44,6 @@ export const ResetStyles = createGlobalStyle`
   
     body, html{
         min-height: 100%; 
-        scroll-behavior: smooth; 
     }
 
     @media (prefers-reduced-motion: reduce) {

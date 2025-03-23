@@ -71,7 +71,21 @@ const StaffManagementPage = () => {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <StaffManagementContainer>
+        <p
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "50px",
+          }}
+        >
+          Loading...
+        </p>
+      </StaffManagementContainer>
+    );
   if (isError) return <p>Error loading staff data.</p>;
 
   return (

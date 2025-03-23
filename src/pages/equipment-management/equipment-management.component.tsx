@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
 import { useGetAllEquipmentQuery } from "../../services/equipment.services";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { ButtonTypes } from "../../components/button/button.types";
 import AddEquipmentForm from "../../components/equipment-forms/add-equipment-form";
 import {
@@ -20,22 +15,18 @@ import {
 
 const EquipmentManagement = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { equipmentPage } = useParams();
   const pageNumber = Number(equipmentPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     data: equipments,
     isLoading,
+    isFetching,
     isError,
   } = useGetAllEquipmentQuery({
     limit: 10,
     page: pageNumber,
   });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   if (isError) return <p>Something went wrong</p>;
 
@@ -61,7 +52,7 @@ const EquipmentManagement = () => {
       </Modal>
 
       <StyledEquipmentGrid>
-        {isLoading
+        {isLoading || isFetching
           ? Array.from({ length: 6 }).map((_, index) => (
               <StyledEquipmentSkeletonCard key={index} />
             ))

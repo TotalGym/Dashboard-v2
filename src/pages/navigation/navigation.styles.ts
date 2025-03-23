@@ -8,6 +8,10 @@ import { NavLink } from "react-router-dom";
 
 export const NavigationContainer = styled.div`
   ${CenteredFlexContainer}
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: white;
   justify-content: space-evenly;
   padding-top: 0.5em;
   height: 80px;
