@@ -150,3 +150,16 @@ export const editTraineeSchema = yup.object().shape({
   selectedProgram: yup.string(),
   assignedCoach: yup.string(),
 });
+
+export const adminSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters"),
+  role: yup
+    .mixed<"Admin" | "SuperAdmin">()
+    .oneOf(["Admin", "SuperAdmin"], "Invalid role selection")
+    .required("Role is required"),
+});

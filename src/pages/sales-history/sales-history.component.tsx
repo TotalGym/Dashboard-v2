@@ -47,7 +47,7 @@ const SalesHistory = () => {
         {data?.data.results.map((record) => (
           <StyledRecord key={record._id}>
             <h3>{record.ProductID.productName}</h3>
-            <p>Sold to: {record.TraineeID.name}</p>
+            <p>Sold to: {record.TraineeID?.name}</p>
             <p>Quantity: {record.quantitySold}</p>
             <p>Price: ${record.price}</p>
             <p>Total Sale Value: ${record.totalSaleValue}</p>

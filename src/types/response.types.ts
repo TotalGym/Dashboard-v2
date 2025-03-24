@@ -13,7 +13,7 @@ import {
   StoreReportData,
   TraineeReportData,
 } from "./reports.types";
-import { GetStaffData, Roles, Staff } from "./staff.types";
+import { Admin, GetStaffData, Roles, Staff } from "./staff.types";
 import { GetTraineesData, Trainee } from "./trainee.types";
 
 export type UnifiedResponse = {
@@ -152,4 +152,12 @@ export type GetEquipmentReportResponse = UnifiedResponse & {
 
 export type GetProgramReportResponse = UnifiedResponse & {
   data: ProgramReportData;
+};
+
+export type GetAdmingsDataResponse = UnifiedResponse & {
+  data: { results: Admin[] };
+};
+
+export type GetAddUpdateAdmin = UnifiedResponse & {
+  data: Admin;
 };

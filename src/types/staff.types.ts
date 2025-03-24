@@ -57,3 +57,11 @@ export type GetStaffData = {
     limit: number;
   };
 };
+
+export type Admin = {
+  _id: string;
+  name: string;
+  email: string;
+  role: "Admin" | "SuperAdmin";
+  createdAt: Date;
+};
