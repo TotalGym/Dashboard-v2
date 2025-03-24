@@ -26,6 +26,8 @@ import { useEffect } from "react";
 type ProfileFormData = {
   name: string;
   phoneNumber: string;
+  email: string;
+  accountEmail: string;
 };
 
 const Profile = () => {
@@ -44,6 +46,8 @@ const Profile = () => {
       reset({
         name: profileData.data.name,
         phoneNumber: profileData.data.contact.phoneNumber,
+        email: profileData.data.contact.email,
+        accountEmail: profileData.data.email,
       });
     }
   }, [profileData, reset]);
@@ -54,13 +58,13 @@ const Profile = () => {
         name: data.name,
         contact: {
           phoneNumber: data.phoneNumber,
-          email: profileData?.data.contact.email || "",
+          email: data.email,
         },
       }).unwrap();
 
       if (response.success) {
         toast.success(response.message || "Profile updated successfully");
-        refetch(); //! test if it is needed becasue I am using tags it automtically refetches
+        refetch();
       } else {
         toast.error(response.error || "Failed to update profile");
       }
@@ -106,12 +110,35 @@ const Profile = () => {
           </StyledProfileFormGroup>
 
           <StyledProfileFormGroup>
-            <StyledProfileLabel htmlFor="email">Email</StyledProfileLabel>
+            <StyledProfileLabel htmlFor="accountEmail">
+              Account Email
+            </StyledProfileLabel>
+            <StyledProfileInput
+              id="accountEmail"
+              type="email"
+              readOnly
+              {...register("accountEmail")}
+            />
+          </StyledProfileFormGroup>
+
+          <StyledProfileFormGroup>
+            <StyledProfileLabel htmlFor="email">
+              Contact Email
+            </StyledProfileLabel>
             <StyledProfileInput
               id="email"
               type="email"
-              defaultValue={profileData?.data.email}
+              {...register("email", {
+                required: "Contact email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
+                },
+              })}
             />
+            {errors.email && (
+              <span style={{ color: "red" }}>{errors.email.message}</span>
+            )}
           </StyledProfileFormGroup>
 
           <StyledProfileFormGroup>

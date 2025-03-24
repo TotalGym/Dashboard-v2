@@ -1,4 +1,5 @@
 import { apiSlice } from "../app/api/api.slice";
+import { Profile } from "../types/profile.types";
 import { GetProfileResponse } from "../types/response.types";
 
 export const profileApiSlice = apiSlice.injectEndpoints({
@@ -7,7 +8,10 @@ export const profileApiSlice = apiSlice.injectEndpoints({
       query: () => "/profile",
       providesTags: ["profile"],
     }),
-    updateProfile: builder.mutation({
+    updateProfile: builder.mutation<
+      { message: string; error: null | string; success: boolean },
+      Partial<Profile>
+    >({
       query: (updatedProfileData) => ({
         url: "/profile",
         method: "PATCH",
