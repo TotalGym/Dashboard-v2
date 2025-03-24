@@ -16,7 +16,6 @@ import {
   ErrorMessage,
 } from "./reports.styles";
 
-// Define the types for the API response
 export interface PaymentReportItem {
   TraineeName: string;
   TraineeEmail: string;
@@ -82,7 +81,7 @@ const PaymentReport = () => {
       setPage(page - 1);
     }
   };
-  
+
   return (
     <Container>
       <Title>Payment Reports</Title>

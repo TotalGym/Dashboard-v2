@@ -43,6 +43,7 @@ export const Container = styled.div`
   font-family: Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
+  min-height: calc(100vh - 160px);
 `;
 
 export const Title = styled.h1`
@@ -132,6 +133,7 @@ export const LoadingMessage = styled.div`
   font-size: 18px;
   color: #555;
   padding: 20px;
+  min-height: calc(100vh - 160px);
 `;
 
 export const ErrorMessage = styled.div`

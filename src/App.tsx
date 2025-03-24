@@ -7,7 +7,7 @@ import { GlobalStyle } from "./styles/global.styles";
 import { ResetStyles } from "./styles/reset.styles";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { useLazyGetUserDataQuery } from "./services/auth.services";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCredentials } from "./utils/auth/auth.utils";
 import {
   logout,
@@ -20,14 +20,14 @@ import { setPrograms } from "./features/programs/programs.slice";
 import Spinner from "./components/spinner/spinner.component";
 import { setAvailableCoaches } from "./features/staff/staff.slice";
 import { useLazyGetHomeDataQuery } from "./services/home.services";
-import { toast } from "react-toastify";
 import ScrollToTop from "./components/scroll-to-top/scroll-to-top.component";
 
 function App() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(selectUser);
-  const [getUserData, { isLoading }] = useLazyGetUserDataQuery();
+  const [getUserData, { isLoading: isUserLoading }] = useLazyGetUserDataQuery();
   const [getHomeData] = useLazyGetHomeDataQuery();
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
 
   useEffect(() => {
     const token = getCredentials();
@@ -37,10 +37,16 @@ function App() {
 
       getUserData()
         .unwrap()
-        .then((userData) => dispatch(setUserData(userData.data.userData)))
+        .then((userData) => {
+          dispatch(setUserData(userData.data.userData));
+          setIsAuthChecked(true);
+        })
         .catch(() => {
           dispatch(logout());
+          setIsAuthChecked(true);
         });
+    } else {
+      setIsAuthChecked(true);
     }
   }, [getUserData]);
 
@@ -55,8 +61,7 @@ function App() {
           dispatch(setPrograms(homeData.data.programs));
           dispatch(setAvailableCoaches(homeData.data.coaches));
           dispatch(setIsHomeDataLoading(false));
-        })
-        .catch(() => toast.error("something went wrong"));
+        });
     }
   }, [userData]);
 
@@ -66,7 +71,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <ResetStyles />
         <GlobalStyle />
-        {isLoading ? <Spinner /> : <Router />}
+        {isUserLoading || !isAuthChecked ? <Spinner /> : <Router />}
       </ThemeProvider>
     </>
   );
