@@ -69,12 +69,13 @@ const AdminManagement = () => {
 
     try {
       await deleteAdmin(adminToDelete.id).unwrap();
-      toast.success(`Admin ${adminToDelete.name} deleted successfully`);
+      toast.success(`Admin ${adminToDelete.name} deleted successfully`, {
+        autoClose: 400,
+      });
       setIsDeleteModalOpen(false);
       setAdminToDelete(null);
-    } catch (error) {
+    } catch {
       toast.error(`Failed to delete admin ${adminToDelete.name}`);
-      console.error("Delete admin error:", error);
     }
   };
 
