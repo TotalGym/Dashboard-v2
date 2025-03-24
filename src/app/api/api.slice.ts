@@ -36,6 +36,7 @@ export const apiSlice = createApi({
     "ProgramReport",
     "PaymentReport",
     "admins",
+    "profile",
   ],
   endpoints: () => ({}),
 });
