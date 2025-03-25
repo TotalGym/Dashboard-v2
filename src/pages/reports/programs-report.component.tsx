@@ -16,7 +16,6 @@ import {
   ErrorMessage,
 } from "./reports.styles";
 
-// Define the types for the API response
 export interface Exercise {
   name: string;
   sets: number;

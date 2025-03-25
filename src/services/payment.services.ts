@@ -11,6 +11,7 @@ export const paymentApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: paymentBody,
       }),
+      invalidatesTags: ["Trainees", "TraineeReport"],
     }),
   }),
 });

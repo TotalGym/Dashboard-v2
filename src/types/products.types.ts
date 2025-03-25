@@ -29,13 +29,13 @@ export type SalesHistoryRecord = {
   ProductID: {
     _id: string;
     productName: string;
+    price: number;
   };
   TraineeID: {
     _id: string;
     name: string;
   };
   quantitySold: number;
-  price: number;
   totalSaleValue: number;
   SaleDate: Date;
   createdAt: Date;

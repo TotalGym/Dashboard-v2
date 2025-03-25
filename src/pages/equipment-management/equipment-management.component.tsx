@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../components/button/button.component";
 import Modal from "../../components/modal/modal.component";
 import { useGetAllEquipmentQuery } from "../../services/equipment.services";
@@ -18,15 +18,25 @@ const EquipmentManagement = () => {
   const { equipmentPage } = useParams();
   const pageNumber = Number(equipmentPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChangingPage, setIsChangingPage] = useState(false);
   const {
     data: equipments,
     isLoading,
     isFetching,
     isError,
-  } = useGetAllEquipmentQuery({
-    limit: 10,
-    page: pageNumber,
-  });
+  } = useGetAllEquipmentQuery(
+    {
+      limit: 10,
+      page: pageNumber,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
+
+  useEffect(() => {
+    setIsChangingPage(true);
+    const timer = setTimeout(() => setIsChangingPage(false), 500);
+    return () => clearTimeout(timer);
+  }, [pageNumber]);
 
   if (isError) return <p>Something went wrong</p>;
 
@@ -40,6 +50,8 @@ const EquipmentManagement = () => {
     return <Navigate to={"/equipment/1"} replace />;
   }
 
+  const showLoading = isLoading || (isChangingPage && isFetching);
+
   return (
     <EquipmentManagementContainer>
       <Button onClick={() => setIsModalOpen(true)}>Add New Equipment</Button>
@@ -52,7 +64,7 @@ const EquipmentManagement = () => {
       </Modal>
 
       <StyledEquipmentGrid>
-        {isLoading || isFetching
+        {showLoading
           ? Array.from({ length: 6 }).map((_, index) => (
               <StyledEquipmentSkeletonCard key={index} />
             ))

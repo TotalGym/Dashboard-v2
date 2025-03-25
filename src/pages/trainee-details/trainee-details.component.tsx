@@ -79,9 +79,11 @@ const TraineeDetails = () => {
         ProgramID: trainee.selectedPrograms[0]._id,
       }).unwrap();
       if (res.success) {
+        setIsCheckoutModalOpen(false);
         toast.success("payment created successfuly");
       }
     } catch {
+      setIsCheckoutModalOpen(false);
       toast.error("Something went wrong");
     }
   };
@@ -139,8 +141,23 @@ const TraineeDetails = () => {
             width: "100%",
           }}
         >
-          <StyledP>Are You Sure You Want To Checkout Trainee</StyledP>
-          <Button width="280px" onClick={handlePayment} isLoading={isPaying}>
+          {trainee.paymentVerification ? (
+            <p
+              style={{
+                color: "red",
+              }}
+            >
+              Trainee Already checked out
+            </p>
+          ) : (
+            <StyledP>Are You Sure You Want To Checkout Trainee</StyledP>
+          )}
+          <Button
+            width="280px"
+            onClick={handlePayment}
+            isLoading={isPaying}
+            disable={trainee.paymentVerification}
+          >
             Checkout
           </Button>
         </div>

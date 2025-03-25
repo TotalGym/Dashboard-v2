@@ -116,7 +116,6 @@ const Profile = () => {
             <StyledProfileInput
               id="accountEmail"
               type="email"
-              readOnly
               {...register("accountEmail")}
             />
           </StyledProfileFormGroup>

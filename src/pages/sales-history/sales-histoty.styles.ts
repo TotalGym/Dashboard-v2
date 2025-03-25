@@ -9,6 +9,7 @@ export const SalesHistoryContainer = styled.div`
   padding-inline: 6em;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: calc(100vh - 160px);
 `;
 
 export const StyledRecord = styled.div`

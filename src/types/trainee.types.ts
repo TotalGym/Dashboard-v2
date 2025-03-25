@@ -42,6 +42,7 @@ export type Trainee = {
   gender: "Male" | "Female";
   role: "Trainee";
   status: "new" | "active" | "inactive";
+  paymentVerification: boolean;
 };
 
 export type GetTraineesData = {

@@ -49,7 +49,7 @@ const SalesHistory = () => {
             <h3>{record.ProductID.productName}</h3>
             <p>Sold to: {record.TraineeID?.name}</p>
             <p>Quantity: {record.quantitySold}</p>
-            <p>Price: ${record.price}</p>
+            <p>Price: ${record.ProductID.price}</p>
             <p>Total Sale Value: ${record.totalSaleValue}</p>
             <p>Sale Date: {new Date(record.SaleDate).toLocaleDateString()}</p>
           </StyledRecord>

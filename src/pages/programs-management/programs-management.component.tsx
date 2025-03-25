@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/button/button.component";
 import { useGetProgramsQuery } from "../../services/programs.services";
 import {
@@ -12,6 +12,8 @@ import AddProgramForm from "../../components/Program-forms/add-program-form.comp
 import { ButtonTypes } from "../../components/button/button.types";
 
 const ProgramsManagement = () => {
+  const location = useLocation();
+  const isDetailsPage = location.pathname.startsWith("/programsDetails");
   const { programsPage } = useParams();
   const [page, setPage] = useState(Number(programsPage));
   const limit = 3;
@@ -60,27 +62,29 @@ const ProgramsManagement = () => {
           <AddProgramForm toggleModalOpen={setIsModalOpen} />
         </Modal>
         <Outlet />
-        <StyledPaginationContainer>
-          <Button
-            onClick={handlePrevPage}
-            disable={page === 1 || isFetching}
-            buttonType={ButtonTypes.paginationButton}
-          >
-            &lt;
-          </Button>
-          <StyledPaginationSpan>
-            {isLoading || isFetching
-              ? "loading..."
-              : `${page} of ${totalPages}`}
-          </StyledPaginationSpan>
-          <Button
-            onClick={handleNextPage}
-            disable={page === totalPages || isFetching}
-            buttonType={ButtonTypes.paginationButton}
-          >
-            &gt;
-          </Button>
-        </StyledPaginationContainer>
+        {!isDetailsPage && (
+          <StyledPaginationContainer>
+            <Button
+              onClick={handlePrevPage}
+              disable={page === 1 || isFetching}
+              buttonType={ButtonTypes.paginationButton}
+            >
+              &lt;
+            </Button>
+            <StyledPaginationSpan>
+              {isLoading || isFetching
+                ? "loading..."
+                : `${page} of ${totalPages}`}
+            </StyledPaginationSpan>
+            <Button
+              onClick={handleNextPage}
+              disable={page === totalPages || isFetching}
+              buttonType={ButtonTypes.paginationButton}
+            >
+              &gt;
+            </Button>
+          </StyledPaginationContainer>
+        )}
       </ProgramsManagementContainer>
     </>
   );

@@ -34,7 +34,7 @@ const UpdateStaffForm = ({ closeModal, staffData }: UpdateStaffFormProps) => {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<FormInputs>();
 
   const [updateStaff, { isLoading }] = useUpdateStaffMutation();
@@ -166,7 +166,7 @@ const UpdateStaffForm = ({ closeModal, staffData }: UpdateStaffFormProps) => {
         <ErrorText>{errors.payroll.salary.message}</ErrorText>
       )}
 
-      <Button type="submit" disabled={isLoading}>
+      <Button type="submit" isLoading={isLoading} disable={!isDirty}>
         {isLoading ? "Updating..." : "Update Staff"}
       </Button>
     </FormContainer>

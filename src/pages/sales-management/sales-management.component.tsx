@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../../services/products.services";
 import Button from "../../components/button/button.component";
@@ -18,16 +18,26 @@ const SalesManagement = () => {
   const { salesPage } = useParams();
   const pageNumber = Number(salesPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChangingPage, setIsChangingPage] = useState(false);
 
   const {
     data: products,
     isLoading,
     isFetching,
     isError,
-  } = useGetProductsQuery({
-    limit: 10,
-    page: pageNumber,
-  });
+  } = useGetProductsQuery(
+    {
+      limit: 10,
+      page: pageNumber,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
+
+  useEffect(() => {
+    setIsChangingPage(true);
+    const timer = setTimeout(() => setIsChangingPage(false), 500);
+    return () => clearTimeout(timer);
+  }, [pageNumber]);
 
   if (isError) return <p>Something went wrong</p>;
 
@@ -40,6 +50,8 @@ const SalesManagement = () => {
   if (products?.data.results.length === 0) {
     return <Navigate to={"/sales/1"} replace />;
   }
+
+  const showLoading = isLoading || (isChangingPage && isFetching);
 
   return (
     <SalesManagementContainer>
@@ -56,7 +68,7 @@ const SalesManagement = () => {
       </Modal>
 
       <StyledSalesGrid>
-        {isLoading || isFetching
+        {showLoading
           ? Array.from({ length: 6 }).map((_, index) => (
               <StyledSalesSkeletonCard key={index} />
             ))
