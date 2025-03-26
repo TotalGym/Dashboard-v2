@@ -17,7 +17,7 @@ import Button from "../../components/button/button.component";
 import { useState } from "react";
 import Modal from "../../components/modal/modal.component";
 import EditTraineeForm from "../../components/trainee-forms/edit-trainee.form";
-import { TraineeFormInputs } from "../../components/trainee-forms/edit-trainee.form"; // Import the type
+import { TraineeFormInputs } from "../../components/trainee-forms/edit-trainee.form";
 import { useAppSelector } from "../../app/hooks";
 import { selectAvailabelCoaches } from "../../features/staff/staff.slice";
 import { StyledProductDeleteModalContent } from "../product-details/product-details.styles";

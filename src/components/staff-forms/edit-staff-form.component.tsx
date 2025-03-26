@@ -26,7 +26,7 @@ type FormInputs = {
 
 type UpdateStaffFormProps = {
   closeModal: () => void;
-  staffData: FormInputs & { _id: string }; // Include the staff ID for updating
+  staffData: FormInputs & { _id: string }; 
 };
 
 const UpdateStaffForm = ({ closeModal, staffData }: UpdateStaffFormProps) => {
@@ -67,7 +67,7 @@ const UpdateStaffForm = ({ closeModal, staffData }: UpdateStaffFormProps) => {
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     try {
       const updatedStaffData = {
-        _id: staffData._id, // Include the staff ID for the update
+        _id: staffData._id,
         name: data.name,
         role: data.role,
         contact: {

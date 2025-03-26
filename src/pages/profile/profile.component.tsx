@@ -3,8 +3,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "../../components/button/button.component";
 import {
-  useGetProfileDataQuery,
+  useLazyGetProfileDataQuery,
+  useLazyGetAdminProfileDataQuery,
   useUpdateProfileMutation,
+  useUpdateAdminProgileMutation,
 } from "../../services/profile.services";
 import {
   StyledProfileContainer,
@@ -22,17 +24,28 @@ import {
   StyledProfileRoleTag,
 } from "./profile.styles";
 import { useEffect } from "react";
+import { Roles } from "../../types/staff.types";
+import { useAppSelector } from "../../app/hooks";
+import { selectRole } from "../../features/auth/auth.slice";
 
 type ProfileFormData = {
   name: string;
   phoneNumber: string;
   email: string;
-  accountEmail: string;
 };
 
 const Profile = () => {
-  const { data: profileData, isLoading, refetch } = useGetProfileDataQuery();
-  const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
+  const userRole = useAppSelector(selectRole);
+  const isAdmin = userRole === Roles.Admin;
+
+  const [triggerGetProfileData, { data: profileData, isLoading }] =
+    useLazyGetProfileDataQuery();
+  const [
+    triggerGetAdminProfileData,
+    { data: adminProfileData, isLoading: isAdminLoading },
+  ] = useLazyGetAdminProfileDataQuery();
+  const [updateProfile] = useUpdateProfileMutation();
+  const [updateAdminProfile] = useUpdateAdminProgileMutation();
 
   const {
     register,
@@ -42,29 +55,54 @@ const Profile = () => {
   } = useForm<ProfileFormData>();
 
   useEffect(() => {
-    if (profileData?.data) {
+    const fetchData = async () => {
+      if (isAdmin) {
+        await triggerGetAdminProfileData();
+      } else {
+        await triggerGetProfileData();
+      }
+    };
+    fetchData();
+  }, [isAdmin, triggerGetProfileData, triggerGetAdminProfileData]);
+
+  useEffect(() => {
+    if (isAdmin && adminProfileData?.data) {
+      reset({
+        name: adminProfileData.data.name,
+        email: adminProfileData.data.email,
+        phoneNumber: "",
+      });
+    } else if (profileData?.data) {
       reset({
         name: profileData.data.name,
         phoneNumber: profileData.data.contact.phoneNumber,
         email: profileData.data.contact.email,
-        accountEmail: profileData.data.email,
       });
     }
-  }, [profileData, reset]);
+  }, [profileData, adminProfileData, reset, isAdmin]);
 
   const onSubmit = async (data: ProfileFormData) => {
     try {
-      const response = await updateProfile({
-        name: data.name,
-        contact: {
-          phoneNumber: data.phoneNumber,
-          email: data.email,
-        },
-      }).unwrap();
+      const response = isAdmin
+        ? await updateAdminProfile({
+            name: data.name,
+            email: data.email,
+          }).unwrap()
+        : await updateProfile({
+            name: data.name,
+            contact: {
+              phoneNumber: data.phoneNumber,
+              email: data.email,
+            },
+          }).unwrap();
 
       if (response.success) {
         toast.success(response.message || "Profile updated successfully");
-        refetch();
+        if (isAdmin) {
+          await triggerGetAdminProfileData();
+        } else {
+          await triggerGetProfileData();
+        }
       } else {
         toast.error(response.error || "Failed to update profile");
       }
@@ -77,7 +115,10 @@ const Profile = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || isAdminLoading) return <div>Loading...</div>;
+
+  const currentData = isAdmin ? adminProfileData?.data : profileData?.data;
+  const isStaffProfile = !isAdmin && currentData && "status" in currentData;
 
   return (
     <StyledProfileContainer>
@@ -110,25 +151,12 @@ const Profile = () => {
           </StyledProfileFormGroup>
 
           <StyledProfileFormGroup>
-            <StyledProfileLabel htmlFor="accountEmail">
-              Account Email
-            </StyledProfileLabel>
-            <StyledProfileInput
-              id="accountEmail"
-              type="email"
-              {...register("accountEmail")}
-            />
-          </StyledProfileFormGroup>
-
-          <StyledProfileFormGroup>
-            <StyledProfileLabel htmlFor="email">
-              Contact Email
-            </StyledProfileLabel>
+            <StyledProfileLabel htmlFor="email">Email</StyledProfileLabel>
             <StyledProfileInput
               id="email"
               type="email"
               {...register("email", {
-                required: "Contact email is required",
+                required: "Email is required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   message: "Invalid email address",
@@ -140,43 +168,47 @@ const Profile = () => {
             )}
           </StyledProfileFormGroup>
 
-          <StyledProfileFormGroup>
-            <StyledProfileLabel htmlFor="phoneNumber">
-              Phone Number
-            </StyledProfileLabel>
-            <StyledProfileInput
-              id="phoneNumber"
-              type="tel"
-              {...register("phoneNumber", {
-                pattern: {
-                  value: /^[0-9]{10,15}$/,
-                  message: "Please enter a valid phone number",
-                },
-              })}
-            />
-            {errors.phoneNumber && (
-              <span style={{ color: "red" }}>{errors.phoneNumber.message}</span>
-            )}
-          </StyledProfileFormGroup>
+          {!isAdmin && (
+            <StyledProfileFormGroup>
+              <StyledProfileLabel htmlFor="phoneNumber">
+                Phone Number
+              </StyledProfileLabel>
+              <StyledProfileInput
+                id="phoneNumber"
+                type="tel"
+                {...register("phoneNumber", {
+                  pattern: {
+                    value: /^[0-9]{10,15}$/,
+                    message: "Please enter a valid phone number",
+                  },
+                })}
+              />
+              {errors.phoneNumber && (
+                <span style={{ color: "red" }}>
+                  {errors.phoneNumber.message}
+                </span>
+              )}
+            </StyledProfileFormGroup>
+          )}
 
           <StyledProfileSection>
-            <StyledProfileFormGroup>
-              <StyledProfileLabel>Status</StyledProfileLabel>
-              <StyledProfileStatus>
-                {profileData?.data.status ? profileData?.data.status : "N/A"}
-              </StyledProfileStatus>
-            </StyledProfileFormGroup>
+            {isStaffProfile && (
+              <StyledProfileFormGroup>
+                <StyledProfileLabel>Status</StyledProfileLabel>
+                <StyledProfileStatus>
+                  {currentData.status || "N/A"}
+                </StyledProfileStatus>
+              </StyledProfileFormGroup>
+            )}
 
             <StyledProfileFormGroup>
               <StyledProfileLabel>Role</StyledProfileLabel>
-              <StyledProfileRoleTag>
-                {profileData?.data.role}
-              </StyledProfileRoleTag>
+              <StyledProfileRoleTag>{currentData?.role}</StyledProfileRoleTag>
             </StyledProfileFormGroup>
           </StyledProfileSection>
 
-          <Button type="submit" disable={!isDirty || isUpdating}>
-            {isUpdating ? "Saving..." : "Save Changes"}
+          <Button type="submit" disable={!isDirty}>
+            Save Changes
           </Button>
         </StyledProfileForm>
       </StyledProfileCard>

@@ -1,6 +1,10 @@
 import { apiSlice } from "../app/api/api.slice";
-import { Profile } from "../types/profile.types";
-import { GetProfileResponse } from "../types/response.types";
+import { AdminProfile, Profile } from "../types/profile.types";
+import {
+  GetAdminProfileResponse,
+  GetProfileResponse,
+  UpdateAdminProfileResponse,
+} from "../types/response.types";
 
 export const profileApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,8 +23,27 @@ export const profileApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["profile"],
     }),
+    getAdminProfileData: builder.query<GetAdminProfileResponse, void>({
+      query: () => "/admin/profile",
+      providesTags: ["profile"],
+    }),
+    updateAdminProgile: builder.mutation<
+      UpdateAdminProfileResponse,
+      Partial<AdminProfile>
+    >({
+      query: (updatedData) => ({
+        url: "/admin/profile",
+        method: "PUT",
+        body: updatedData,
+      }),
+      invalidatesTags: ["profile"],
+    }),
   }),
 });
 
-export const { useGetProfileDataQuery, useUpdateProfileMutation } =
-  profileApiSlice;
+export const {
+  useLazyGetProfileDataQuery,
+  useLazyGetAdminProfileDataQuery,
+  useUpdateProfileMutation,
+  useUpdateAdminProgileMutation,
+} = profileApiSlice;

@@ -4,7 +4,7 @@ import {
   Product,
   SalesHistoryRecord,
 } from "./products.types";
-import { Profile } from "./profile.types";
+import { AdminProfile, Profile } from "./profile.types";
 import { Program, ProgramsResponse } from "./programs.types";
 import {
   EquipmentReportData,
@@ -165,4 +165,12 @@ export type GetAddUpdateAdmin = UnifiedResponse & {
 
 export type GetProfileResponse = UnifiedResponse & {
   data: Profile;
+};
+
+export type GetAdminProfileResponse = UnifiedResponse & {
+  data: AdminProfile;
+};
+
+export type UpdateAdminProfileResponse = UnifiedResponse & {
+  data: AdminProfile;
 };

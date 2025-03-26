@@ -66,7 +66,6 @@ const TraineeManagement = () => {
 
   const [searchTrainee, { isLoading: isSearching }] =
     useLazySearchTraineesByNameQuery();
-  //todo: add limit to the endpoint, and make it only search by name.
 
   const debouncedSearch = useDebounce(searchText, 500);
 

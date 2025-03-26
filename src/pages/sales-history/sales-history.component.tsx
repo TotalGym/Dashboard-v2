@@ -1,4 +1,3 @@
-// SalesHistory.js
 import { useState } from "react";
 import { useGetSalesHistoryQuery } from "../../services/products.services";
 import InfiniteScroll from "react-infinite-scroll-component";

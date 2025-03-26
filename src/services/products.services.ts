@@ -65,7 +65,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     >({
       query: ({ page, limit }) => `/sales?page=${page}&limit=${limit}`,
       providesTags: ["Sales-History"],
-      // Add logic to merge incoming data with existing data
+      // logic to merge incoming data with existing data
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;
       },
