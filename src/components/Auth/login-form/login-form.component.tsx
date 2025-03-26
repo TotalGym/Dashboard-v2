@@ -61,7 +61,6 @@ const LoginForm = () => {
       }
       reset();
     } catch (error) {
-      // todo: adjust auth error to display in all possible scenarios.
       toast.error((error as AuthError).data.message, {
         position: "top-right",
         hideProgressBar: true,

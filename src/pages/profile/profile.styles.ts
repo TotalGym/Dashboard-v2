@@ -93,3 +93,23 @@ export const StyledProfileSection = styled.div`
   gap: 1.5rem;
   margin-top: 1.5rem;
 `;
+
+export const StyledPasswordForm = styled.form`
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const StyledPasswordFormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+export const StyledPasswordInput = styled.input`
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+`;

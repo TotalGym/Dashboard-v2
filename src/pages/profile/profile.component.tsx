@@ -22,11 +22,16 @@ import {
   StyledProfileSection,
   StyledProfileStatus,
   StyledProfileRoleTag,
+  StyledPasswordForm,
+  StyledPasswordFormGroup,
+  StyledPasswordInput,
 } from "./profile.styles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Roles } from "../../types/staff.types";
 import { useAppSelector } from "../../app/hooks";
-import { selectRole } from "../../features/auth/auth.slice";
+import { selectRole, selectID } from "../../features/auth/auth.slice";
+import Modal from "../../components/modal/modal.component";
+import { useChangePasswrodMutation } from "../../services/auth.services";
 
 type ProfileFormData = {
   name: string;
@@ -34,8 +39,16 @@ type ProfileFormData = {
   email: string;
 };
 
+type PasswordFormData = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
 const Profile = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const userRole = useAppSelector(selectRole);
+  const userId = useAppSelector(selectID);
   const isAdmin = userRole === Roles.Admin;
 
   const [triggerGetProfileData, { data: profileData, isLoading }] =
@@ -46,6 +59,8 @@ const Profile = () => {
   ] = useLazyGetAdminProfileDataQuery();
   const [updateProfile] = useUpdateProfileMutation();
   const [updateAdminProfile] = useUpdateAdminProgileMutation();
+  const [changePassword, { isLoading: isChangingPassword }] =
+    useChangePasswrodMutation();
 
   const {
     register,
@@ -53,6 +68,18 @@ const Profile = () => {
     formState: { errors, isDirty },
     reset,
   } = useForm<ProfileFormData>();
+
+  const {
+    register: registerPassword,
+    handleSubmit: handleSubmitPassword,
+    formState: { errors: passwordErrors, isValid: isPasswordValid },
+    reset: resetPassword,
+    watch,
+  } = useForm<PasswordFormData>({
+    mode: "onChange",
+  });
+
+  const newPassword = watch("newPassword");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,6 +139,41 @@ const Profile = () => {
           (error as { message: string }).message ||
           "An error occurred while updating profile"
       );
+    }
+  };
+
+  const onSubmitPassword = async (data: PasswordFormData) => {
+    try {
+      if (!userId) {
+        toast.error("User ID not found");
+        return;
+      }
+
+      const response = await changePassword({
+        id: userId,
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
+      }).unwrap();
+
+      if (response.success) {
+        toast.success(response.message || "Password changed successfully");
+        setIsModalOpen(false);
+        resetPassword();
+      } else {
+        toast.error(response.error || "Failed to change password");
+      }
+    } catch (error) {
+      console.error("Password change error:", error);
+      if ((error as { data: { message: string } }).data) {
+        toast.error(
+          (error as { data: { message: string } }).data.message ||
+            "Failed to change password"
+        );
+      } else if ((error as { message: string }).message) {
+        toast.error((error as { message: string }).message);
+      } else {
+        toast.error("An unknown error occurred while changing password");
+      }
     }
   };
 
@@ -207,11 +269,98 @@ const Profile = () => {
             </StyledProfileFormGroup>
           </StyledProfileSection>
 
-          <Button type="submit" disable={!isDirty}>
-            Save Changes
-          </Button>
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <Button type="submit" disabled={!isDirty}>
+              Save Changes
+            </Button>
+            <Button type="button" onClick={() => setIsModalOpen(true)}>
+              Change Password
+            </Button>
+          </div>
         </StyledProfileForm>
       </StyledProfileCard>
+
+      <Modal closeModal={() => setIsModalOpen(false)} open={isModalOpen}>
+        <StyledPasswordForm onSubmit={handleSubmitPassword(onSubmitPassword)}>
+          <h2>Change Password</h2>
+          <StyledPasswordFormGroup>
+            <StyledProfileLabel htmlFor="oldPassword">
+              Current Password
+            </StyledProfileLabel>
+            <StyledPasswordInput
+              id="oldPassword"
+              type="password"
+              {...registerPassword("oldPassword", {
+                required: "Current password is required",
+              })}
+            />
+            {passwordErrors.oldPassword && (
+              <span style={{ color: "red" }}>
+                {passwordErrors.oldPassword.message}
+              </span>
+            )}
+          </StyledPasswordFormGroup>
+
+          <StyledPasswordFormGroup>
+            <StyledProfileLabel htmlFor="newPassword">
+              New Password
+            </StyledProfileLabel>
+            <StyledPasswordInput
+              id="newPassword"
+              type="password"
+              {...registerPassword("newPassword", {
+                required: "New password is required",
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters",
+                },
+              })}
+            />
+            {passwordErrors.newPassword && (
+              <span style={{ color: "red" }}>
+                {passwordErrors.newPassword.message}
+              </span>
+            )}
+          </StyledPasswordFormGroup>
+
+          <StyledPasswordFormGroup>
+            <StyledProfileLabel htmlFor="confirmPassword">
+              Confirm Password
+            </StyledProfileLabel>
+            <StyledPasswordInput
+              id="confirmPassword"
+              type="password"
+              {...registerPassword("confirmPassword", {
+                required: "Please confirm your password",
+                validate: (value) =>
+                  value === newPassword || "Passwords do not match",
+              })}
+            />
+            {passwordErrors.confirmPassword && (
+              <span style={{ color: "red" }}>
+                {passwordErrors.confirmPassword.message}
+              </span>
+            )}
+          </StyledPasswordFormGroup>
+
+          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+            <Button
+              type="submit"
+              disabled={!isPasswordValid || isChangingPassword}
+              isLoading={isChangingPassword}
+            >
+              {isChangingPassword ? "Updating..." : "Update Password"}
+            </Button>
+            <Button
+              type="button"
+              onClick={() => setIsModalOpen(false)}
+              disabled={isChangingPassword}
+            >
+              Cancel
+            </Button>
+          </div>
+        </StyledPasswordForm>
+      </Modal>
     </StyledProfileContainer>
   );
 };

@@ -14,7 +14,24 @@ export const authApiSlice = apiSlice.injectEndpoints({
     getUserData: builder.query<GetUserDataResponse, void>({
       query: () => "/auth/user",
     }),
+    changePasswrod: builder.mutation<
+      { message: string; success: boolean; error: string },
+      { oldPassword: string; newPassword: string; id: string }
+    >({
+      query: (passwordObject) => ({
+        url: `/auth/changePassword/${passwordObject.id}`,
+        method: "PUT",
+        body: {
+          oldPassword: passwordObject.oldPassword,
+          newPassword: passwordObject.newPassword,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useLazyGetUserDataQuery } = authApiSlice;
+export const {
+  useLoginMutation,
+  useLazyGetUserDataQuery,
+  useChangePasswrodMutation,
+} = authApiSlice;
