@@ -3,10 +3,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "../../components/button/button.component";
 import {
-  useLazyGetProfileDataQuery,
-  useLazyGetAdminProfileDataQuery,
+  useGetProfileDataQuery,
+  useUpdateAdminProfileMutation,
   useUpdateProfileMutation,
-  useUpdateAdminProgileMutation,
 } from "../../services/profile.services";
 import {
   StyledProfileContainer,
@@ -26,7 +25,7 @@ import {
   StyledPasswordFormGroup,
   StyledPasswordInput,
 } from "./profile.styles";
-import { useEffect, useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Roles } from "../../types/staff.types";
 import { useAppSelector } from "../../app/hooks";
 import { selectRole, selectID } from "../../features/auth/auth.slice";
@@ -35,7 +34,7 @@ import { useChangePasswrodMutation } from "../../services/auth.services";
 
 type ProfileFormData = {
   name: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   email: string;
 };
 
@@ -49,16 +48,14 @@ const Profile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userRole = useAppSelector(selectRole);
   const userId = useAppSelector(selectID);
-  const isAdmin = userRole === Roles.Admin;
+  const isAdmin = useMemo(
+    () => [Roles.Admin, Roles.SuperAdmin].includes(userRole as Roles),
+    [userRole]
+  );
 
-  const [triggerGetProfileData, { data: profileData, isLoading }] =
-    useLazyGetProfileDataQuery();
-  const [
-    triggerGetAdminProfileData,
-    { data: adminProfileData, isLoading: isAdminLoading },
-  ] = useLazyGetAdminProfileDataQuery();
+  const { data: profileData, isLoading } = useGetProfileDataQuery();
   const [updateProfile] = useUpdateProfileMutation();
-  const [updateAdminProfile] = useUpdateAdminProgileMutation();
+  const [updateAdminProfile] = useUpdateAdminProfileMutation();
   const [changePassword, { isLoading: isChangingPassword }] =
     useChangePasswrodMutation();
 
@@ -82,31 +79,21 @@ const Profile = () => {
   const newPassword = watch("newPassword");
 
   useEffect(() => {
-    const fetchData = async () => {
+    if (profileData?.data) {
       if (isAdmin) {
-        await triggerGetAdminProfileData();
+        reset({
+          name: profileData.data.name,
+          email: profileData.data.email || "",
+        });
       } else {
-        await triggerGetProfileData();
+        reset({
+          name: profileData.data.name,
+          phoneNumber: profileData.data.contact?.phoneNumber || "",
+          email: profileData.data.contact?.email || "",
+        });
       }
-    };
-    fetchData();
-  }, [isAdmin, triggerGetProfileData, triggerGetAdminProfileData]);
-
-  useEffect(() => {
-    if (isAdmin && adminProfileData?.data) {
-      reset({
-        name: adminProfileData.data.name,
-        email: adminProfileData.data.email,
-        phoneNumber: "",
-      });
-    } else if (profileData?.data) {
-      reset({
-        name: profileData.data.name,
-        phoneNumber: profileData.data.contact.phoneNumber,
-        email: profileData.data.contact.email,
-      });
     }
-  }, [profileData, adminProfileData, reset, isAdmin]);
+  }, [profileData, isAdmin, reset]);
 
   const onSubmit = async (data: ProfileFormData) => {
     try {
@@ -118,18 +105,13 @@ const Profile = () => {
         : await updateProfile({
             name: data.name,
             contact: {
-              phoneNumber: data.phoneNumber,
+              phoneNumber: data.phoneNumber || "",
               email: data.email,
             },
           }).unwrap();
 
       if (response.success) {
         toast.success(response.message || "Profile updated successfully");
-        if (isAdmin) {
-          await triggerGetAdminProfileData();
-        } else {
-          await triggerGetProfileData();
-        }
       } else {
         toast.error(response.error || "Failed to update profile");
       }
@@ -177,9 +159,9 @@ const Profile = () => {
     }
   };
 
-  if (isLoading || isAdminLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
 
-  const currentData = isAdmin ? adminProfileData?.data : profileData?.data;
+  const currentData = profileData?.data;
   const isStaffProfile = !isAdmin && currentData && "status" in currentData;
 
   return (
@@ -270,7 +252,7 @@ const Profile = () => {
           </StyledProfileSection>
 
           <div style={{ display: "flex", gap: "1rem" }}>
-            <Button type="submit" disabled={!isDirty}>
+            <Button type="submit" disable={!isDirty}>
               Save Changes
             </Button>
             <Button type="button" onClick={() => setIsModalOpen(true)}>
@@ -346,7 +328,7 @@ const Profile = () => {
           <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
             <Button
               type="submit"
-              disabled={!isPasswordValid || isChangingPassword}
+              disable={!isPasswordValid || isChangingPassword}
               isLoading={isChangingPassword}
             >
               {isChangingPassword ? "Updating..." : "Update Password"}
@@ -354,7 +336,7 @@ const Profile = () => {
             <Button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              disabled={isChangingPassword}
+              disable={isChangingPassword}
             >
               Cancel
             </Button>
